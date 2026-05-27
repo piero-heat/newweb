@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FeaturesSection from "@/components/FeaturesSection";
 import StatsSection from "@/components/StatsSection";
@@ -11,6 +10,8 @@ import ProcessSection from "@/components/ProcessSection";
 import DemoSection from "@/components/DemoSection";
 import FaqSection from "@/components/FaqSection";
 import ContentPackSection from "@/components/ContentPackSection";
+import IntegrationsSection from "@/components/IntegrationsSection";
+import LiveAgentSection from "@/components/LiveAgentSection";
 import Footer from "@/components/Footer";
 import logo from "@/assets/logo.png";
 
@@ -19,11 +20,11 @@ const VIDEO_SRC =
 
 const FADE = 0.5;
 
-const NAV_ITEMS: { label: string; chevron?: boolean }[] = [
-  { label: "Casos" },
-  { label: "Integraciones", chevron: true },
-  { label: "Planes", chevron: true },
-  { label: "Cómo funciona" },
+const NAV_ITEMS: { label: string; href: string }[] = [
+  { label: "Casos", href: "#casos" },
+  { label: "Integraciones", href: "#integraciones" },
+  { label: "Planes", href: "#planes" },
+  { label: "Cómo funciona", href: "#como-funciona" },
 ];
 
 const BRANDS = [
@@ -123,23 +124,29 @@ export default function Index() {
 
           <nav className="hidden md:flex items-center gap-8">
             {NAV_ITEMS.map((item) => (
-              <button
+              <a
                 key={item.label}
-                className="text-foreground/90 hover:text-foreground transition-colors text-sm inline-flex items-center gap-1"
+                href={item.href}
+                className="relative text-foreground/80 hover:text-foreground transition-colors text-sm group"
               >
                 {item.label}
-                {item.chevron ? <ChevronDown size={14} /> : null}
-              </button>
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-foreground/60 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+              </a>
             ))}
           </nav>
 
-          <Button
-            variant="heroSecondary"
-            size="none"
-            className="rounded-full px-4 py-2 text-sm"
+          <a
+            href="#demo"
+            className="group relative inline-flex items-center justify-center rounded-full liquid-glass text-foreground text-sm font-medium px-5 py-2 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.35)]"
           >
-            Agendar Demo
-          </Button>
+            <span
+              aria-hidden
+              className="absolute inset-0 rounded-full bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"
+            />
+            <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background">
+              Agendar Demo
+            </span>
+          </a>
         </header>
 
         <div className="relative mt-[3px] h-px w-full bg-gradient-to-r from-transparent via-foreground/20 to-transparent" />
@@ -231,10 +238,12 @@ export default function Index() {
       </section>
       </div>
 
+      <LiveAgentSection />
       <FeaturesSection />
       <StatsSection />
       <PricingSection />
       <ImplementationSection />
+      <IntegrationsSection />
       <PerformanceAdsSection />
       <ContentPackSection />
       <CaseStudiesSection />

@@ -1,4 +1,9 @@
 import { Flame, Zap, Rocket } from "lucide-react";
+import {
+  SiFacebook,
+  SiInstagram,
+  SiWhatsapp,
+} from "@icons-pack/react-simple-icons";
 import PricingCard, { type PricingCardProps } from "./PricingCard";
 
 const PLANS: PricingCardProps[] = [
@@ -62,7 +67,10 @@ const PLANS: PricingCardProps[] = [
 
 export default function PricingSection() {
   return (
-    <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24">
+    <section
+      id="planes"
+      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8"
+    >
       <div className="w-full max-w-[1080px] mb-12 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           🔥 PLANES HEAT IA
@@ -82,11 +90,66 @@ export default function PricingSection() {
         ))}
       </div>
 
-      <p className="mt-10 text-gray-500 text-xs text-center max-w-2xl">
-        Todos los planes incluyen 1 empresa y 1 número de WhatsApp. Costo de IA
-        por uso: $0,04 por mensaje (Tokens ChatGPT). Puedes cancelar cuando
-        desees, sin contratos de permanencia.
-      </p>
+      <div className="mt-12 w-full max-w-[1080px] rounded-3xl border border-white/[0.06] bg-white/[0.015] p-8 md:p-10 text-center">
+        <p className="text-foreground text-base md:text-lg leading-relaxed">
+          Todos los planes incluyen{" "}
+          <span className="font-semibold text-cyan-300">
+            1 empresa y 1 número de WhatsApp.
+          </span>
+        </p>
+        <p className="mt-2 text-gray-400 text-sm">
+          Costo de IA por uso:{" "}
+          <span className="text-foreground font-medium">$0,04 por mensaje</span>{" "}
+          <span className="text-gray-500">(Tokens ChatGPT)</span>
+        </p>
+
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-6 md:gap-3">
+          <div className="group relative flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 py-3 transition-all duration-400 ease-out hover:border-white/15 hover:bg-white/[0.04] hover:shadow-[0_12px_40px_-12px_rgba(24,119,242,0.35)]">
+            <div className="flex items-center gap-2">
+              <SiFacebook
+                size={22}
+                className="text-white/40 transition-colors duration-400 group-hover:text-[#1877F2]"
+              />
+              <SiInstagram
+                size={22}
+                className="text-white/40 transition-colors duration-400 group-hover:text-[#E4405F]"
+              />
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-semibold tracking-[0.18em] text-white/50 group-hover:text-white/80 transition-colors">
+                PREMIUM PARTNERS
+              </p>
+              <p className="text-[10px] font-semibold tracking-[0.18em] text-white/50 group-hover:text-white/80 transition-colors">
+                FOR MESSAGING API
+              </p>
+            </div>
+          </div>
+
+          <div className="hidden md:block h-10 w-px bg-white/[0.08]" />
+
+          <div className="group relative flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 py-3 transition-all duration-400 ease-out hover:border-white/15 hover:bg-white/[0.04] hover:shadow-[0_12px_40px_-12px_rgba(37,211,102,0.35)]">
+            <SiWhatsapp
+              size={22}
+              className="text-white/40 transition-colors duration-400 group-hover:text-[#25D366]"
+            />
+            <div className="text-left">
+              <p className="text-[10px] font-semibold tracking-[0.18em] text-white/50 group-hover:text-white/80 transition-colors">
+                BUSINESS
+              </p>
+              <p className="text-[10px] font-semibold tracking-[0.18em] text-white/50 group-hover:text-white/80 transition-colors">
+                SOLUTION PROVIDER
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-7 text-xs text-gray-400">
+          *Puedes cancelar cuando desees{" "}
+          <span className="text-emerald-400 font-medium">
+            ¡sin ataduras ni contratos de permanencia!
+          </span>
+        </p>
+      </div>
     </section>
   );
 }
