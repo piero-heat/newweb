@@ -71,17 +71,31 @@ const CASES: Case[] = [
   },
 ];
 
-const CARD_WIDTH = 360;
-const CARD_OFFSET_X = 310;
-const AUTO_ROTATE_MS = 4000;
+// Use hook for responsive carousel widths
+function useCarouselSizing() {
+  const [w, setW] = useState({ card: 360, offset: 310 });
+  useEffect(() => {
+    const compute = () => {
+      const vw = window.innerWidth;
+      if (vw < 480) setW({ card: 280, offset: 230 });
+      else if (vw < 768) setW({ card: 320, offset: 270 });
+      else setW({ card: 360, offset: 310 });
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+  return w;
+}
 
+const AUTO_ROTATE_MS = 4000;
 const METRIC_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 
-function CaseCard({ data }: { data: Case }) {
+function CaseCard({ data, width }: { data: Case; width: number }) {
   return (
     <div
-      className="group relative flex h-full flex-col rounded-3xl border border-white/8 bg-[#0E0E14] p-7 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
-      style={{ width: CARD_WIDTH, minHeight: 380 }}
+      className="group relative flex h-full flex-col rounded-3xl border border-white/8 bg-[#0E0E14] p-6 md:p-7 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
+      style={{ width, minHeight: 380 }}
     >
       <p className="text-[10px] font-semibold tracking-[0.2em] text-white/50">
         {data.industry}
@@ -130,6 +144,7 @@ export default function CaseStudiesSection() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { card: CARD_WIDTH, offset: CARD_OFFSET_X } = useCarouselSizing();
 
   useEffect(() => {
     if (paused) return;
@@ -165,8 +180,7 @@ export default function CaseStudiesSection() {
         ref={containerRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        className="relative w-full max-w-[1280px] flex items-center justify-center"
-        style={{ height: 400 }}
+        className="relative w-full max-w-[1280px] flex items-center justify-center h-[420px] sm:h-[400px]"
       >
         {CASES.map((c, i) => {
           let offset = i - index;
@@ -202,7 +216,7 @@ export default function CaseStudiesSection() {
               onClick={() => !isCenter && setIndex(i)}
             >
               <div className={isCenter ? "" : "cursor-pointer"}>
-                <CaseCard data={c} />
+                <CaseCard data={c} width={CARD_WIDTH} />
               </div>
             </motion.div>
           );

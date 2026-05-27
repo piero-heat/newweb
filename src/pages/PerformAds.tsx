@@ -977,8 +977,8 @@ export default function PerformAds() {
                 <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-4">
                   PROYECCIÓN · CÓMO ESCALA EL TOTAL
                 </p>
-                <div className="overflow-hidden rounded-2xl border border-white/5">
-                  <table className="w-full text-sm">
+                <div className="overflow-x-auto rounded-2xl border border-white/5">
+                  <table className="w-full text-sm min-w-[480px]">
                     <thead>
                       <tr className="bg-white/[0.03] text-xs text-gray-400 tracking-wider">
                         <th className="text-left px-4 py-3 font-medium">
