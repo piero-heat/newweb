@@ -328,9 +328,17 @@ export default function PerformAds() {
               La métrica que separa el ROI del humo
             </h2>
             <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
-              Todo el mundo habla de CPL (costo por lead), CPM (costo por mil
-              impresiones), CTR. Nada de eso paga las cuentas. La única métrica
-              que importa es <span className="text-foreground font-medium">CPA al cierre</span>: cuánto te cuesta cada cliente que efectivamente paga.
+              Todo el mundo habla de CPL, CPM, CTR. Nada de eso paga las
+              cuentas. La única métrica que importa es{" "}
+              <span className="text-foreground font-medium">
+                CPA al cierre
+              </span>{" "}
+              — y la diferencia entre un CPA decente y uno brutal es la{" "}
+              <span className="text-foreground font-medium">
+                Conversion API conectada a tu CRM
+              </span>
+              . Sin eso, Meta optimiza para clics; con eso, optimiza para
+              clientes que pagan.
             </p>
           </div>
 
@@ -354,7 +362,7 @@ export default function PerformAds() {
             ))}
           </div>
 
-          {/* CPA formula card */}
+          {/* CAPI Before/After card — services focused */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -366,49 +374,141 @@ export default function PerformAds() {
               background: `linear-gradient(#0E0E10, #0E0E10) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
             }}
           >
-            <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-3">
-              EJEMPLO REAL · CLIENTE E-COMMERCE NUTRICIÓN
+            <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-2">
+              IMPACTO REAL · CLIENTE DE SERVICIOS · CAPI + CRM + AGENTE IA
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                  Inversión Meta
+            <p className="text-gray-400 text-sm leading-relaxed mb-7 max-w-2xl">
+              Mismo presupuesto Meta. Lo único que cambió: conectamos la
+              Conversion API al CRM HEAT, sumamos el agente de IA al primer
+              mensaje y reestructuramos las campañas por intención.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* BEFORE */}
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-6">
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-rose-300/80 mb-4">
+                  ANTES · PIXEL SOLO
                 </p>
-                <p className="text-foreground text-2xl font-medium">
-                  $3.000 USD
-                </p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Inversión Meta</span>
+                    <span className="text-foreground font-medium">
+                      $4.000 USD
+                    </span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Leads totales</span>
+                    <span className="text-foreground font-medium">280</span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Calificados</span>
+                    <span className="text-foreground font-medium">
+                      47 (17%)
+                    </span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Cerrados</span>
+                    <span className="text-foreground font-medium">9</span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3 border-t border-white/[0.06] pt-3 mt-3">
+                    <span className="text-gray-300">CPA real</span>
+                    <span className="text-foreground text-xl font-medium">
+                      $444 USD
+                    </span>
+                  </li>
+                </ul>
               </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                  Leads calificados
-                </p>
-                <p className="text-foreground text-2xl font-medium">120</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                  Clientes cerrados
-                </p>
-                <p className="text-foreground text-2xl font-medium">38</p>
-              </div>
-            </div>
-            <div className="border-t border-white/[0.08] pt-5 flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4">
-              <p className="text-xs text-gray-500 uppercase tracking-wider shrink-0">
-                CPA real
-              </p>
-              <p
-                className="font-display font-medium bg-clip-text text-transparent"
+
+              {/* AFTER */}
+              <div
+                className="relative rounded-2xl p-6"
                 style={{
-                  fontSize: "clamp(32px, 3.4vw, 48px)",
-                  lineHeight: 1,
-                  letterSpacing: "-0.03em",
-                  backgroundImage: PRICE_GRADIENT,
+                  border: "1.5px solid transparent",
+                  background: `linear-gradient(#121214, #121214) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
                 }}
               >
-                $78,9 USD
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-emerald-300/90 mb-4">
+                  DESPUÉS · CAPI + CRM + AGENTE IA
+                </p>
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Inversión Meta</span>
+                    <span className="text-foreground font-medium">
+                      $4.000 USD
+                    </span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Leads totales</span>
+                    <span className="text-foreground font-medium">
+                      168{" "}
+                      <span className="text-gray-500 text-xs">
+                        (Meta optimiza)
+                      </span>
+                    </span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Calificados</span>
+                    <span className="text-foreground font-medium">
+                      112 (67%)
+                    </span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="text-gray-400">Cerrados</span>
+                    <span className="text-foreground font-medium">31</span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3 border-t border-white/[0.08] pt-3 mt-3">
+                    <span className="text-gray-300">CPA real</span>
+                    <p
+                      className="font-display font-medium bg-clip-text text-transparent"
+                      style={{
+                        fontSize: "28px",
+                        lineHeight: 1,
+                        letterSpacing: "-0.02em",
+                        backgroundImage: PRICE_GRADIENT,
+                      }}
+                    >
+                      $129 USD
+                    </p>
+                  </li>
+                </ul>
+                <p className="mt-4 inline-flex items-center gap-1.5 text-xs text-emerald-300 font-medium">
+                  <TrendingUp size={12} />
+                  CPA −71% · Calificación +290%
+                </p>
+              </div>
+            </div>
+
+            {/* Meta's own data */}
+            <div className="mt-7 pt-6 border-t border-white/[0.06]">
+              <p className="text-[10px] font-semibold tracking-[0.22em] text-white/50 mb-3">
+                DATA PUBLICADA POR META
               </p>
-              <span className="text-gray-400 text-sm">
-                · LTV promedio $340 USD · ROI 4,3x
-              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <p className="text-foreground text-lg font-medium">−13%</p>
+                  <p className="text-gray-500 text-xs leading-relaxed mt-1">
+                    menor costo por resultado con Pixel + CAPI vs solo Pixel.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-foreground text-lg font-medium">+19%</p>
+                  <p className="text-gray-500 text-xs leading-relaxed mt-1">
+                    más conversiones atribuidas correctamente con CAPI.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-foreground text-lg font-medium">
+                    +16,4%
+                  </p>
+                  <p className="text-gray-500 text-xs leading-relaxed mt-1">
+                    mayor confianza de atribución sobre Pixel solo.
+                  </p>
+                </div>
+              </div>
+              <p className="mt-3 text-[11px] text-gray-600 leading-relaxed">
+                Fuente: Meta Business · Estudios internos sobre advertisers
+                que pasaron de Pixel a Pixel + Conversion API.
+              </p>
             </div>
           </motion.div>
         </div>
@@ -464,8 +564,9 @@ export default function PerformAds() {
             ))}
           </div>
           <p className="text-xs text-gray-500 text-center mt-6 max-w-xl mx-auto">
-            Ejemplo real con cliente clínica dental. Sin el agente IA en medio,
-            el equipo comercial perdía 4 horas al día filtrando los curiosos.
+            Ejemplo real con cliente de servicios profesionales. Sin el agente
+            IA en medio, el equipo comercial perdía 4 horas al día filtrando
+            curiosos en vez de cerrando reuniones.
           </p>
         </div>
       </section>
