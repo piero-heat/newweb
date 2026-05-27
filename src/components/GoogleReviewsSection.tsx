@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { Star, ExternalLink } from "lucide-react";
+import { Star, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { SiGoogle } from "@icons-pack/react-simple-icons";
 
 const MAPS_URL =
@@ -9,7 +10,7 @@ type Review = {
   name: string;
   meta: string;
   date: string;
-  text?: string;
+  text: string;
   avatar: string;
   bg: string;
 };
@@ -65,6 +66,10 @@ const REVIEWS: Review[] = [
   },
 ];
 
+const AUTO_ROTATE_MS = 2500;
+const CARD_WIDTH = 340;
+const CARD_OFFSET_X = 290; // horizontal distance per slot
+
 function Stars() {
   return (
     <div className="flex items-center gap-0.5">
@@ -79,20 +84,16 @@ function Stars() {
   );
 }
 
-function ReviewCard({ review, index }: { review: Review; index: number }) {
+function ReviewCard({ review }: { review: Review }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.06 }}
-      className="group relative flex h-full flex-col rounded-3xl border border-white/5 bg-white/[0.02] p-7 transition-all duration-500 ease-out hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_16px_50px_-12px_rgba(168,85,247,0.22)]"
+    <div
+      className="h-full rounded-3xl border border-white/10 bg-[#0E0E14] backdrop-blur-md p-7 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
+      style={{ width: CARD_WIDTH }}
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3 min-w-0">
           <div
             className={`shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${review.bg} flex items-center justify-center text-base shadow-[0_0_0_2px_rgba(255,255,255,0.05)]`}
-            aria-label={review.name}
           >
             <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
               {review.avatar}
@@ -105,10 +106,7 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
             <p className="text-gray-500 text-[11px] truncate">{review.meta}</p>
           </div>
         </div>
-        <SiGoogle
-          size={16}
-          className="shrink-0 text-white/30 group-hover:text-white/50 transition-colors"
-        />
+        <SiGoogle size={16} className="shrink-0 text-white/30" />
       </div>
 
       <div className="flex items-center gap-3 mb-3">
@@ -116,30 +114,35 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
         <span className="text-gray-500 text-[11px]">{review.date}</span>
       </div>
 
-      {review.text ? (
-        <p className="text-gray-300 text-[14px] leading-relaxed flex-1">
-          "{review.text}"
-        </p>
-      ) : (
-        <p className="text-gray-500 text-[13px] italic flex-1">
-          ★★★★★ — Calificación de 5 estrellas
-        </p>
-      )}
+      <p className="text-gray-300 text-[14px] leading-relaxed min-h-[100px]">
+        "{review.text}"
+      </p>
 
-      <a
-        href={MAPS_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-5 pt-4 border-t border-white/5 inline-flex items-center gap-1.5 text-[11px] text-gray-500 hover:text-foreground transition-colors"
-      >
+      <div className="mt-5 pt-4 border-t border-white/5 inline-flex items-center gap-1.5 text-[11px] text-gray-500">
         Verificada en Google
         <ExternalLink size={11} />
-      </a>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
 export default function GoogleReviewsSection() {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(
+      () => setIndex((i) => (i + 1) % REVIEWS.length),
+      AUTO_ROTATE_MS,
+    );
+    return () => clearInterval(t);
+  }, [paused]);
+
+  const N = REVIEWS.length;
+  const half = Math.floor(N / 2);
+
   return (
     <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24">
       <div className="w-full max-w-[1080px] mb-12 text-center">
@@ -151,7 +154,7 @@ export default function GoogleReviewsSection() {
         </h2>
         <p className="text-gray-400 text-base md:text-lg leading-7 max-w-xl mx-auto">
           Reseñas verificadas en Google Business — sin filtros, sin
-          maquillaje. Click en cualquier reseña para verla en tu Maps.
+          maquillaje.
         </p>
       </div>
 
@@ -163,7 +166,7 @@ export default function GoogleReviewsSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="group mb-12 inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-4 hover:border-white/20 hover:bg-white/[0.05] transition-all duration-400"
+        className="group mb-10 inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-4 hover:border-white/20 hover:bg-white/[0.05] transition-all duration-400"
       >
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_-8px_rgba(66,133,244,0.4)]">
           <SiGoogle size={22} color="#4285F4" />
@@ -179,16 +182,95 @@ export default function GoogleReviewsSection() {
             12 reseñas en Google · HEAT IA · Santiago
           </p>
         </div>
-        <ExternalLink
-          size={16}
-          className="text-gray-500 group-hover:text-foreground transition-colors"
-        />
+        <ExternalLink size={16} className="text-gray-500 group-hover:text-foreground transition-colors" />
       </motion.a>
 
-      <div className="grid w-full max-w-[1080px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {REVIEWS.map((r, i) => (
-          <ReviewCard key={r.name} review={r} index={i} />
-        ))}
+      <div
+        ref={containerRef}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        className="relative w-full max-w-[1200px] flex items-center justify-center"
+        style={{ height: 380 }}
+      >
+        {REVIEWS.map((review, i) => {
+          let offset = i - index;
+          if (offset > half) offset -= N;
+          if (offset < -half) offset += N;
+          const distance = Math.abs(offset);
+          const isCenter = distance === 0;
+          const isAdjacent = distance === 1;
+          const isFar = distance === 2;
+          return (
+            <motion.div
+              key={review.name}
+              className="absolute top-1/2 left-1/2 -translate-y-1/2"
+              animate={{
+                x: offset * CARD_OFFSET_X - CARD_WIDTH / 2,
+                scale: isCenter ? 1 : isAdjacent ? 0.85 : isFar ? 0.7 : 0.55,
+                opacity: isCenter
+                  ? 1
+                  : isAdjacent
+                    ? 0.4
+                    : isFar
+                      ? 0.12
+                      : 0,
+                zIndex: isCenter ? 30 : isAdjacent ? 20 : isFar ? 10 : 1,
+                filter: isCenter ? "blur(0px)" : isAdjacent ? "blur(1px)" : "blur(3px)",
+              }}
+              transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+              style={{ width: CARD_WIDTH }}
+              onClick={() => setIndex(i)}
+            >
+              <a
+                href={MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={isCenter ? "cursor-pointer" : "cursor-pointer pointer-events-none"}
+                tabIndex={isCenter ? 0 : -1}
+              >
+                <ReviewCard review={review} />
+              </a>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <div className="mt-10 flex items-center gap-5">
+        <button
+          aria-label="Anterior"
+          onClick={() =>
+            setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length)
+          }
+          className="w-10 h-10 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 transition-transform"
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {REVIEWS.map((_, i) => {
+            const active = i === index;
+            return (
+              <button
+                key={i}
+                aria-label={`Reseña ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={`rounded-full transition-all duration-400 ${
+                  active
+                    ? "w-6 h-1.5 bg-foreground"
+                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
+                }`}
+              />
+            );
+          })}
+        </div>
+
+        <button
+          aria-label="Siguiente"
+          onClick={() => setIndex((i) => (i + 1) % REVIEWS.length)}
+          className="w-10 h-10 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 transition-transform"
+        >
+          <ChevronRight size={18} />
+        </button>
       </div>
 
       <motion.a
@@ -199,7 +281,7 @@ export default function GoogleReviewsSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="mt-10 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-foreground transition-colors group"
+        className="mt-8 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-foreground transition-colors group"
       >
         Ver las 12 reseñas en Google
         <ExternalLink
