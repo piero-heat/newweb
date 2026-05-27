@@ -15,6 +15,7 @@ import FaqSection from "@/components/FaqSection";
 import ContentPackSection from "@/components/ContentPackSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
 import LiveAgentSection from "@/components/LiveAgentSection";
+import LiveDemoSection from "@/components/LiveDemoSection";
 import Footer from "@/components/Footer";
 import logo from "@/assets/logo.png";
 
@@ -241,6 +242,7 @@ export default function Index() {
       </section>
       </div>
 
+      <LiveDemoSection />
       <LiveAgentSection />
       <FeaturesSection />
       <InteractiveFeaturesSection />
