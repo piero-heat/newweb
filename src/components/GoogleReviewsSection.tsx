@@ -10,60 +10,51 @@ type Review = {
   meta: string;
   date: string;
   text: string;
-  avatar: string;
-  bg: string;
+  /** Google-style avatar color (matches the user's profile circle on Maps) */
+  avatarBg: string;
+  /** Per-review Google Maps URL — fallback to MAPS_URL if user-specific not available */
+  url: string;
 };
 
+// Show only the top 3 reviews — kept short and credible.
+// Each `url` should point to that exact review on Google Maps. Until each
+// reviewer's individual share link is captured, we link to the HEAT IA Maps
+// listing where the review can be found in the public reviews list.
 const REVIEWS: Review[] = [
   {
     name: "Anaís Burgos",
     meta: "6 opiniones · 2 fotos",
     date: "Hace 9 semanas",
     text: "Excelente atención, la plataforma increíble! Me ha ayudado mucho con mi negocio.",
-    avatar: "👩",
-    bg: "from-emerald-500 to-teal-500",
+    avatarBg: "#1A73E8", // Google blue
+    url: MAPS_URL,
   },
   {
     name: "Consultoría Rivera Ríos",
     meta: "2 opiniones",
     date: "Hace 9 semanas",
     text: "Me sorprendió el nivel de respuesta de los agentes — son lo que quería, y muy cercanos con mis clientes. Hasta el momento, perfecto!",
-    avatar: "🦷",
-    bg: "from-pink-500 to-rose-500",
-  },
-  {
-    name: "Luis Rojas Álvarez",
-    meta: "3 opiniones",
-    date: "Hace 9 semanas",
-    text: "Excelente herramienta. Me ha ayudado muchísimo en mi pyme de lavado de autos, ya que puedo calificar a mis clientes y fidelizarlos con IA.",
-    avatar: "👨",
-    bg: "from-indigo-500 to-blue-500",
-  },
-  {
-    name: "Magdy Picón",
-    meta: "2 opiniones",
-    date: "Hace 9 semanas",
-    text: "Excelente atención. Muy buen equipo. Me gustó mucho esta herramienta para mi trabajo.",
-    avatar: "👩",
-    bg: "from-amber-500 to-orange-500",
-  },
-  {
-    name: "Leily Araujo",
-    meta: "Reseña reciente",
-    date: "Hace 9 semanas",
-    text: "Súper recomendados. Muy contenta con el servicio y la rapidez del equipo.",
-    avatar: "👩",
-    bg: "from-slate-500 to-slate-600",
+    avatarBg: "#E94235", // Google red
+    url: MAPS_URL,
   },
   {
     name: "Andrés Cruz",
     meta: "1 opinión",
     date: "Hace 3 meses",
     text: "Es una herramienta muy útil, nos ha servido bastante para prospectar, hacer seguimiento y cerrar ventas. La recomiendo 100%.",
-    avatar: "👨",
-    bg: "from-cyan-500 to-blue-600",
+    avatarBg: "#34A853", // Google green
+    url: MAPS_URL,
   },
 ];
+
+function initials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
 
 function Stars({ size = 14 }: { size?: number }) {
   return (
@@ -81,21 +72,23 @@ function Stars({ size = 14 }: { size?: number }) {
 
 function ReviewCard({ review, index }: { review: Review; index: number }) {
   return (
-    <motion.article
+    <motion.a
+      href={review.url}
+      target="_blank"
+      rel="noopener noreferrer"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.06 }}
-      className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.015] p-6 transition-all duration-400 ease-out hover:border-white/15 hover:bg-white/[0.035]"
+      className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.015] p-6 transition-all duration-400 ease-out hover:border-white/15 hover:bg-white/[0.035] hover:-translate-y-0.5"
     >
-      {/* Header — author + meta */}
+      {/* Header — Google-style avatar initials + name */}
       <header className="flex items-start gap-3">
         <div
-          className={`shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${review.bg} flex items-center justify-center text-[17px] shadow-[0_0_0_2px_rgba(255,255,255,0.04)]`}
+          className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white text-[14px] font-medium tracking-wide shadow-[0_0_0_2px_rgba(255,255,255,0.04)]"
+          style={{ background: review.avatarBg }}
         >
-          <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
-            {review.avatar}
-          </span>
+          {initials(review.name)}
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-foreground text-[14px] font-medium leading-tight truncate">
@@ -105,12 +98,12 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
             {review.meta}
           </p>
         </div>
-        <button
-          aria-label="Más"
-          className="shrink-0 text-gray-600 hover:text-gray-400 transition-colors pt-0.5"
+        <span
+          aria-hidden
+          className="shrink-0 text-gray-600 pt-0.5"
         >
           <MoreVertical size={16} />
-        </button>
+        </span>
       </header>
 
       {/* Stars + date — Google-style row */}
@@ -124,21 +117,19 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
         {review.text}
       </p>
 
-      {/* Footer — Google review attribution + helpful */}
+      {/* Footer — link to real Google review */}
       <footer className="mt-5 pt-4 border-t border-white/[0.05] flex items-center justify-between">
-        <span className="inline-flex items-center gap-1.5 text-[11px] text-gray-500">
-          <SiGoogle size={11} className="text-gray-500" />
-          Publicada en Google
+        <span className="inline-flex items-center gap-1.5 text-[11px] text-gray-500 group-hover:text-gray-300 transition-colors">
+          <SiGoogle size={11} />
+          Ver en Google
+          <ExternalLink size={10} className="transition-transform group-hover:translate-x-0.5" />
         </span>
-        <button
-          aria-label="Marcar como útil"
-          className="inline-flex items-center gap-1.5 text-[11px] text-gray-500 hover:text-gray-300 transition-colors"
-        >
+        <span className="inline-flex items-center gap-1.5 text-[11px] text-gray-500">
           <ThumbsUp size={12} />
           Útil
-        </button>
+        </span>
       </footer>
-    </motion.article>
+    </motion.a>
   );
 }
 
@@ -193,7 +184,7 @@ export default function GoogleReviewsSection() {
       </motion.a>
 
       {/* Flat grid — 3 cols desktop, 2 tablet, 1 mobile */}
-      <div className="grid w-full max-w-[1080px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+      <div className="grid w-full max-w-[1080px] grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
         {REVIEWS.map((review, i) => (
           <ReviewCard key={review.name} review={review} index={i} />
         ))}

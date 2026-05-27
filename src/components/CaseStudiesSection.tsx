@@ -146,9 +146,9 @@ export default function CaseStudiesSection() {
   return (
     <section
       id="casos"
-      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-16 md:py-20 scroll-mt-8"
+      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 pt-14 md:pt-16 pb-20 md:pb-24 scroll-mt-8"
     >
-      <div className="w-full max-w-[1080px] mb-10 text-center">
+      <div className="w-full max-w-[1080px] mb-4 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           🏆 CASOS DE ÉXITO
         </p>
@@ -166,7 +166,7 @@ export default function CaseStudiesSection() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         className="relative w-full max-w-[1280px] flex items-center justify-center"
-        style={{ height: 440 }}
+        style={{ height: 400 }}
       >
         {CASES.map((c, i) => {
           let offset = i - index;

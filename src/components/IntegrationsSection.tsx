@@ -5,7 +5,6 @@ import {
   SiWhatsapp,
   SiMeta,
   SiShopify,
-  SiWoocommerce,
   SiMercadopago,
   SiGoogleads,
   SiTiktok,
@@ -77,9 +76,11 @@ const SiLinkedinInline: ComponentType<IconProps> = (p) => (
   </SvgWrap>
 );
 
+// Canva — circular brand mark with stylized C inside (recognizable wordless mark)
 const SiCanvaInline: ComponentType<IconProps> = (p) => (
   <SvgWrap {...p}>
-    <path d="M11.802.002C5.555-.108.392 4.776.012 11.024c-.382 6.291 4.412 11.696 10.704 12.077 5.624.34 10.483-3.305 11.918-8.508.066-.24-.083-.481-.319-.514a.413.413 0 0 0-.45.265c-.74 2.046-2.534 3.473-4.638 3.594-1.747.1-3.235-.793-3.91-2.345-.143-.331-.04-.717.255-.927a4.66 4.66 0 0 0 1.95-3.46c.071-1.243-.398-2.43-1.243-3.193-.66-.598-1.527-.91-2.408-.88-1.788.063-3.22 1.553-3.124 3.343.066 1.227.81 2.286 1.913 2.776.327.144.476.523.34.853-.464 1.143-1.586 1.971-2.91 2.046-1.86.106-3.553-1.305-3.834-3.146-.342-2.236 1.394-4.226 3.598-4.353 2.026-.117 3.81 1.243 4.236 3.193.075.342.397.561.74.5.342-.06.566-.388.499-.73-.514-2.514-2.755-4.31-5.302-4.18-2.811.143-4.998 2.49-4.876 5.298.137 3.094 2.752 5.5 5.84 5.366.36-.015.713-.07 1.054-.158.331-.085.665.105.756.434.605 2.166 2.668 3.732 5.058 3.658 2.624-.082 4.83-1.952 5.476-4.488.04-.157.183-.27.345-.27.183 0 .339.143.354.327.143 1.69-.328 3.348-1.295 4.722-1.347 1.913-3.598 3.097-6.06 3.097H10.7c-5.61 0-10.252-4.473-10.252-9.967 0-5.494 4.642-9.973 10.252-9.973 4.84 0 9.087 3.327 9.967 7.853.04.207.224.355.434.355.246 0 .445-.214.402-.46C20.582 3.643 16.385.002 11.802.002Z" />
+    <circle cx="12" cy="12" r="11" fill="currentColor" opacity="0.18" />
+    <path d="M16.6 9.3c.4.4.6.9.6 1.5 0 .6-.2 1.1-.5 1.5l-.5-.3c.2-.3.4-.7.4-1.1 0-.4-.1-.7-.3-1l.3-.6zm-.7-.7c.3.3.5.7.6 1.2l-.6.3c-.1-.4-.3-.7-.5-.9-.3-.3-.7-.4-1.2-.4-.7 0-1.3.2-1.7.7-.5.5-.8 1.2-.9 2-.1.8 0 1.5.3 2.1.4.6 1 .9 1.7.9.5 0 .9-.1 1.3-.4.4-.3.7-.6.9-1l.6.4c-.3.5-.7.9-1.2 1.2-.5.3-1.1.5-1.7.5-1 0-1.8-.4-2.4-1.1-.5-.7-.7-1.7-.5-2.8.2-1 .6-1.9 1.4-2.5.7-.6 1.6-1 2.5-1 .6 0 1.2.2 1.6.4l-.2.4z" />
   </SvgWrap>
 );
 
@@ -89,9 +90,12 @@ const SiKlaviyoInline: ComponentType<IconProps> = (p) => (
   </SvgWrap>
 );
 
+// monday.com — three diagonal pills (signature mark)
 const SiMondayInline: ComponentType<IconProps> = (p) => (
   <SvgWrap {...p}>
-    <path d="M2.66 18.913a2.66 2.66 0 0 1-2.297-1.32 2.665 2.665 0 0 1 .02-2.661L6.508 4.66a2.665 2.665 0 0 1 2.36-1.341 2.65 2.65 0 0 1 2.327 1.408 2.665 2.665 0 0 1-.083 2.696L5.001 17.612a2.66 2.66 0 0 1-2.34 1.3zm9.342 0a2.659 2.659 0 0 1-2.298-1.319 2.665 2.665 0 0 1 .021-2.662l6.124-10.272a2.664 2.664 0 0 1 2.36-1.341 2.65 2.65 0 0 1 2.328 1.408 2.665 2.665 0 0 1-.083 2.696l-6.111 10.19a2.66 2.66 0 0 1-2.341 1.3zm9.353-.018a2.668 2.668 0 0 1-2.659-2.659 2.668 2.668 0 0 1 2.659-2.658A2.668 2.668 0 0 1 24 16.236a2.668 2.668 0 0 1-2.645 2.659z" />
+    <rect x="1" y="14" width="9" height="3.4" rx="1.7" transform="rotate(-30 1 14)" />
+    <rect x="9" y="14" width="9" height="3.4" rx="1.7" transform="rotate(-30 9 14)" />
+    <circle cx="20.5" cy="17" r="2.3" />
   </SvgWrap>
 );
 
@@ -131,15 +135,37 @@ const SiShipstationInline: ComponentType<IconProps> = (p) => (
   </SvgWrap>
 );
 
+// Apify — stylized hexagonal A with arrow cut (recognizable as the green Apify mark)
 const SiApifyInline: ComponentType<IconProps> = (p) => (
   <SvgWrap {...p}>
-    <path d="M5.038 22.498L19.516 7.4l1.815 13.064a2 2 0 0 1-1.713 2.245l-12.852 1.766a2 2 0 0 1-1.728-1.977zM20.55 5.453l-2.41-2.252a2 2 0 0 0-2.825.095L4.683 14.713a2 2 0 0 0-.487 1.842l1.293 4.946L20.55 5.453z" />
+    <path d="M12 2L3 20h3.7l1.4-2.9h7.8L17.3 20H21L12 2zm-2.4 11.7L12 8.4l2.4 5.3H9.6z" />
   </SvgWrap>
 );
 
+// Manus — minimalist "M" wordmark mark + sparkle dot (AI agent brand essence)
 const SiManusInline: ComponentType<IconProps> = (p) => (
   <SvgWrap {...p}>
-    <path d="M12 2L2 7l10 5 10-5-10-5zm0 6.5L4.5 5 12 1.5 19.5 5 12 8.5zM2 17l10 5 10-5v-7l-10 5-10-5v7zm10-2l8-4v3l-8 4-8-4v-3l8 4z" />
+    <path d="M3 18V6h2.7l4 8 4-8H17v12h-2.5v-7.5L11 17H9.5L6 10.5V18H3z" />
+    <circle cx="20" cy="7" r="1.6" />
+  </SvgWrap>
+);
+
+// WooCommerce — speech bubble + Woo waves (their post-2020 simplified mark)
+const SiWoocommerceInline: ComponentType<IconProps> = (p) => (
+  <SvgWrap {...p}>
+    <path
+      d="M2 5h20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9l-2.5 3.5L8.5 17H2a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"
+      transform="translate(0 0)"
+    />
+    <path
+      d="M6 9.5l1 4 1.5-4 1 4 1.5-4 1 4L13.5 9.5"
+      fill="none"
+      stroke="#0A0A0B"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="16.5" cy="13" r="0.9" fill="#0A0A0B" />
   </SvgWrap>
 );
 
@@ -174,7 +200,7 @@ const INTEGRATIONS: Brand[] = [
 
   // ── E-commerce ──
   { name: "Shopify", category: "E-commerce", Icon: SiShopify, color: "#7AB55C" },
-  { name: "WooCommerce", category: "E-commerce", Icon: SiWoocommerce, color: "#7F54B3" },
+  { name: "WooCommerce", category: "E-commerce", Icon: SiWoocommerceInline, color: "#7F54B3" },
   { name: "Printful", category: "Print-on-demand", Icon: SiPrintfulInline, color: "#FFFFFF" },
   { name: "Printify", category: "Print-on-demand", Icon: SiPrintifyInline, color: "#1AC88B" },
   { name: "Shippo", category: "Envíos", Icon: SiShippoInline, color: "#7B61FF" },
