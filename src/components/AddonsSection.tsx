@@ -124,8 +124,8 @@ export default function AddonsSection() {
           Personaliza tu plan
         </h2>
         <p className="text-gray-400 text-base md:text-lg leading-7 max-w-xl mx-auto">
-          Funcionalidades adicionales que se suman a cualquier plan. Activá las
-          que necesités y cancelá cuando quieras — sin contratos.
+          Funcionalidades adicionales que se suman a cualquier plan. Activa
+          las que necesites y cancela cuando quieras — sin contratos.
         </p>
       </div>
 

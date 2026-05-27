@@ -46,7 +46,7 @@ const INDUSTRIES: Industry[] = [
     emoji: "🏠",
     agentName: "Hogar Inmobiliaria",
     agentSub: "Asesor",
-    welcome: "¡Hola! 👋 Soy de Hogar Inmobiliaria. ¿Buscás arriendo, compra o solo info?",
+    welcome: "¡Hola! 👋 Soy de Hogar Inmobiliaria. ¿Buscas arriendo, compra o solo información?",
     suggestion: "Busco departamento en arriendo en Providencia",
   },
   {
@@ -227,10 +227,10 @@ export default function LiveDemoSection() {
           PROBALO EN VIVO · 100% REAL · AHORA
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
-          Hablá vos mismo con un agente HEAT
+          Habla con un agente HEAT
         </h2>
         <p className="text-gray-400 text-base md:text-lg leading-7 max-w-xl mx-auto">
-          Elegí tu industria. Escribí lo que quieras. El agente responde como si
+          Elige tu industria. Escribe lo que quieras. El agente responde como si
           fuera tu propio negocio — sin formulario, sin registro.
         </p>
       </div>
@@ -238,7 +238,7 @@ export default function LiveDemoSection() {
       <div className="grid w-full max-w-[1100px] gap-12 lg:gap-16 lg:grid-cols-[1fr_auto] items-center">
         <div className="order-2 lg:order-1">
           <p className="text-[11px] font-semibold tracking-[0.18em] text-white/50 mb-4">
-            ELEGÍ TU INDUSTRIA
+            ELIGE TU INDUSTRIA
           </p>
           <div className="grid grid-cols-2 gap-3 mb-8">
             {INDUSTRIES.map((i) => {
@@ -279,19 +279,19 @@ export default function LiveDemoSection() {
           <ul className="space-y-3 mb-6 text-sm text-gray-300">
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Conversación <strong className="text-foreground">REAL</strong> con Claude, no un script grabado.</span>
+              <span>Conversación <strong className="text-foreground">real</strong> con HEAT IA, no un script grabado.</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Probá tono, claridad y velocidad antes de contratar.</span>
+              <span>Prueba tono, claridad y velocidad antes de contratar.</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Cambiá de industria cuando quieras — el agente se adapta.</span>
+              <span>Cambia de industria cuando quieras — el agente se adapta.</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Cuando contrates, lo personalizamos a <strong className="text-foreground">tu negocio real</strong>.</span>
+              <span>Cuando lo contrates, lo personalizamos a <strong className="text-foreground">tu negocio real</strong>.</span>
             </li>
           </ul>
 
@@ -301,7 +301,7 @@ export default function LiveDemoSection() {
             className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-gray-300 hover:border-white/25 hover:text-foreground transition-all disabled:opacity-50"
           >
             <Sparkles size={13} className="text-yellow-300" />
-            Probá: "{industry.suggestion}"
+            Prueba: "{industry.suggestion}"
           </button>
         </div>
 

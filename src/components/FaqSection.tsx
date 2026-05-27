@@ -20,7 +20,7 @@ const FAQS = [
   },
   {
     q: "¿Puedo integrar otros canales más adelante?",
-    a: "Sí. Podés sumar canales y herramientas en cualquier momento upgrade-ando el plan o contratando addons independientes.",
+    a: "Sí. Puedes sumar canales y herramientas en cualquier momento haciendo upgrade del plan o contratando add-ons independientes.",
   },
   {
     q: "¿Hay aplicación móvil para administrar conversaciones?",
@@ -32,11 +32,11 @@ const FAQS = [
   },
   {
     q: "¿Hay contrato mínimo de permanencia?",
-    a: "No. Todos los planes son mensuales y podés cancelar cuando quieras, sin letra chica ni penalizaciones.",
+    a: "No. Todos los planes son mensuales y puedes cancelar cuando quieras, sin letra chica ni penalizaciones.",
   },
   {
     q: "¿Cuánto cuesta la implementación?",
-    a: "Tenés tres paquetes: Ignite USD 500, Accelerate USD 1.000 y Transform USD 1.500. Pago único — sin contratos ni costos recurrentes de setup.",
+    a: "Tienes tres paquetes: Ignite USD 500, Accelerate USD 1.000 y Transform USD 1.500. Pago único — sin contratos ni costos recurrentes de setup.",
   },
 ];
 

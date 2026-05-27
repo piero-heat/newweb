@@ -287,7 +287,7 @@ function MultiChannelVisual() {
       name: "WhatsApp",
       Icon: SiWhatsapp,
       color: "#25D366",
-      sample: "Confirmá tu cita para mañana 10 AM ✅",
+      sample: "Confirma tu cita para mañana 10 AM ✅",
       time: "02:14",
     },
     {
