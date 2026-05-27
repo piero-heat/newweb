@@ -192,22 +192,6 @@ export default function GoogleReviewsSection() {
         className="relative w-full max-w-[1200px] flex items-center justify-center"
         style={{ height: 340 }}
       >
-        <button
-          aria-label="Anterior"
-          onClick={() =>
-            setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length)
-          }
-          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
-        >
-          <ChevronLeft size={20} />
-        </button>
-        <button
-          aria-label="Siguiente"
-          onClick={() => setIndex((i) => (i + 1) % REVIEWS.length)}
-          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
-        >
-          <ChevronRight size={20} />
-        </button>
         {REVIEWS.map((review, i) => {
           let offset = i - index;
           if (offset > half) offset -= N;
@@ -251,22 +235,42 @@ export default function GoogleReviewsSection() {
         })}
       </div>
 
-      <div className="mt-6 flex items-center gap-2">
-        {REVIEWS.map((_, i) => {
-          const active = i === index;
-          return (
-            <button
-              key={i}
-              aria-label={`Reseña ${i + 1}`}
-              onClick={() => setIndex(i)}
-              className={`rounded-full transition-all duration-400 ${
-                active
-                  ? "w-6 h-1.5 bg-foreground"
-                  : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
-              }`}
-            />
-          );
-        })}
+      <div className="mt-8 flex items-center gap-5">
+        <button
+          aria-label="Anterior"
+          onClick={() =>
+            setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length)
+          }
+          className="w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {REVIEWS.map((_, i) => {
+            const active = i === index;
+            return (
+              <button
+                key={i}
+                aria-label={`Reseña ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={`rounded-full transition-all duration-400 ${
+                  active
+                    ? "w-6 h-1.5 bg-foreground"
+                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
+                }`}
+              />
+            );
+          })}
+        </div>
+
+        <button
+          aria-label="Siguiente"
+          onClick={() => setIndex((i) => (i + 1) % REVIEWS.length)}
+          className="w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
+        >
+          <ChevronRight size={18} />
+        </button>
       </div>
 
       <motion.a

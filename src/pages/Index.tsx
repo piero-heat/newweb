@@ -167,20 +167,25 @@ export default function Index() {
               Instagram y Facebook — junto a tu equipo, sin descansos.
             </p>
 
-            <Button
-              variant="heroSecondary"
-              size="none"
-              className="rounded-full text-base"
+            <a
+              href="#demo"
+              className="group relative inline-flex items-center justify-center rounded-full liquid-glass text-foreground text-base font-medium overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_14px_50px_-12px_rgba(255,255,255,0.45)]"
               style={{
                 paddingLeft: 29,
                 paddingRight: 29,
-                paddingTop: 24,
-                paddingBottom: 24,
+                paddingTop: 18,
+                paddingBottom: 18,
                 marginTop: 25,
               }}
             >
-              Agendar Demo
-            </Button>
+              <span
+                aria-hidden
+                className="absolute inset-0 rounded-full bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"
+              />
+              <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background">
+                Agendar Demo
+              </span>
+            </a>
           </div>
         </div>
 

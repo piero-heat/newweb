@@ -28,10 +28,10 @@ const SERVICES: {
 ];
 
 const PROJECTIONS = [
-  { invest: "Hasta $1M CLP", excess: "$0", fee: "$449", total: "$449 USD" },
-  { invest: "$3M CLP", excess: "$2M", fee: "$449", total: "$660 USD" },
-  { invest: "$5M CLP", excess: "$4M", fee: "$449", total: "$870 USD" },
-  { invest: "$10M CLP", excess: "$9M", fee: "$449", total: "$1.396 USD" },
+  { invest: "Hasta $1.000", excess: "—", fee: "$449", total: "$449" },
+  { invest: "$3.000", excess: "$200", fee: "$449", total: "$649" },
+  { invest: "$5.000", excess: "$400", fee: "$449", total: "$849" },
+  { invest: "$10.000", excess: "$900", fee: "$449", total: "$1.349" },
 ];
 
 const NOT_INCLUDED = [
@@ -129,8 +129,8 @@ export default function PerformanceAdsSection() {
             <p className="mt-4 text-gray-300 text-sm leading-relaxed">
               + <span className="text-foreground font-medium">10%</span> solo
               sobre el monto que supera{" "}
-              <span className="text-foreground font-medium">$1.000.000 CLP</span>{" "}
-              de inversión mensual.
+              <span className="text-foreground font-medium">$1.000 USD</span> de
+              inversión mensual.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-gray-400">
               <li>✓ Fee bajo de entrada</li>
@@ -163,18 +163,11 @@ export default function PerformanceAdsSection() {
                       key={row.invest}
                       className="border-t border-white/5 text-gray-300"
                     >
-                      <td className="px-4 py-3">{row.invest}</td>
+                      <td className="px-4 py-3">{row.invest} USD</td>
                       <td className="px-4 py-3 text-gray-400">{row.fee}</td>
-                      <td className="px-4 py-3 text-gray-400">
-                        {row.excess === "$0"
-                          ? "—"
-                          : `~${Math.round(
-                              parseInt(row.excess.replace(/[$M]/g, "")) *
-                                100000,
-                            ).toLocaleString()} CLP`}
-                      </td>
+                      <td className="px-4 py-3 text-gray-400">{row.excess}</td>
                       <td className="px-4 py-3 font-medium text-foreground">
-                        {row.total}
+                        {row.total} USD
                       </td>
                     </tr>
                   ))}
@@ -182,8 +175,8 @@ export default function PerformanceAdsSection() {
               </table>
             </div>
             <p className="mt-3 text-xs text-gray-500 leading-relaxed">
-              Tasa referencial 1 USD ≈ 950 CLP. La inversión publicitaria la
-              pagas tú directamente a Meta.
+              Todos los montos en USD. La inversión publicitaria la pagas tú
+              directamente a Meta con tu medio de pago.
             </p>
           </div>
         </div>
@@ -196,17 +189,21 @@ export default function PerformanceAdsSection() {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="mt-10 w-full max-w-[1080px] rounded-2xl border border-white/5 bg-white/[0.01] p-6 md:p-8"
       >
-        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
           <p className="text-xs font-semibold tracking-[0.18em] text-white/50 shrink-0">
             LO QUE NO HACEMOS
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          <ul className="flex flex-wrap gap-2">
             {NOT_INCLUDED.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2 text-sm text-gray-400"
+                className="group inline-flex items-center gap-2 rounded-full border border-transparent bg-transparent px-3 py-1.5 text-sm text-gray-400 hover:border-rose-500/25 hover:bg-rose-500/[0.06] hover:text-rose-100 transition-all duration-300 cursor-default"
               >
-                <X size={14} strokeWidth={2.5} className="text-gray-600" />
+                <X
+                  size={14}
+                  strokeWidth={2.5}
+                  className="text-gray-600 transition-colors duration-300 group-hover:text-rose-400"
+                />
                 <span>{item}</span>
               </li>
             ))}
