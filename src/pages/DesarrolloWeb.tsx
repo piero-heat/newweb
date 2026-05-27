@@ -3,7 +3,6 @@ import {
   Sparkles,
   Zap,
   Layers,
-  Clock,
   CreditCard,
   Palette,
   Code2,
@@ -13,6 +12,10 @@ import {
   ExternalLink,
   Calendar,
   ShoppingCart,
+  Server,
+  Wrench,
+  Pencil,
+  XCircle,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -51,8 +54,9 @@ const PLANS: Plan[] = [
       "Mobile-first responsive",
       "Formulario de contacto conectado a CRM",
       "SEO base + favicon + meta tags",
-      "Hosting + dominio asistido",
-      "1 ronda de revisiones",
+      "Hosting + dominio gratis por 1 año",
+      "Modificaciones de contenido incluidas",
+      "Hasta 3 cambios en pre-entrega",
       "Entrega: 72h hábiles post-confirmación",
     ],
   },
@@ -71,7 +75,9 @@ const PLANS: Plan[] = [
       "Integraciones (WhatsApp, Calendly, Stripe, CRM HEAT)",
       "Optimización Lighthouse 90+",
       "Analytics + Pixel de Meta listos",
-      "2 rondas de revisiones",
+      "Hosting + dominio gratis por 1 año",
+      "Modificaciones de contenido incluidas",
+      "Hasta 3 cambios en pre-entrega",
       "Entrega: 72h hábiles post-confirmación",
     ],
   },
@@ -87,9 +93,11 @@ const PLANS: Plan[] = [
       "Backend + base de datos + login de usuarios",
       "Generación automática de PDF (cotizaciones, propuestas)",
       "Webhooks + integración con CRM/ERP",
-      "3 rondas de revisiones",
+      "Hosting + dominio gratis por 1 año",
+      "Modificaciones de contenido incluidas",
+      "Hasta 3 cambios en pre-entrega",
       "Soporte post-entrega 30 días",
-      "Entrega: depende de complejidad (5-10 días hábiles)",
+      "Entrega: 5-10 días hábiles según alcance",
     ],
   },
 ];
@@ -103,7 +111,7 @@ const PROCESS = [
   {
     icon: Palette,
     title: "02 · Briefing + propuesta visual",
-    desc: "En 24h hábiles te pasamos la primera maqueta visual con paleta, tipografía y secciones. Confirmás o ajustamos.",
+    desc: "En 24h hábiles te pasamos la primera maqueta visual con paleta, tipografía y secciones. Confirmas o ajustamos.",
   },
   {
     icon: Code2,
@@ -111,9 +119,14 @@ const PROCESS = [
     desc: "Una vez confirmada la propuesta visual, producimos la web completa en 72 horas hábiles. Sin alargues.",
   },
   {
+    icon: Sparkles,
+    title: "04 · Pre-entrega · hasta 3 cambios",
+    desc: "Te mostramos la web lista en un link privado. Tienes hasta 3 rondas de cambios sobre la estructura entregada — textos, colores, imágenes, copies. Cambios estructurales se cotizan aparte.",
+  },
+  {
     icon: Rocket,
-    title: "04 · Entrega + 50% final",
-    desc: "Te entregamos repo + deploy en tu dominio. Pagas el 50% restante y queda andando. Soporte incluido.",
+    title: "05 · Entrega final + 50% restante",
+    desc: "Deploy en tu dominio + repositorio entregado. Pagas el 50% final y queda andando. Hosting incluido por 1 año.",
   },
 ];
 
@@ -238,9 +251,9 @@ export default function DesarrolloWeb() {
               letterSpacing: "-0.035em",
             }}
           >
-            Tu próxima landing,
+            Tu próximo desarrollo web,
             <br />
-            entregada en{" "}
+            entregado en{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
@@ -260,7 +273,7 @@ export default function DesarrolloWeb() {
           >
             La misma calidad de diseño y conversión que estás viendo en este
             sitio. Diseño 100% custom (sin plantillas), animaciones suaves,
-            mobile-first. Pago único 50/50 — sin retainer, sin compromisos.
+            mobile-first. Hosting + dominio gratis por 1 año incluidos.
           </motion.p>
 
           <motion.div
@@ -289,6 +302,33 @@ export default function DesarrolloWeb() {
               <Calendar size={14} />
               Agendar reunión
             </a>
+          </motion.div>
+
+          {/* Hosting promo ribbon — visible right under CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-8 mx-auto inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-2xl px-5 py-3 text-xs md:text-sm"
+            style={{
+              border: "1.5px solid transparent",
+              background:
+                "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(137deg, #FCD34D, #A855F7, #6366F1) border-box",
+            }}
+          >
+            <span className="inline-flex items-center gap-1.5 text-foreground">
+              🎁
+              <span className="font-medium">
+                Hosting + dominio gratis 1 año
+              </span>
+            </span>
+            <span className="hidden md:inline text-white/20">·</span>
+            <span className="inline-flex items-center gap-1.5 text-foreground">
+              ✏️
+              <span className="font-medium">
+                Modificaciones de contenido incluidas
+              </span>
+            </span>
           </motion.div>
         </div>
       </section>
@@ -333,7 +373,7 @@ export default function DesarrolloWeb() {
               ⚡ CÓMO TRABAJAMOS
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
-              4 pasos. 72 horas hábiles.
+              5 pasos. 72 horas hábiles.
             </h2>
             <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
               Sin reuniones eternas. Pagas, briefeamos, producimos, entregamos.
@@ -370,6 +410,112 @@ export default function DesarrolloWeb() {
         </div>
       </section>
 
+      {/* ── Qué incluye / Qué se cotiza aparte ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              📋 ALCANCE · QUÉ ENTRA EN EL PRECIO
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Sin letra chica
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              Te dejamos claro qué está incluido en el precio del plan y qué
+              se cotiza aparte, para que decidas con toda la información sobre
+              la mesa.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* INCLUIDO */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl border border-emerald-400/15 bg-emerald-500/[0.03] p-7 hover:border-emerald-400/30 hover:bg-emerald-500/[0.05] transition-all duration-400"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+                  <CheckCircle2
+                    size={18}
+                    className="text-emerald-300"
+                    strokeWidth={2.2}
+                  />
+                </div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-emerald-300/90">
+                  INCLUIDO EN EL PRECIO
+                </p>
+              </div>
+
+              <ul className="space-y-4">
+                <Inclusion
+                  icon={Server}
+                  title="Hosting + dominio gratis 1 año"
+                  desc="Te lo dejamos andando en nuestra infraestructura. Después del primer año, puedes seguir con nosotros o moverte donde quieras (todo es portable)."
+                />
+                <Inclusion
+                  icon={Pencil}
+                  title="Modificaciones de contenido"
+                  desc="Cambios de textos, títulos, copies, imágenes, links, colores específicos y ajustes menores sobre la estructura que entregamos. Esto está incluido siempre."
+                />
+                <Inclusion
+                  icon={Sparkles}
+                  title="Hasta 3 rondas en pre-entrega"
+                  desc="Antes del deploy final tienes tres rondas de ajustes para dejarlo a tu pinta — sobre la estructura ya entregada."
+                />
+              </ul>
+            </motion.div>
+
+            {/* COTIZADO APARTE */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              className="rounded-3xl border border-amber-400/15 bg-amber-500/[0.025] p-7 hover:border-amber-400/30 hover:bg-amber-500/[0.04] transition-all duration-400"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center">
+                  <Wrench
+                    size={18}
+                    className="text-amber-300"
+                    strokeWidth={2.2}
+                  />
+                </div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-amber-300/90">
+                  SE COTIZA APARTE
+                </p>
+              </div>
+
+              <ul className="space-y-4">
+                <Inclusion
+                  icon={Layers}
+                  title="Cambios estructurales"
+                  desc="Modificar la arquitectura del sitio: agregar/quitar secciones nuevas, cambiar el flujo general, rehacer layouts completos. Requiere replantear el diseño y se cotiza aparte."
+                />
+                <Inclusion
+                  icon={Code2}
+                  title="Funcionalidades nuevas"
+                  desc="Sumar features que no estaban en el plan original: backend custom, login de usuarios, integraciones específicas, módulos a medida fuera de lo que tu plan incluye."
+                />
+                <Inclusion
+                  icon={Calendar}
+                  title="Soporte mensual post-entrega"
+                  desc="Después de los 30 días incluidos (plan Custom) o si quieres mantenimiento continuo, podemos armar un retainer mensual."
+                />
+              </ul>
+
+              <p className="mt-5 pt-5 border-t border-amber-400/10 text-[11px] text-gray-500 leading-relaxed">
+                💡 ¿No estás seguro si tu cambio es de contenido o estructural?
+                Lo conversamos sin compromiso y te decimos.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Plans ── */}
       <section
         id="planes-web"
@@ -397,8 +543,8 @@ export default function DesarrolloWeb() {
 
           <p className="mt-10 text-xs text-gray-500 text-center max-w-2xl mx-auto">
             Todos los planes incluyen briefing inicial, propuesta visual antes
-            de producir, y entrega en repositorio + deploy listo. La inversión
-            en dominio y hosting (~$10-20 USD/año) corre por tu cuenta.
+            de producir, repositorio entregado y deploy listo. Hosting +
+            dominio gratis durante el primer año.
           </p>
         </div>
       </section>
@@ -556,6 +702,32 @@ export default function DesarrolloWeb() {
 /* ────────────────────────────────────────────────────────────── */
 /* PLAN CARD                                                       */
 /* ────────────────────────────────────────────────────────────── */
+
+function Inclusion({
+  icon: Icon,
+  title,
+  desc,
+}: {
+  icon: typeof Sparkles;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <li className="flex items-start gap-3">
+      <Icon
+        size={16}
+        className="text-white/65 mt-1 shrink-0"
+        strokeWidth={2}
+      />
+      <div>
+        <p className="text-foreground text-sm font-medium tracking-tight mb-1">
+          {title}
+        </p>
+        <p className="text-gray-400 text-[13px] leading-relaxed">{desc}</p>
+      </div>
+    </li>
+  );
+}
 
 function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   const Icon = plan.icon;
