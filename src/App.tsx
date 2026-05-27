@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Index from "./pages/Index";
 import Partners from "./pages/Partners";
+import Nosotros from "./pages/Nosotros";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -25,6 +26,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/partners" element={<Partners />} />
+        <Route path="/nosotros" element={<Nosotros />} />
       </Routes>
     </BrowserRouter>
   );

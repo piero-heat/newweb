@@ -6,6 +6,7 @@ const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
   { label: "Precios", anchor: "#planes" },
   { label: "Integraciones", anchor: "#integraciones" },
   { label: "Performance Ads", anchor: "#performance-ads" },
+  { label: "Nosotros", anchor: "/nosotros", isRoute: true },
   { label: "Partners", anchor: "/partners", isRoute: true },
 ];
 
