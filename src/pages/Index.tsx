@@ -1,0 +1,237 @@
+import { useEffect, useRef } from "react";
+import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import FeaturesSection from "@/components/FeaturesSection";
+import StatsSection from "@/components/StatsSection";
+import PricingSection from "@/components/PricingSection";
+import ImplementationSection from "@/components/ImplementationSection";
+import PerformanceAdsSection from "@/components/PerformanceAdsSection";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
+import ProcessSection from "@/components/ProcessSection";
+import DemoSection from "@/components/DemoSection";
+import FaqSection from "@/components/FaqSection";
+import ContentPackSection from "@/components/ContentPackSection";
+import Footer from "@/components/Footer";
+import logo from "@/assets/logo.png";
+
+const VIDEO_SRC =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4";
+
+const FADE = 0.5;
+
+const NAV_ITEMS: { label: string; chevron?: boolean }[] = [
+  { label: "Casos" },
+  { label: "Integraciones", chevron: true },
+  { label: "Planes", chevron: true },
+  { label: "Cómo funciona" },
+];
+
+const BRANDS = [
+  "WhatsApp",
+  "Instagram",
+  "Shopify",
+  "Google Ads",
+  "TikTok",
+  "Dentalink",
+];
+
+function BrandLogo({ name }: { name: string }) {
+  return (
+    <div className="flex items-center gap-3 shrink-0">
+      <div className="liquid-glass w-6 h-6 rounded-lg flex items-center justify-center">
+        <span className="text-[10px] font-semibold text-foreground/90 leading-none">
+          {name[0]}
+        </span>
+      </div>
+      <span className="text-base font-semibold text-foreground whitespace-nowrap">
+        {name}
+      </span>
+    </div>
+  );
+}
+
+export default function Index() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let raf = 0;
+    let cancelled = false;
+
+    const tick = () => {
+      if (cancelled) return;
+      const d = video.duration;
+      const t = video.currentTime;
+      if (Number.isFinite(d) && d > 0) {
+        let opacity = 1;
+        if (t < FADE) opacity = Math.max(0, t / FADE);
+        else if (t > d - FADE) opacity = Math.max(0, (d - t) / FADE);
+        video.style.opacity = String(opacity);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    const handleEnded = () => {
+      video.style.opacity = "0";
+      window.setTimeout(() => {
+        if (cancelled) return;
+        try {
+          video.currentTime = 0;
+          void video.play();
+        } catch {
+          /* noop */
+        }
+      }, 100);
+    };
+
+    video.style.opacity = "0";
+    video.addEventListener("ended", handleEnded);
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
+    }
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      video.removeEventListener("ended", handleEnded);
+    };
+  }, []);
+
+  return (
+    <div className="relative bg-background">
+      <div className="relative min-h-screen overflow-hidden">
+      <video
+        ref={videoRef}
+        src={VIDEO_SRC}
+        muted
+        playsInline
+        autoPlay
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 0 }}
+      />
+
+      <section className="relative z-10 min-h-screen flex flex-col overflow-visible">
+        <header className="w-full py-5 px-8 flex flex-row justify-between items-center">
+          <a href="#" className="flex items-center">
+            <img src={logo} alt="HEAT" style={{ height: 32 }} />
+          </a>
+
+          <nav className="hidden md:flex items-center gap-8">
+            {NAV_ITEMS.map((item) => (
+              <button
+                key={item.label}
+                className="text-foreground/90 hover:text-foreground transition-colors text-sm inline-flex items-center gap-1"
+              >
+                {item.label}
+                {item.chevron ? <ChevronDown size={14} /> : null}
+              </button>
+            ))}
+          </nav>
+
+          <Button
+            variant="heroSecondary"
+            size="none"
+            className="rounded-full px-4 py-2 text-sm"
+          >
+            Agendar Demo
+          </Button>
+        </header>
+
+        <div className="relative mt-[3px] h-px w-full bg-gradient-to-r from-transparent via-foreground/20 to-transparent" />
+
+        <div className="flex-1 flex items-center justify-center relative overflow-visible">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-950 opacity-90"
+            style={{
+              width: 984,
+              height: 527,
+              filter: "blur(82px)",
+            }}
+          />
+
+          <div className="relative z-10 flex flex-col items-center text-center px-6">
+            <h1
+              className="font-display font-normal whitespace-nowrap"
+              style={{
+                fontSize: "clamp(96px, 18vw, 220px)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.024em",
+              }}
+            >
+              <span className="text-foreground">Vende </span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)",
+                }}
+              >
+                24/7
+              </span>
+            </h1>
+
+            <p
+              className="text-hero-sub text-lg leading-8 max-w-xl opacity-80"
+              style={{ marginTop: 9 }}
+            >
+              Agentes de IA que contestan, filtran y venden en WhatsApp,
+              Instagram y Facebook — junto a tu equipo, sin descansos.
+            </p>
+
+            <Button
+              variant="heroSecondary"
+              size="none"
+              className="rounded-full text-base"
+              style={{
+                paddingLeft: 29,
+                paddingRight: 29,
+                paddingTop: 24,
+                paddingBottom: 24,
+                marginTop: 25,
+              }}
+            >
+              Agendar Demo
+            </Button>
+          </div>
+        </div>
+
+        <div className="pb-10 px-8">
+          <div className="max-w-5xl mx-auto flex items-center gap-12">
+            <p className="text-foreground/50 text-sm shrink-0 leading-tight">
+              +100 negocios confían
+              <br />
+              en LATAM y EEUU
+            </p>
+
+            <div className="flex-1 overflow-hidden">
+              <div className="flex items-center gap-16 animate-marquee w-max">
+                {[...BRANDS, ...BRANDS].map((name, i) => (
+                  <BrandLogo key={`${name}-${i}`} name={name} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      <FeaturesSection />
+      <StatsSection />
+      <PricingSection />
+      <ImplementationSection />
+      <PerformanceAdsSection />
+      <CaseStudiesSection />
+      <ProcessSection />
+      <DemoSection />
+      <FaqSection />
+      <ContentPackSection />
+      <Footer />
+    </div>
+  );
+}
