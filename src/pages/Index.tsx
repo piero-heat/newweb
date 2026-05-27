@@ -4,6 +4,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import InteractiveFeaturesSection from "@/components/InteractiveFeaturesSection";
 import StatsSection from "@/components/StatsSection";
 import PricingSection from "@/components/PricingSection";
+import AddonsSection from "@/components/AddonsSection";
 import ImplementationSection from "@/components/ImplementationSection";
 import PerformanceAdsSection from "@/components/PerformanceAdsSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
@@ -244,6 +245,7 @@ export default function Index() {
       <InteractiveFeaturesSection />
       <StatsSection />
       <PricingSection />
+      <AddonsSection />
       <ImplementationSection />
       <IntegrationsSection />
       <PerformanceAdsSection />
