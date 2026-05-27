@@ -10,8 +10,8 @@ type Review = {
   meta: string;
   date: string;
   text?: string;
-  initial: string;
-  bg: string; // tailwind bg class
+  avatar: string;
+  bg: string;
 };
 
 const REVIEWS: Review[] = [
@@ -20,7 +20,7 @@ const REVIEWS: Review[] = [
     meta: "6 opiniones · 2 fotos",
     date: "Hace 9 semanas",
     text: "Excelente atención, la plataforma increíble! Me ha ayudado mucho con mi negocio.",
-    initial: "A",
+    avatar: "👩",
     bg: "from-emerald-500 to-teal-500",
   },
   {
@@ -28,7 +28,7 @@ const REVIEWS: Review[] = [
     meta: "2 opiniones",
     date: "Hace 9 semanas",
     text: "Me sorprendió el nivel de respuesta de los agentes — son lo que quería, y muy cercanos con mis clientes. Hasta el momento, perfecto!",
-    initial: "C",
+    avatar: "🦷",
     bg: "from-pink-500 to-rose-500",
   },
   {
@@ -36,7 +36,7 @@ const REVIEWS: Review[] = [
     meta: "3 opiniones",
     date: "Hace 9 semanas",
     text: "Excelente herramienta. Me ha ayudado muchísimo en mi pyme de lavado de autos, ya que puedo calificar a mis clientes y fidelizarlos con IA.",
-    initial: "L",
+    avatar: "👨",
     bg: "from-indigo-500 to-blue-500",
   },
   {
@@ -44,16 +44,24 @@ const REVIEWS: Review[] = [
     meta: "2 opiniones",
     date: "Hace 9 semanas",
     text: "Excelente atención. Muy buen equipo. Me gustó mucho esta herramienta para mi trabajo.",
-    initial: "M",
+    avatar: "👩",
     bg: "from-amber-500 to-orange-500",
   },
   {
     name: "Leily Araujo",
     meta: "Reseña reciente",
     date: "Hace 9 semanas",
-    text: undefined, // sin texto
-    initial: "L",
+    text: undefined,
+    avatar: "👩",
     bg: "from-slate-500 to-slate-600",
+  },
+  {
+    name: "Andrés Cruz",
+    meta: "1 opinión",
+    date: "Hace 3 meses",
+    text: "Es una herramienta muy útil, nos ha servido bastante para prospectar, hacer seguimiento y cerrar ventas. La recomiendo 100%.",
+    avatar: "👨",
+    bg: "from-cyan-500 to-blue-600",
   },
 ];
 
@@ -83,9 +91,12 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3 min-w-0">
           <div
-            className={`shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${review.bg} flex items-center justify-center text-white font-semibold text-sm shadow-[0_0_0_2px_rgba(255,255,255,0.05)]`}
+            className={`shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${review.bg} flex items-center justify-center text-base shadow-[0_0_0_2px_rgba(255,255,255,0.05)]`}
+            aria-label={review.name}
           >
-            {review.initial}
+            <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
+              {review.avatar}
+            </span>
           </div>
           <div className="min-w-0">
             <p className="text-foreground text-sm font-medium truncate">
