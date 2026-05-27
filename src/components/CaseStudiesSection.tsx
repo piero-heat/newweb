@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { Star } from "lucide-react";
 
 const CASES = [
   {
@@ -111,27 +110,6 @@ export default function CaseStudiesSection() {
         ))}
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
-        className="mt-10 flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5"
-      >
-        <div className="flex items-center gap-0.5">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star
-              key={i}
-              size={14}
-              className="fill-yellow-300 stroke-yellow-300"
-            />
-          ))}
-        </div>
-        <p className="text-sm text-gray-300">
-          <span className="font-semibold text-white">5.0</span> · 11 reseñas en
-          Google · Heat Agency
-        </p>
-      </motion.div>
     </section>
   );
 }

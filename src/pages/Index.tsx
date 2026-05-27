@@ -6,6 +6,7 @@ import PricingSection from "@/components/PricingSection";
 import ImplementationSection from "@/components/ImplementationSection";
 import PerformanceAdsSection from "@/components/PerformanceAdsSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
+import GoogleReviewsSection from "@/components/GoogleReviewsSection";
 import ProcessSection from "@/components/ProcessSection";
 import DemoSection from "@/components/DemoSection";
 import FaqSection from "@/components/FaqSection";
@@ -247,6 +248,7 @@ export default function Index() {
       <PerformanceAdsSection />
       <ContentPackSection />
       <CaseStudiesSection />
+      <GoogleReviewsSection />
       <ProcessSection />
       <DemoSection />
       <FaqSection />
