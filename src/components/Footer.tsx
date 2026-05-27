@@ -7,18 +7,48 @@ import {
 } from "@icons-pack/react-simple-icons";
 import logo from "@/assets/logo.png";
 
-const COLUMNS: { title: string; links: string[] }[] = [
+type FooterLink = {
+  label: string;
+  href: string;
+  /** Open in new tab if true */
+  external?: boolean;
+};
+
+const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: "PRODUCTO",
-    links: ["Standard", "Pro", "Advance", "Planes y Precios"],
+    links: [
+      { label: "Precios IA", href: "/#planes" },
+      { label: "Perform & Ads", href: "/perform-ads" },
+      { label: "Videos Ads", href: "/perform-ads#videos-ads" },
+      { label: "Integraciones", href: "/#integraciones" },
+    ],
   },
   {
     title: "EMPRESA",
-    links: ["Casos de éxito", "Contacto", "Cómo funciona"],
+    links: [
+      { label: "Nosotros", href: "/nosotros" },
+      { label: "Casos de éxito", href: "/#casos" },
+      { label: "Partners", href: "/partners" },
+      { label: "Contacto", href: "/#demo" },
+    ],
   },
   {
     title: "RECURSOS",
-    links: ["Mi cuenta", "Soporte", "Términos", "Privacidad"],
+    links: [
+      {
+        label: "Portal Clientes",
+        href: "https://app.heatlatam.com",
+        external: true,
+      },
+      {
+        label: "Soporte WhatsApp",
+        href: "https://wa.me/56978919125",
+        external: true,
+      },
+      { label: "Términos", href: "/terminos" },
+      { label: "Privacidad", href: "/privacidad" },
+    ],
   },
 ];
 
@@ -136,12 +166,16 @@ export default function Footer() {
             </p>
             <ul className="mt-5 space-y-3">
               {col.links.map((link) => (
-                <li key={link}>
+                <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={
+                      link.external ? "noopener noreferrer" : undefined
+                    }
                     className="text-sm text-gray-300 hover:text-foreground transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -228,10 +262,13 @@ export default function Footer() {
       <div className="mx-auto max-w-[1180px] pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-gray-500">
         <p>© 2026 HEAT™ · Todos los derechos reservados · hola@heatlatam.com</p>
         <div className="flex items-center gap-5">
-          <a href="#" className="hover:text-gray-300 transition-colors">
+          <a href="/terminos" className="hover:text-gray-300 transition-colors">
             Términos
           </a>
-          <a href="#" className="hover:text-gray-300 transition-colors">
+          <a
+            href="/privacidad"
+            className="hover:text-gray-300 transition-colors"
+          >
             Privacidad
           </a>
         </div>

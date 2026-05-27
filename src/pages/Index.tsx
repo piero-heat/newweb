@@ -12,7 +12,6 @@ import CaseStudiesSection from "@/components/CaseStudiesSection";
 import GoogleReviewsSection from "@/components/GoogleReviewsSection";
 import DemoSection from "@/components/DemoSection";
 import FaqSection from "@/components/FaqSection";
-import ContentPackSection from "@/components/ContentPackSection";
 import WebCreationSection from "@/components/WebCreationSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
 import LiveAgentSection from "@/components/LiveAgentSection";
@@ -177,7 +176,6 @@ export default function Index() {
       <ImplementationSection />
       <IntegrationsSection />
       <PerformanceAdsSection />
-      <ContentPackSection />
       <WebCreationSection />
       <CaseStudiesSection />
       <GoogleReviewsSection />
