@@ -3,10 +3,9 @@ import { ExternalLink } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
-  { label: "Casos", anchor: "#casos" },
+  { label: "Precios", anchor: "#planes" },
   { label: "Integraciones", anchor: "#integraciones" },
-  { label: "Planes", anchor: "#planes" },
-  { label: "Cómo funciona", anchor: "#como-funciona" },
+  { label: "Performance Ads", anchor: "#performance-ads" },
   { label: "Partners", anchor: "/partners", isRoute: true },
 ];
 

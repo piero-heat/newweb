@@ -1,6 +1,19 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
-const CASES = [
+type Case = {
+  industry: string;
+  metric: string;
+  metricLabel: string;
+  quote: string;
+  emoji: string;
+  author: string;
+  business: string;
+  url: string;
+};
+
+const CASES: Case[] = [
   {
     industry: "CLÍNICA DENTAL",
     metric: "+127%",
@@ -9,56 +22,74 @@ const CASES = [
       "HEAT IA nos cambió la operación. Antes perdíamos pacientes por no contestar a tiempo. Ahora el agente agenda 24/7 y mi equipo se enfoca en la atención presencial.",
     emoji: "🦷",
     author: "Dra. Carolina M.",
-    business: "Clínica Dental Premium · Santiago, Chile",
+    business: "GoSmile · Santiago, Chile",
+    url: "https://www.gosmile.cl",
   },
   {
-    industry: "E-COMMERCE",
+    industry: "E-COMMERCE · NUTRICIÓN",
     metric: "+83%",
     metricLabel: "más ventas por WhatsApp",
     quote:
       "Teníamos cientos de mensajes sin contestar cada día. Ahora la IA filtra, responde sobre productos y conecta al cliente con ventas solo cuando está listo para comprar.",
     emoji: "🛍️",
     author: "Rodrigo P.",
-    business: "Tienda Online · Ciudad de México",
+    business: "Vita Nutrición · Santiago, Chile",
+    url: "https://www.vitanutricion.cl",
   },
   {
-    industry: "INMOBILIARIA",
-    metric: "+200%",
-    metricLabel: "más leads calificados al mes",
+    industry: "RETAIL · ALIMENTOS",
+    metric: "+150%",
+    metricLabel: "más pedidos por canal digital",
     quote:
-      "Nuestros agentes recibían demasiados curiosos. Con HEAT IA, solo llegan prospectos precalificados con presupuesto y urgencia real. El equipo cierra más con menos esfuerzo.",
-    emoji: "🏠",
+      "Vendemos barquillos en todo Chile y los pedidos volaban por WhatsApp. Con HEAT, el agente toma el pedido, agenda despacho y confirma pago — todo sin intervención manual.",
+    emoji: "🍦",
     author: "Andrés F.",
-    business: "Inmobiliaria Sur · Bogotá, Colombia",
+    business: "Barquillos Chile · Santiago",
+    url: "https://www.barquillos.cl",
   },
-] as const;
+  {
+    industry: "MODA · ALTA GAMA",
+    metric: "+110%",
+    metricLabel: "conversión en consulta premium",
+    quote:
+      "Nuestras clientas esperan atención de boutique en WhatsApp. HEAT IA mantiene ese estándar 24/7, recomienda con criterio de marca y agenda asesorías personalizadas.",
+    emoji: "👗",
+    author: "Camila R.",
+    business: "Wolford Chile · Santiago",
+    url: "https://www.wolforchile.cl",
+  },
+  {
+    industry: "JOYERÍA · LUJO",
+    metric: "+95%",
+    metricLabel: "agendamiento de visitas exclusivas",
+    quote:
+      "Cada cliente que pregunta por una pieza es una venta potencial alta. HEAT IA califica con elegancia, agenda visitas presenciales y deriva a la asesora correcta. Cero leads perdidos.",
+    emoji: "💎",
+    author: "María José L.",
+    business: "Joyería Gabriela Prieto · Santiago",
+    url: "https://www.gabrielaprieto.cl",
+  },
+];
 
-const METRIC_GRADIENT =
-  "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
+const CARD_WIDTH = 360;
+const CARD_OFFSET_X = 310;
+const AUTO_ROTATE_MS = 4000;
 
-function CaseCard({
-  data,
-  index,
-}: {
-  data: (typeof CASES)[number];
-  index: number;
-}) {
+const METRIC_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
+
+function CaseCard({ data }: { data: Case }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.08 }}
-      className="group relative flex h-full flex-col rounded-3xl border border-white/5 bg-white/[0.02] p-8 hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_16px_50px_-12px_rgba(99,102,241,0.25)] transition-all duration-500 ease-out"
+    <div
+      className="group relative flex h-full flex-col rounded-3xl border border-white/8 bg-[#0E0E14] p-7 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
+      style={{ width: CARD_WIDTH, minHeight: 380 }}
     >
       <p className="text-[10px] font-semibold tracking-[0.2em] text-white/50">
         {data.industry}
       </p>
-
       <div
         className="mt-4 font-display font-medium bg-clip-text text-transparent inline-block"
         style={{
-          fontSize: "clamp(52px, 5.5vw, 80px)",
+          fontSize: "clamp(48px, 5vw, 72px)",
           lineHeight: 1,
           letterSpacing: "-0.04em",
           backgroundImage: METRIC_GRADIENT,
@@ -67,31 +98,57 @@ function CaseCard({
         {data.metric}
       </div>
       <p className="mt-2 text-gray-400 text-sm">{data.metricLabel}</p>
-
-      <p className="mt-6 flex-1 text-gray-300 text-[15px] leading-relaxed">
-        “{data.quote}”
+      <p className="mt-6 flex-1 text-gray-300 text-[14px] leading-relaxed">
+        "{data.quote}"
       </p>
-
       <div className="mt-6 flex items-center gap-3 border-t border-white/5 pt-5">
         <div className="liquid-glass w-10 h-10 rounded-full flex items-center justify-center text-lg">
           {data.emoji}
         </div>
-        <div>
-          <p className="text-foreground text-sm font-medium">{data.author}</p>
-          <p className="text-gray-500 text-xs">{data.business}</p>
+        <div className="min-w-0 flex-1">
+          <p className="text-foreground text-sm font-medium truncate">
+            {data.author}
+          </p>
+          <p className="text-gray-500 text-xs truncate">{data.business}</p>
         </div>
+        <a
+          href={data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Ir a ${data.business}`}
+          className="shrink-0 text-gray-500 hover:text-foreground transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ExternalLink size={14} />
+        </a>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export default function CaseStudiesSection() {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(
+      () => setIndex((i) => (i + 1) % CASES.length),
+      AUTO_ROTATE_MS,
+    );
+    return () => clearInterval(t);
+  }, [paused]);
+
+  const N = CASES.length;
+  const half = Math.floor(N / 2);
+
   return (
     <section
       id="casos"
-      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8"
+      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-16 md:py-20 scroll-mt-8"
     >
-      <div className="w-full max-w-[1080px] mb-12 text-center">
+      <div className="w-full max-w-[1080px] mb-10 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           🏆 CASOS DE ÉXITO
         </p>
@@ -104,12 +161,89 @@ export default function CaseStudiesSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-[1080px]">
-        {CASES.map((c, i) => (
-          <CaseCard key={c.industry} data={c} index={i} />
-        ))}
+      <div
+        ref={containerRef}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        className="relative w-full max-w-[1280px] flex items-center justify-center"
+        style={{ height: 440 }}
+      >
+        {CASES.map((c, i) => {
+          let offset = i - index;
+          if (offset > half) offset -= N;
+          if (offset < -half) offset += N;
+          const distance = Math.abs(offset);
+          const isCenter = distance === 0;
+          const isAdjacent = distance === 1;
+          const isFar = distance === 2;
+          return (
+            <motion.div
+              key={c.business}
+              className="absolute top-1/2 left-1/2 -translate-y-1/2"
+              animate={{
+                x: offset * CARD_OFFSET_X - CARD_WIDTH / 2,
+                scale: isCenter ? 1 : isAdjacent ? 0.85 : isFar ? 0.7 : 0.55,
+                opacity: isCenter
+                  ? 1
+                  : isAdjacent
+                    ? 0.4
+                    : isFar
+                      ? 0.12
+                      : 0,
+                zIndex: isCenter ? 30 : isAdjacent ? 20 : isFar ? 10 : 1,
+                filter: isCenter
+                  ? "blur(0px)"
+                  : isAdjacent
+                    ? "blur(1px)"
+                    : "blur(3px)",
+              }}
+              transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+              style={{ width: CARD_WIDTH }}
+              onClick={() => !isCenter && setIndex(i)}
+            >
+              <div className={isCenter ? "" : "cursor-pointer"}>
+                <CaseCard data={c} />
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
+      <div className="mt-8 flex items-center gap-5">
+        <button
+          aria-label="Anterior"
+          onClick={() => setIndex((i) => (i - 1 + N) % N)}
+          className="w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {CASES.map((_, i) => {
+            const active = i === index;
+            return (
+              <button
+                key={i}
+                aria-label={`Caso ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={`rounded-full transition-all duration-400 ${
+                  active
+                    ? "w-6 h-1.5 bg-foreground"
+                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
+                }`}
+              />
+            );
+          })}
+        </div>
+
+        <button
+          aria-label="Siguiente"
+          onClick={() => setIndex((i) => (i + 1) % N)}
+          className="w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
     </section>
   );
 }

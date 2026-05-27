@@ -183,16 +183,23 @@ export default function Footer() {
             DESCARGÁ HEAT
           </p>
           <div className="flex flex-wrap items-center gap-3 lg:justify-end">
-            <AppBadge
+            <a
               href="#"
-              label1="DESCARGA EN"
-              label2="App Store"
-              hint="App Store · disponible"
-              iconColor="#FFFFFF"
-              glowColor="rgba(255,255,255,0.25)"
+              className="group inline-flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black px-3.5 py-2 transition-all duration-400 ease-out hover:border-white/25 hover:bg-[#0f0f0f] hover:shadow-[0_8px_28px_-6px_rgba(10,132,255,0.35)] relative"
+              title="App Store · disponible"
             >
-              <SiAppstore size={22} color="currentColor" />
-            </AppBadge>
+              <span className="shrink-0 text-[#0A84FF]">
+                <SiAppstore size={22} color="currentColor" />
+              </span>
+              <div className="leading-tight text-left">
+                <p className="text-[8px] font-medium tracking-[0.14em] text-white/60 group-hover:text-white/80 transition-colors">
+                  DESCARGA EN
+                </p>
+                <p className="text-[12px] font-semibold text-white/90 group-hover:text-white transition-colors leading-tight">
+                  App Store
+                </p>
+              </div>
+            </a>
             <AppBadge
               href="#"
               label1="DESCARGA PARA"

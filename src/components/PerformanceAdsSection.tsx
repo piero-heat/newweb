@@ -75,7 +75,10 @@ function ServiceCard({
 
 export default function PerformanceAdsSection() {
   return (
-    <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24">
+    <section
+      id="performance-ads"
+      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8"
+    >
       <div className="w-full max-w-[1080px] mb-12 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           📊 HEAT ADS · META PERFORMANCE
