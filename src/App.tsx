@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Index from "./pages/Index";
 import Partners from "./pages/Partners";
 import Nosotros from "./pages/Nosotros";
+import PerformAds from "./pages/PerformAds";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/" element={<Index />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/perform-ads" element={<PerformAds />} />
       </Routes>
     </BrowserRouter>
   );

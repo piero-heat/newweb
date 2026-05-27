@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { BarChart3, Target, TrendingUp, X } from "lucide-react";
+import { BarChart3, Target, TrendingUp, X, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const SERVICES: {
@@ -76,8 +76,7 @@ function ServiceCard({
 export default function PerformanceAdsSection() {
   return (
     <section
-      id="performance-ads"
-      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8"
+      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24"
     >
       <div className="w-full max-w-[1080px] mb-12 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
@@ -183,6 +182,32 @@ export default function PerformanceAdsSection() {
             </p>
           </div>
         </div>
+      </motion.div>
+
+      {/* CTA → full /perform-ads page */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="mt-10 flex flex-col items-center gap-3"
+      >
+        <a
+          href="/perform-ads"
+          className="group relative inline-flex items-center justify-center gap-2 rounded-full liquid-glass text-foreground text-sm font-medium px-6 py-3 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.35)]"
+        >
+          <span
+            aria-hidden
+            className="absolute inset-0 rounded-full bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"
+          />
+          <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background inline-flex items-center gap-2">
+            Ver más sobre Perform &amp; Ads
+            <ArrowRight size={14} />
+          </span>
+        </a>
+        <p className="text-xs text-gray-500">
+          15 años de agencia · +250 clientes · CPA medido al cierre
+        </p>
       </motion.div>
 
       <motion.div
