@@ -236,11 +236,11 @@ export default function Index() {
       <PricingSection />
       <ImplementationSection />
       <PerformanceAdsSection />
+      <ContentPackSection />
       <CaseStudiesSection />
       <ProcessSection />
       <DemoSection />
       <FaqSection />
-      <ContentPackSection />
       <Footer />
     </div>
   );

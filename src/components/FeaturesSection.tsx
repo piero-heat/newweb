@@ -33,8 +33,8 @@ const CARDS = [
 
 export default function FeaturesSection() {
   return (
-    <section className="min-h-screen bg-[#0A0A0B] flex flex-col items-center justify-center p-6 md:p-12 font-sans">
-      <div className="w-full max-w-[936px] mb-16 text-center">
+    <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 font-sans">
+      <div className="w-full max-w-[936px] mb-12 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           💡 POR QUÉ HEAT IA
         </p>
