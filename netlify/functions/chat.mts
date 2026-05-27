@@ -107,10 +107,21 @@ export default async (req: Request, _ctx: Context) => {
     return jsonResp({ error: "last_message_must_be_user" }, 400);
   }
 
-  const apiKey = Netlify.env.get("ANTHROPIC_API_KEY");
+  const apiKey =
+    process.env.ANTHROPIC_API_KEY ??
+    (typeof Netlify !== "undefined" ? Netlify.env.get("ANTHROPIC_API_KEY") : undefined);
   if (!apiKey) {
+    console.error("Missing ANTHROPIC_API_KEY in env");
     return jsonResp({ error: "server_misconfigured" }, 500);
   }
+  // Diagnostic log (no key exposure): length + prefix + presence of whitespace/newline
+  console.log(
+    "Key check:",
+    "len=" + apiKey.length,
+    "prefix=" + apiKey.slice(0, 12),
+    "suffix=" + apiKey.slice(-6),
+    "hasWS=" + /\s/.test(apiKey),
+  );
 
   try {
     const upstream = await fetch("https://api.anthropic.com/v1/messages", {
