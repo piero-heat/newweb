@@ -4,36 +4,36 @@ import { motion, AnimatePresence } from "motion/react";
 type Message = { role: "user" | "agent"; text: React.ReactNode };
 
 const SCRIPT: Message[] = [
-  { role: "user", text: "Hola, quiero info sobre sus precios" },
+  { role: "user", text: "Hola, quería pedir hora para una limpieza" },
   {
     role: "agent",
     text: (
       <>
-        ¡Hola! <span aria-hidden>👋</span> Tenemos planes desde{" "}
-        <span className="font-semibold text-cyan-300">USD 349/mes</span> sin
-        contratos. ¿Cuál es tu industria?
+        ¡Hola! <span aria-hidden>😊</span> ¿Es tu{" "}
+        <span className="font-semibold text-cyan-300">primera visita</span> o ya
+        eres paciente?
       </>
     ),
   },
-  { role: "user", text: "Clínica dental" },
+  { role: "user", text: "Primera visita" },
   {
     role: "agent",
     text: (
       <>
-        ¡Perfecto! Nos integramos con{" "}
-        <span className="font-semibold text-cyan-300">Dentalink</span>. ¿Te
-        agendo una demo para mañana a las{" "}
-        <span className="font-semibold text-cyan-300">10:00 AM</span>?
+        Perfecto. Tengo dos opciones esta semana:{" "}
+        <span className="font-semibold text-cyan-300">mañana 10:00 AM</span> o{" "}
+        <span className="font-semibold text-cyan-300">viernes 15:00</span>.
+        ¿Cuál te acomoda?
       </>
     ),
   },
-  { role: "user", text: "Dale, agéndame 🙌" },
+  { role: "user", text: "Mañana 10:00 me sirve 🙌" },
   {
     role: "agent",
     text: (
       <>
-        ¡Listo! Demo agendada para mañana 10:00 AM. Te envío confirmación por
-        WhatsApp. <span aria-hidden>🚀</span>
+        ¡Listo! Tu cita queda confirmada para mañana 10:00 AM. Te llega
+        recordatorio temprano. <span aria-hidden>🦷</span>
       </>
     ),
   },
@@ -98,13 +98,15 @@ export default function ChatDemo() {
             <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0E0E14]" />
           </div>
           <div>
-            <p className="text-foreground font-medium text-sm">Agente HEAT IA</p>
+            <p className="text-foreground font-medium text-sm">
+              Clínica Sonríe
+            </p>
             <p className="text-xs text-emerald-400 flex items-center gap-1.5">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
               </span>
-              En línea
+              En línea · responde al instante
             </p>
           </div>
         </div>
