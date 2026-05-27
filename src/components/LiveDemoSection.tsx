@@ -227,7 +227,7 @@ export default function LiveDemoSection() {
           PRUEBA UN AGENTE DE IA EN VIVO · 100% REAL · AHORA
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
-          Habla con un agente HEAT
+          Habla con un agente HEAT IA
         </h2>
         <p className="text-gray-400 text-base md:text-lg leading-7 max-w-xl mx-auto">
           Elige tu industria. Escribe lo que quieras. El agente responde como si

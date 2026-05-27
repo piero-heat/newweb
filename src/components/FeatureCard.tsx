@@ -35,7 +35,7 @@ export default function FeatureCard({
       <div
         className="relative self-stretch h-[260px] md:h-[300px] rounded-[40px] z-10 overflow-hidden transition-transform duration-500 ease-out group-hover:-translate-y-1"
         style={{
-          border: "8px solid transparent",
+          border: "4px solid transparent",
           background: `linear-gradient(#1A1A1C, #1A1A1C) padding-box, ${gradient} border-box`,
         }}
       >
