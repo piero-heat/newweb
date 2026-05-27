@@ -144,8 +144,8 @@ export default function GoogleReviewsSection() {
   const half = Math.floor(N / 2);
 
   return (
-    <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24">
-      <div className="w-full max-w-[1080px] mb-12 text-center">
+    <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-16 md:py-20">
+      <div className="w-full max-w-[1080px] mb-8 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           ⭐ RESEÑAS REALES EN GOOGLE
         </p>
@@ -166,7 +166,7 @@ export default function GoogleReviewsSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="group mb-10 inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-4 hover:border-white/20 hover:bg-white/[0.05] transition-all duration-400"
+        className="group mb-4 inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-4 hover:border-white/20 hover:bg-white/[0.05] transition-all duration-400"
       >
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_-8px_rgba(66,133,244,0.4)]">
           <SiGoogle size={22} color="#4285F4" />
@@ -190,8 +190,24 @@ export default function GoogleReviewsSection() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         className="relative w-full max-w-[1200px] flex items-center justify-center"
-        style={{ height: 380 }}
+        style={{ height: 340 }}
       >
+        <button
+          aria-label="Anterior"
+          onClick={() =>
+            setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length)
+          }
+          className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
+        >
+          <ChevronLeft size={20} />
+        </button>
+        <button
+          aria-label="Siguiente"
+          onClick={() => setIndex((i) => (i + 1) % REVIEWS.length)}
+          className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
+        >
+          <ChevronRight size={20} />
+        </button>
         {REVIEWS.map((review, i) => {
           let offset = i - index;
           if (offset > half) offset -= N;
@@ -235,42 +251,22 @@ export default function GoogleReviewsSection() {
         })}
       </div>
 
-      <div className="mt-10 flex items-center gap-5">
-        <button
-          aria-label="Anterior"
-          onClick={() =>
-            setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length)
-          }
-          className="w-10 h-10 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 transition-transform"
-        >
-          <ChevronLeft size={18} />
-        </button>
-
-        <div className="flex items-center gap-2">
-          {REVIEWS.map((_, i) => {
-            const active = i === index;
-            return (
-              <button
-                key={i}
-                aria-label={`Reseña ${i + 1}`}
-                onClick={() => setIndex(i)}
-                className={`rounded-full transition-all duration-400 ${
-                  active
-                    ? "w-6 h-1.5 bg-foreground"
-                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
-                }`}
-              />
-            );
-          })}
-        </div>
-
-        <button
-          aria-label="Siguiente"
-          onClick={() => setIndex((i) => (i + 1) % REVIEWS.length)}
-          className="w-10 h-10 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 transition-transform"
-        >
-          <ChevronRight size={18} />
-        </button>
+      <div className="mt-6 flex items-center gap-2">
+        {REVIEWS.map((_, i) => {
+          const active = i === index;
+          return (
+            <button
+              key={i}
+              aria-label={`Reseña ${i + 1}`}
+              onClick={() => setIndex(i)}
+              className={`rounded-full transition-all duration-400 ${
+                active
+                  ? "w-6 h-1.5 bg-foreground"
+                  : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
+              }`}
+            />
+          );
+        })}
       </div>
 
       <motion.a
@@ -281,7 +277,7 @@ export default function GoogleReviewsSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="mt-8 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-foreground transition-colors group"
+        className="mt-6 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-foreground transition-colors group"
       >
         Ver las 12 reseñas en Google
         <ExternalLink
