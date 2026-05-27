@@ -19,56 +19,12 @@ import IntegrationsSection from "@/components/IntegrationsSection";
 import LiveAgentSection from "@/components/LiveAgentSection";
 import LiveDemoSection from "@/components/LiveDemoSection";
 import Footer from "@/components/Footer";
+import clientesLogos from "@/assets/clients/clientes-heat.svg";
 
 const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4";
 
 const FADE = 0.5;
-
-// Real clients of HEAT. Stylized text logos as interim until SVG/PNGs land.
-// Each brand can optionally specify a font + tracking to mimic the wordmark.
-type Brand = {
-  name: string;
-  /** Tailwind classes overriding default text style (font, weight, tracking, case). */
-  style?: string;
-};
-
-const BRANDS: Brand[] = [
-  { name: "Ztyle", style: "font-display italic tracking-tight" },
-  { name: "PrintMe", style: "font-display tracking-tight" },
-  { name: "La Santoría", style: "font-display italic tracking-tight" },
-  { name: "COCH", style: "font-display tracking-[0.18em]" },
-  { name: "Wolford", style: "font-display tracking-[0.05em]" },
-  { name: "PROMIXX", style: "font-display tracking-[0.14em]" },
-  { name: "DMOOV", style: "font-display tracking-[0.18em] font-light" },
-  { name: "CREW", style: "font-display italic tracking-tight font-bold" },
-  { name: "Ready", style: "font-display italic tracking-tight" },
-  { name: "Concepto Blanco", style: "font-display tracking-tight uppercase text-[14px]" },
-  { name: "MARENGO", style: "font-display tracking-[0.16em]" },
-  { name: "Todo Cotillón", style: "font-display tracking-tight" },
-  { name: "SHAKS", style: "font-display tracking-[0.16em] font-bold" },
-  { name: "XMIAMI", style: "font-display tracking-[0.18em] font-bold" },
-  { name: "PALMETTO", style: "font-display tracking-[0.18em]" },
-  { name: "Mr. Detailing", style: "font-display tracking-tight" },
-  { name: "Mr. Shopper", style: "font-display tracking-tight font-bold" },
-  { name: "Barquillos", style: "font-display italic tracking-tight" },
-  { name: "GoSmile", style: "font-display tracking-tight font-bold" },
-  { name: "Century 21", style: "font-display tracking-[0.12em]" },
-];
-
-function BrandLogo({ brand }: { brand: Brand }) {
-  return (
-    <div className="group flex items-center shrink-0 transition-opacity duration-300 opacity-70 hover:opacity-100">
-      <span
-        className={`text-[18px] text-foreground whitespace-nowrap transition-colors duration-300 ${
-          brand.style ?? "font-display font-semibold tracking-tight"
-        }`}
-      >
-        {brand.name}
-      </span>
-    </div>
-  );
-}
 
 export default function Index() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -210,28 +166,26 @@ export default function Index() {
           </div>
         </div>
 
-        <div className="pb-10 px-8">
-          <div className="max-w-5xl mx-auto flex items-center gap-12">
-            <p className="text-foreground/50 text-sm shrink-0 leading-tight">
-              +350 negocios confían
-              <br />
-              en LATAM y EEUU
+        <div className="pb-8 px-6 md:px-12">
+          <div className="max-w-[1180px] mx-auto">
+            <p className="text-foreground/55 text-[11px] font-medium tracking-[0.22em] uppercase text-center mb-5">
+              +350 negocios confían en HEAT · LATAM y EEUU
             </p>
-
             <div
-              className="flex-1 overflow-hidden"
+              className="relative w-full"
               style={{
                 maskImage:
-                  "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+                  "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
                 WebkitMaskImage:
-                  "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+                  "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
               }}
             >
-              <div className="flex items-center gap-12 animate-marquee w-max">
-                {[...BRANDS, ...BRANDS].map((b, i) => (
-                  <BrandLogo key={`${b.name}-${i}`} brand={b} />
-                ))}
-              </div>
+              <img
+                src={clientesLogos}
+                alt="Clientes de HEAT — Ztyle, PrintMe, La Santoría, COCH, Wolford, PROMIXX, DMOOV, CREW, Ready, Concepto Blanco, MARENGO, Todo Cotillón, SHAKS, XMIAMI, PALMETTO, Mr. Detailing, Mr. Shopper, Barquillos, GoSmile, Century 21"
+                className="block w-full h-auto select-none pointer-events-none opacity-90"
+                draggable={false}
+              />
             </div>
           </div>
         </div>
