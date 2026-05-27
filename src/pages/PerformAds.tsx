@@ -533,35 +533,197 @@ export default function PerformAds() {
             {/* Meta's own data */}
             <div className="mt-7 pt-6 border-t border-white/[0.06]">
               <p className="text-[10px] font-semibold tracking-[0.22em] text-white/50 mb-3">
-                DATA PUBLICADA POR META
+                DATA PUBLICADA POR META · CONVERSIONS API
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <p className="text-foreground text-lg font-medium">−13%</p>
+                  <p className="text-foreground text-lg font-medium">−17,8%</p>
                   <p className="text-gray-500 text-xs leading-relaxed mt-1">
-                    menor costo por resultado con Pixel + CAPI vs solo Pixel.
+                    de disminución promedio en costo por resultado al
+                    implementar CAPI.
                   </p>
                 </div>
                 <div>
                   <p className="text-foreground text-lg font-medium">+19%</p>
                   <p className="text-gray-500 text-xs leading-relaxed mt-1">
-                    más conversiones atribuidas correctamente con CAPI.
+                    más conversiones atribuidas correctamente con Pixel +
+                    CAPI vs Pixel solo.
                   </p>
                 </div>
                 <div>
-                  <p className="text-foreground text-lg font-medium">
-                    +16,4%
-                  </p>
+                  <p className="text-foreground text-lg font-medium">+5%</p>
                   <p className="text-gray-500 text-xs leading-relaxed mt-1">
-                    mayor confianza de atribución sobre Pixel solo.
+                    mediana adicional de mejora con la Puntuación de
+                    Oportunidad de Meta activada.
                   </p>
                 </div>
               </div>
               <p className="mt-3 text-[11px] text-gray-600 leading-relaxed">
-                Fuente: Meta Business · Estudios internos sobre advertisers
-                que pasaron de Pixel a Pixel + Conversion API.
+                Fuente:{" "}
+                <a
+                  href="https://www.facebook.com/business/tools/conversions-api"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 hover:text-gray-300 underline underline-offset-2 transition-colors"
+                >
+                  Meta Business · Conversions API
+                </a>
+                . Estudios internos publicados por Meta sobre advertisers que
+                pasaron de Pixel a Pixel + Conversion API.
               </p>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── 4 Meta-recommended CAPI pillars + Axis case study ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              📘 METODOLOGÍA META · CAPI BIEN HECHA
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Las 4 reglas oficiales de Meta
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              Meta publicó cuatro principios para que CAPI funcione bien.
+              Implementamos los cuatro desde el setup — no es opcional.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              {
+                n: "01",
+                title: "Cobertura de eventos",
+                copy: "Enviamos los eventos clave de todo el embudo — desde primer contacto hasta cierre. Pixel + CAPI compartiendo los mismos eventos da la señal más fuerte al algoritmo.",
+              },
+              {
+                n: "02",
+                title: "Eficacia de eventos",
+                copy: "Mejoramos la calidad del match enviando datos del cliente bien estructurados — email, teléfono, IP — todo hasheado y verificado para que Meta pueda atribuir con precisión.",
+              },
+              {
+                n: "03",
+                title: "Deduplicación",
+                copy: "Cada evento lleva un ID único compartido entre Pixel y CAPI. Sin esto, Meta cuenta dos veces la misma conversión y el algoritmo aprende mal.",
+              },
+              {
+                n: "04",
+                title: "Frescura de datos",
+                copy: "Los eventos viajan al CRM y de vuelta a Meta en tiempo real (o lo más cerca posible). Mientras más rápido la señal, más rápido optimiza Meta.",
+              },
+            ].map((p, i) => (
+              <motion.div
+                key={p.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45, delay: i * 0.06 }}
+                className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 hover:border-white/15 hover:bg-white/[0.04] transition-all duration-400"
+              >
+                <div className="flex items-start gap-4">
+                  <span
+                    className="font-display font-medium bg-clip-text text-transparent shrink-0"
+                    style={{
+                      fontSize: "32px",
+                      lineHeight: 1,
+                      letterSpacing: "-0.03em",
+                      backgroundImage:
+                        "linear-gradient(to right, #FFB1CE, #FF3D77, #FF9D3C)",
+                    }}
+                  >
+                    {p.n}
+                  </span>
+                  <div>
+                    <h3 className="text-foreground text-base font-medium tracking-tight mb-2">
+                      {p.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {p.copy}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Axis Max Life Insurance case study — services vertical */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 rounded-3xl p-8 md:p-10"
+            style={{
+              border: "1.5px solid transparent",
+              background: `linear-gradient(#0E0E10, #0E0E10) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
+            }}
+          >
+            <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-3">
+              CASO PUBLICADO POR META · SERVICIOS · SEGUROS
+            </p>
+            <h3 className="font-display text-2xl md:text-3xl font-medium text-white tracking-tight mb-3 leading-tight">
+              Axis Max Life Insurance — campañas Advantage+
+            </h3>
+            <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-7 max-w-2xl">
+              Aseguradora india implementó la API de Conversiones de Meta
+              conectada a su CRM con eventos del embudo completo. Resultado en
+              campañas de adquisición de clientes potenciales:
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5">
+                <p
+                  className="font-display font-medium bg-clip-text text-transparent"
+                  style={{
+                    fontSize: "clamp(36px, 3.4vw, 48px)",
+                    lineHeight: 1,
+                    letterSpacing: "-0.03em",
+                    backgroundImage: PRICE_GRADIENT,
+                  }}
+                >
+                  −17%
+                </p>
+                <p className="text-gray-300 text-sm mt-2">
+                  de reducción del costo por captación
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5">
+                <p
+                  className="font-display font-medium bg-clip-text text-transparent"
+                  style={{
+                    fontSize: "clamp(36px, 3.4vw, 48px)",
+                    lineHeight: 1,
+                    letterSpacing: "-0.03em",
+                    backgroundImage: PRICE_GRADIENT,
+                  }}
+                >
+                  +40%
+                </p>
+                <p className="text-gray-300 text-sm mt-2">
+                  de aumento de clientes potenciales{" "}
+                  <span className="text-foreground font-medium">
+                    de calidad
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-6 text-[11px] text-gray-600 leading-relaxed">
+              Caso documentado oficialmente por Meta Business. Más historias
+              en{" "}
+              <a
+                href="https://www.facebook.com/business/tools/conversions-api"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-gray-300 underline underline-offset-2 transition-colors"
+              >
+                facebook.com/business/tools/conversions-api
+              </a>
+              .
+            </p>
           </motion.div>
         </div>
       </section>
