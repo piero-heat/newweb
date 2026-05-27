@@ -35,3 +35,9 @@ lerna-debug.log*
 
 # vite
 *.local
+
+# claude code + netlify CLI local state
+.claude/settings.local.json
+.netlify
+tsconfig.tsbuildinfo
+tsconfig.node.tsbuildinfo

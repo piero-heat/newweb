@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:www.heat.cl)",
-      "WebFetch(domain:www.heatlatam.com)",
-      "Bash(cp \"/Users/pierosetti/Downloads/landing-builder-skill.md\" \"/Users/pierosetti/Desktop/NEW WEB HEAT 3.0/landing-builder-skill.md\" && ls -la \"/Users/pierosetti/Desktop/NEW WEB HEAT 3.0/\")"
-    ]
-  }
-}
