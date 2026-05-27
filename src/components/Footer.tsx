@@ -1,3 +1,4 @@
+import { SiMeta, SiShopify } from "@icons-pack/react-simple-icons";
 import logo from "@/assets/logo.png";
 
 const COLUMNS: { title: string; links: string[] }[] = [
@@ -22,9 +23,53 @@ export default function Footer() {
         <div className="col-span-2 md:col-span-1">
           <img src={logo} alt="HEAT" style={{ height: 32 }} />
           <p className="mt-5 text-sm text-gray-400 leading-relaxed max-w-xs">
-            Plataforma de Agentes de IA + CRM para automatizar ventas y atención
-            24/7 en LATAM y EEUU.
+            Plataforma de Agentes de IA + CRM para automatizar ventas y
+            atención 24/7 en LATAM y EEUU.
           </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <a
+              href="https://www.facebook.com/business/partner-directory"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2 transition-all duration-400 ease-out hover:border-white/15 hover:bg-white/[0.04] hover:shadow-[0_8px_28px_-8px_rgba(24,119,242,0.4)]"
+              title="Meta Tech Provider"
+            >
+              <SiMeta
+                size={22}
+                className="text-white/40 transition-colors duration-400 group-hover:text-[#1877F2]"
+              />
+              <div className="leading-tight">
+                <p className="text-[9px] font-semibold tracking-[0.16em] text-white/50 group-hover:text-white/80 transition-colors">
+                  META
+                </p>
+                <p className="text-[9px] font-semibold tracking-[0.16em] text-white/50 group-hover:text-white/80 transition-colors">
+                  TECH PROVIDER
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="https://www.shopify.com/partners"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2 transition-all duration-400 ease-out hover:border-white/15 hover:bg-white/[0.04] hover:shadow-[0_8px_28px_-8px_rgba(149,191,70,0.4)]"
+              title="Shopify Partner"
+            >
+              <SiShopify
+                size={22}
+                className="text-white/40 transition-colors duration-400 group-hover:text-[#95BF46]"
+              />
+              <div className="leading-tight">
+                <p className="text-[9px] font-semibold tracking-[0.16em] text-white/50 group-hover:text-white/80 transition-colors">
+                  SHOPIFY
+                </p>
+                <p className="text-[9px] font-semibold tracking-[0.16em] text-white/50 group-hover:text-white/80 transition-colors">
+                  PARTNER
+                </p>
+              </div>
+            </a>
+          </div>
         </div>
 
         {COLUMNS.map((col) => (
