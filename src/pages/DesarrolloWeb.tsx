@@ -110,13 +110,13 @@ const PROCESS = [
   },
   {
     icon: Palette,
-    title: "02 · Briefing + propuesta visual",
-    desc: "En 24h hábiles te pasamos la primera maqueta visual con paleta, tipografía y secciones. Confirmas o ajustamos.",
+    title: "02 · Onboarding · Formulario interactivo",
+    desc: "Te abrimos un dashboard de onboarding interactivo donde cargas todos los datos de tu página: marca, logos, textos, copies, imágenes, servicios, contactos, links. Cuando le das enviar, lo recibimos y arranca el cronómetro de las 72h.",
   },
   {
     icon: Code2,
-    title: "03 · Desarrollo 72h hábiles",
-    desc: "Una vez confirmada la propuesta visual, producimos la web completa en 72 horas hábiles. Sin alargues.",
+    title: "03 · Desarrollo · 72 horas hábiles",
+    desc: "Apenas recibimos tu formulario de onboarding, producimos la web completa en 72 horas hábiles. Sin alargues, sin reuniones intermedias innecesarias.",
   },
   {
     icon: Sparkles,
