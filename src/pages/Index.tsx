@@ -19,7 +19,7 @@ import IntegrationsSection from "@/components/IntegrationsSection";
 import LiveAgentSection from "@/components/LiveAgentSection";
 import LiveDemoSection from "@/components/LiveDemoSection";
 import Footer from "@/components/Footer";
-import clientesLogos from "@/assets/clients/clientes-heat.svg";
+import ClientLogosSection from "@/components/ClientLogosSection";
 
 const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4";
@@ -166,32 +166,17 @@ export default function Index() {
           </div>
         </div>
 
-        <div className="pb-8 px-6 md:px-12">
-          <div className="max-w-[1180px] mx-auto">
-            <p className="text-foreground/55 text-[11px] font-medium tracking-[0.22em] uppercase text-center mb-5">
+        <div className="pb-10 px-8">
+          <div className="max-w-5xl mx-auto text-center">
+            <p className="text-foreground/55 text-[11px] font-medium tracking-[0.22em] uppercase">
               +350 negocios confían en HEAT · LATAM y EEUU
             </p>
-            <div
-              className="relative w-full"
-              style={{
-                maskImage:
-                  "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-              }}
-            >
-              <img
-                src={clientesLogos}
-                alt="Clientes de HEAT — Ztyle, PrintMe, La Santoría, COCH, Wolford, PROMIXX, DMOOV, CREW, Ready, Concepto Blanco, MARENGO, Todo Cotillón, SHAKS, XMIAMI, PALMETTO, Mr. Detailing, Mr. Shopper, Barquillos, GoSmile, Century 21"
-                className="block w-full h-auto select-none pointer-events-none opacity-90"
-                draggable={false}
-              />
-            </div>
           </div>
         </div>
       </section>
       </div>
 
+      <ClientLogosSection />
       <LiveDemoSection />
       <LiveAgentSection />
       <FeaturesSection />
