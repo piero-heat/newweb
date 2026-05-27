@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import FeaturesSection from "@/components/FeaturesSection";
+import InteractiveFeaturesSection from "@/components/InteractiveFeaturesSection";
 import StatsSection from "@/components/StatsSection";
 import PricingSection from "@/components/PricingSection";
 import ImplementationSection from "@/components/ImplementationSection";
@@ -240,7 +241,7 @@ export default function Index() {
       </div>
 
       <LiveAgentSection />
-      <FeaturesSection />
+      <InteractiveFeaturesSection />
       <StatsSection />
       <PricingSection />
       <ImplementationSection />
