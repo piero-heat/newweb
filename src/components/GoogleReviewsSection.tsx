@@ -51,7 +51,7 @@ const REVIEWS: Review[] = [
     name: "Leily Araujo",
     meta: "Reseña reciente",
     date: "Hace 9 semanas",
-    text: undefined,
+    text: "Súper recomendados. Muy contenta con el servicio y la rapidez del equipo.",
     avatar: "👩",
     bg: "from-slate-500 to-slate-600",
   },
