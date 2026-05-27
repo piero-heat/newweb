@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { Star, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, ExternalLink, ThumbsUp, MoreVertical } from "lucide-react";
 import { SiGoogle } from "@icons-pack/react-simple-icons";
 
 const MAPS_URL =
@@ -66,83 +65,84 @@ const REVIEWS: Review[] = [
   },
 ];
 
-const AUTO_ROTATE_MS = 2500;
-const CARD_WIDTH = 340;
-const CARD_OFFSET_X = 290; // horizontal distance per slot
-
-function Stars() {
+function Stars({ size = 14 }: { size?: number }) {
   return (
-    <div className="flex items-center gap-0.5">
+    <div className="flex items-center gap-[1px]">
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
-          size={14}
-          className="fill-yellow-300 stroke-yellow-300"
+          size={size}
+          className="fill-[#FBBC04] stroke-[#FBBC04]"
         />
       ))}
     </div>
   );
 }
 
-function ReviewCard({ review }: { review: Review }) {
+function ReviewCard({ review, index }: { review: Review; index: number }) {
   return (
-    <div
-      className="h-full rounded-3xl border border-white/10 bg-[#0E0E14] backdrop-blur-md p-7 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)]"
-      style={{ width: CARD_WIDTH }}
+    <motion.article
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.06 }}
+      className="group flex flex-col rounded-2xl border border-white/[0.06] bg-white/[0.015] p-6 transition-all duration-400 ease-out hover:border-white/15 hover:bg-white/[0.035]"
     >
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3 min-w-0">
-          <div
-            className={`shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${review.bg} flex items-center justify-center text-base shadow-[0_0_0_2px_rgba(255,255,255,0.05)]`}
-          >
-            <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
-              {review.avatar}
-            </span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-foreground text-sm font-medium truncate">
-              {review.name}
-            </p>
-            <p className="text-gray-500 text-[11px] truncate">{review.meta}</p>
-          </div>
+      {/* Header — author + meta */}
+      <header className="flex items-start gap-3">
+        <div
+          className={`shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${review.bg} flex items-center justify-center text-[17px] shadow-[0_0_0_2px_rgba(255,255,255,0.04)]`}
+        >
+          <span className="drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
+            {review.avatar}
+          </span>
         </div>
-        <SiGoogle size={16} className="shrink-0 text-white/30" />
-      </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-foreground text-[14px] font-medium leading-tight truncate">
+            {review.name}
+          </p>
+          <p className="text-gray-500 text-[11.5px] mt-0.5 truncate">
+            {review.meta}
+          </p>
+        </div>
+        <button
+          aria-label="Más"
+          className="shrink-0 text-gray-600 hover:text-gray-400 transition-colors pt-0.5"
+        >
+          <MoreVertical size={16} />
+        </button>
+      </header>
 
-      <div className="flex items-center gap-3 mb-3">
+      {/* Stars + date — Google-style row */}
+      <div className="mt-3 flex items-center gap-2.5">
         <Stars />
-        <span className="text-gray-500 text-[11px]">{review.date}</span>
+        <span className="text-gray-500 text-[11.5px]">{review.date}</span>
       </div>
 
-      <p className="text-gray-300 text-[14px] leading-relaxed min-h-[100px]">
-        "{review.text}"
+      {/* Review body */}
+      <p className="mt-3 text-gray-300 text-[14px] leading-relaxed">
+        {review.text}
       </p>
 
-      <div className="mt-5 pt-4 border-t border-white/5 inline-flex items-center gap-1.5 text-[11px] text-gray-500">
-        Verificada en Google
-        <ExternalLink size={11} />
-      </div>
-    </div>
+      {/* Footer — Google review attribution + helpful */}
+      <footer className="mt-5 pt-4 border-t border-white/[0.05] flex items-center justify-between">
+        <span className="inline-flex items-center gap-1.5 text-[11px] text-gray-500">
+          <SiGoogle size={11} className="text-gray-500" />
+          Publicada en Google
+        </span>
+        <button
+          aria-label="Marcar como útil"
+          className="inline-flex items-center gap-1.5 text-[11px] text-gray-500 hover:text-gray-300 transition-colors"
+        >
+          <ThumbsUp size={12} />
+          Útil
+        </button>
+      </footer>
+    </motion.article>
   );
 }
 
 export default function GoogleReviewsSection() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (paused) return;
-    const t = setInterval(
-      () => setIndex((i) => (i + 1) % REVIEWS.length),
-      AUTO_ROTATE_MS,
-    );
-    return () => clearInterval(t);
-  }, [paused]);
-
-  const N = REVIEWS.length;
-  const half = Math.floor(N / 2);
-
   return (
     <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-16 md:py-20">
       <div className="w-full max-w-[1080px] mb-8 text-center">
@@ -158,119 +158,45 @@ export default function GoogleReviewsSection() {
         </p>
       </div>
 
+      {/* Google Business header card — like a real Google Maps panel */}
       <motion.a
         href={MAPS_URL}
         target="_blank"
         rel="noopener noreferrer"
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="group mb-4 inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-4 hover:border-white/20 hover:bg-white/[0.05] transition-all duration-400"
+        className="group mb-10 w-full max-w-[680px] rounded-2xl border border-white/10 bg-white/[0.025] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-400"
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_-8px_rgba(66,133,244,0.4)]">
-          <SiGoogle size={22} color="#4285F4" />
-        </div>
-        <div className="text-left">
-          <div className="flex items-center gap-2">
-            <span className="font-display font-semibold text-white text-2xl tracking-tight leading-none">
-              5.0
-            </span>
-            <Stars />
+        <div className="flex items-center gap-5 p-5 md:p-6">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-[0_8px_24px_-8px_rgba(66,133,244,0.4)]">
+            <SiGoogle size={26} color="#4285F4" />
           </div>
-          <p className="text-xs text-gray-400 mt-1">
-            12 reseñas en Google · HEAT IA · Santiago
-          </p>
+          <div className="flex-1 min-w-0 text-left">
+            <p className="text-foreground text-[15px] font-medium tracking-tight">
+              HEAT IA · Santiago
+            </p>
+            <div className="mt-1 flex items-center gap-2">
+              <span className="font-display font-semibold text-white text-2xl tracking-tight leading-none">
+                5,0
+              </span>
+              <Stars size={15} />
+              <span className="text-xs text-gray-400">· 12 reseñas</span>
+            </div>
+          </div>
+          <ExternalLink
+            size={16}
+            className="shrink-0 text-gray-500 group-hover:text-foreground transition-colors"
+          />
         </div>
-        <ExternalLink size={16} className="text-gray-500 group-hover:text-foreground transition-colors" />
       </motion.a>
 
-      <div
-        ref={containerRef}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        className="relative w-full max-w-[1200px] flex items-center justify-center"
-        style={{ height: 340 }}
-      >
-        {REVIEWS.map((review, i) => {
-          let offset = i - index;
-          if (offset > half) offset -= N;
-          if (offset < -half) offset += N;
-          const distance = Math.abs(offset);
-          const isCenter = distance === 0;
-          const isAdjacent = distance === 1;
-          const isFar = distance === 2;
-          return (
-            <motion.div
-              key={review.name}
-              className="absolute top-1/2 left-1/2 -translate-y-1/2"
-              animate={{
-                x: offset * CARD_OFFSET_X - CARD_WIDTH / 2,
-                scale: isCenter ? 1 : isAdjacent ? 0.85 : isFar ? 0.7 : 0.55,
-                opacity: isCenter
-                  ? 1
-                  : isAdjacent
-                    ? 0.4
-                    : isFar
-                      ? 0.12
-                      : 0,
-                zIndex: isCenter ? 30 : isAdjacent ? 20 : isFar ? 10 : 1,
-                filter: isCenter ? "blur(0px)" : isAdjacent ? "blur(1px)" : "blur(3px)",
-              }}
-              transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-              style={{ width: CARD_WIDTH }}
-              onClick={() => setIndex(i)}
-            >
-              <a
-                href={MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={isCenter ? "cursor-pointer" : "cursor-pointer pointer-events-none"}
-                tabIndex={isCenter ? 0 : -1}
-              >
-                <ReviewCard review={review} />
-              </a>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      <div className="mt-8 flex items-center gap-5">
-        <button
-          aria-label="Anterior"
-          onClick={() =>
-            setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length)
-          }
-          className="w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
-        >
-          <ChevronLeft size={18} />
-        </button>
-
-        <div className="flex items-center gap-2">
-          {REVIEWS.map((_, i) => {
-            const active = i === index;
-            return (
-              <button
-                key={i}
-                aria-label={`Reseña ${i + 1}`}
-                onClick={() => setIndex(i)}
-                className={`rounded-full transition-all duration-400 ${
-                  active
-                    ? "w-6 h-1.5 bg-foreground"
-                    : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
-                }`}
-              />
-            );
-          })}
-        </div>
-
-        <button
-          aria-label="Siguiente"
-          onClick={() => setIndex((i) => (i + 1) % REVIEWS.length)}
-          className="w-11 h-11 rounded-full liquid-glass flex items-center justify-center text-foreground hover:scale-110 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all duration-300"
-        >
-          <ChevronRight size={18} />
-        </button>
+      {/* Flat grid — 3 cols desktop, 2 tablet, 1 mobile */}
+      <div className="grid w-full max-w-[1080px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        {REVIEWS.map((review, i) => (
+          <ReviewCard key={review.name} review={review} index={i} />
+        ))}
       </div>
 
       <motion.a
@@ -281,7 +207,7 @@ export default function GoogleReviewsSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="mt-6 inline-flex items-center gap-2 text-sm text-gray-300 hover:text-foreground transition-colors group"
+        className="mt-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 text-sm text-gray-300 hover:text-foreground hover:border-white/20 hover:bg-white/[0.04] transition-all duration-400 group"
       >
         Ver las 12 reseñas en Google
         <ExternalLink
