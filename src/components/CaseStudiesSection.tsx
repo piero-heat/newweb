@@ -50,7 +50,7 @@ function CaseCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.08 }}
-      className="relative flex h-full flex-col rounded-3xl border border-white/5 bg-white/[0.02] p-8 hover:border-white/15 hover:bg-white/[0.04] transition-colors duration-300"
+      className="group relative flex h-full flex-col rounded-3xl border border-white/5 bg-white/[0.02] p-8 hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_16px_50px_-12px_rgba(99,102,241,0.25)] transition-all duration-500 ease-out"
     >
       <p className="text-[10px] font-semibold tracking-[0.2em] text-white/50">
         {data.industry}

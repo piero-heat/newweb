@@ -71,9 +71,9 @@ export default function ProcessSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
-            className="relative flex flex-col items-center text-center"
+            className="group relative flex flex-col items-center text-center"
           >
-            <div className="relative liquid-glass w-16 h-16 rounded-2xl flex items-center justify-center mb-6 z-10">
+            <div className="relative liquid-glass w-16 h-16 rounded-2xl flex items-center justify-center mb-6 z-10 transition-all duration-500 ease-out group-hover:scale-110 group-hover:shadow-[0_12px_40px_-8px_rgba(168,85,247,0.4)]">
               <step.icon
                 size={22}
                 strokeWidth={2.2}

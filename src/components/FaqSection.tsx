@@ -47,7 +47,7 @@ function FaqItem({ item, index }: { item: (typeof FAQS)[number]; index: number }
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.04 }}
-      className="group rounded-2xl border border-white/5 bg-white/[0.02] hover:border-white/15 transition-colors duration-300 [&_summary::-webkit-details-marker]:hidden"
+      className="group rounded-2xl border border-white/5 bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.03] hover:shadow-[0_8px_30px_-10px_rgba(168,85,247,0.18)] transition-all duration-400 ease-out [&_summary::-webkit-details-marker]:hidden"
     >
       <summary className="cursor-pointer list-none px-6 py-5 flex items-center justify-between gap-4 text-foreground font-medium">
         <span className="text-[15px]">{item.q}</span>

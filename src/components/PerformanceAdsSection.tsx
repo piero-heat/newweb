@@ -58,9 +58,9 @@ function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.08 }}
-      className="relative rounded-3xl border border-white/5 bg-white/[0.02] p-7 hover:border-white/15 hover:bg-white/[0.04] transition-colors duration-300"
+      className="group relative rounded-3xl border border-white/5 bg-white/[0.02] p-7 hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_16px_50px_-12px_rgba(168,85,247,0.22)] transition-all duration-500 ease-out"
     >
-      <div className="liquid-glass w-12 h-12 rounded-xl flex items-center justify-center mb-5">
+      <div className="liquid-glass w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-500 ease-out group-hover:scale-110">
         <service.icon size={20} strokeWidth={2.2} className="text-white/90" />
       </div>
       <h3 className="text-foreground font-medium text-lg tracking-tight mb-2">

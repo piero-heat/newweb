@@ -37,8 +37,8 @@ const BRANDS = [
 
 function BrandLogo({ name }: { name: string }) {
   return (
-    <div className="flex items-center gap-3 shrink-0">
-      <div className="liquid-glass w-6 h-6 rounded-lg flex items-center justify-center">
+    <div className="group flex items-center gap-3 shrink-0 transition-opacity duration-300 hover:opacity-100 opacity-90">
+      <div className="liquid-glass w-6 h-6 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
         <span className="text-[10px] font-semibold text-foreground/90 leading-none">
           {name[0]}
         </span>

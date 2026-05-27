@@ -58,7 +58,7 @@ function StatTile({
         ease: "easeOut",
         delay: index * 0.08,
       }}
-      className="relative rounded-3xl border border-white/5 bg-white/[0.02] p-8 md:p-10 transition-colors duration-300 hover:border-white/15 hover:bg-white/[0.04]"
+      className="group relative rounded-3xl border border-white/5 bg-white/[0.02] p-8 md:p-10 transition-all duration-500 ease-out hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-[0_16px_50px_-12px_rgba(168,85,247,0.25)]"
     >
       <div
         className="font-display font-medium bg-clip-text text-transparent inline-block"

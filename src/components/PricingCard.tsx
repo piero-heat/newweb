@@ -46,7 +46,7 @@ export default function PricingCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, ease: "easeOut", delay }}
-      className="relative"
+      className="relative group transition-transform duration-500 ease-out hover:-translate-y-1"
     >
       {highlighted ? (
         <div
@@ -60,8 +60,8 @@ export default function PricingCard({
       <div
         className={
           highlighted
-            ? "relative h-full rounded-3xl overflow-hidden"
-            : "relative h-full rounded-3xl border border-white/5 bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.04] transition-colors duration-300"
+            ? "relative h-full rounded-3xl overflow-hidden transition-shadow duration-500 ease-out group-hover:shadow-[0_20px_60px_-15px_rgba(255,61,119,0.4)]"
+            : "relative h-full rounded-3xl border border-white/5 bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.04] transition-all duration-500 ease-out group-hover:shadow-[0_16px_50px_-12px_rgba(168,85,247,0.25)]"
         }
         style={highlightedStyles}
       >

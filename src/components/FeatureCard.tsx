@@ -25,7 +25,7 @@ export default function FeatureCard({
     >
       <div
         aria-hidden
-        className="absolute inset-0 w-full h-[260px] md:h-[300px] opacity-60 rounded-[40px] pointer-events-none"
+        className="absolute inset-0 w-full h-[260px] md:h-[300px] opacity-60 rounded-[40px] pointer-events-none transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-105"
         style={{
           background: gradient,
           filter: "blur(45px)",
@@ -33,14 +33,14 @@ export default function FeatureCard({
       />
 
       <div
-        className="relative self-stretch h-[260px] md:h-[300px] rounded-[40px] z-10 overflow-hidden"
+        className="relative self-stretch h-[260px] md:h-[300px] rounded-[40px] z-10 overflow-hidden transition-transform duration-500 ease-out group-hover:-translate-y-1"
         style={{
           border: "8px solid transparent",
           background: `linear-gradient(#1A1A1C, #1A1A1C) padding-box, ${gradient} border-box`,
         }}
       >
         <div className="w-full h-full p-7 flex flex-col justify-between">
-          <div className="text-white/90">
+          <div className="text-white/90 transition-transform duration-500 ease-out group-hover:scale-110 origin-left">
             <Icon size={32} strokeWidth={2.5} />
           </div>
 
