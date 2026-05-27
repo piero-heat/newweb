@@ -155,16 +155,24 @@ export default function Index() {
             }}
           />
 
-          <div className="relative z-10 flex flex-col items-center text-center px-6">
+          <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-xs font-medium tracking-wide text-foreground/90 backdrop-blur-sm mb-7">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
+              </span>
+              +100 negocios en LATAM y EEUU
+            </div>
+
             <h1
-              className="font-display font-normal whitespace-nowrap"
+              className="font-display font-normal"
               style={{
-                fontSize: "clamp(96px, 18vw, 220px)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.024em",
+                fontSize: "clamp(34px, 5vw, 72px)",
+                lineHeight: 1.08,
+                letterSpacing: "-0.022em",
               }}
             >
-              <span className="text-foreground">Vende </span>
+              <span className="text-foreground">El problema no es </span>
               <span
                 className="bg-clip-text text-transparent"
                 style={{
@@ -172,13 +180,15 @@ export default function Index() {
                     "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)",
                 }}
               >
-                24/7
+                generar leads.
               </span>
+              <br />
+              <span className="text-foreground">Es no poder atenderlos.</span>
             </h1>
 
             <p
-              className="text-hero-sub text-lg leading-8 max-w-xl opacity-80"
-              style={{ marginTop: 9 }}
+              className="text-hero-sub text-base md:text-lg leading-7 md:leading-8 max-w-xl opacity-80"
+              style={{ marginTop: 22 }}
             >
               Agentes de IA que contestan, filtran y venden en WhatsApp,
               Instagram y Facebook — junto a tu equipo, sin descansos.
