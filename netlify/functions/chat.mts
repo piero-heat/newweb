@@ -3,7 +3,7 @@ import type { Context } from "@netlify/functions";
 type Role = "user" | "assistant";
 type Msg = { role: Role; content: string };
 
-const MODEL = "claude-haiku-4-5";
+const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 220;
 const MAX_HISTORY = 16;
 const MAX_MSG_CHARS = 600;
