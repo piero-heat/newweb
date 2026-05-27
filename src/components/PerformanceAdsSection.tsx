@@ -201,7 +201,7 @@ export default function PerformanceAdsSection() {
             className="absolute inset-0 rounded-full bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"
           />
           <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background inline-flex items-center gap-2">
-            Ver más sobre Perform &amp; Ads
+            Ver más sobre Performance ADS
             <ArrowRight size={14} />
           </span>
         </a>

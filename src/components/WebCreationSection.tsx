@@ -1,4 +1,4 @@
-import { Sparkles, Zap, Layers } from "lucide-react";
+import { Sparkles, Zap, Layers, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import PricingCard, { type PricingCardProps } from "./PricingCard";
 
@@ -120,11 +120,31 @@ export default function WebCreationSection() {
         ))}
       </div>
 
-      <p className="mt-10 text-xs text-gray-500 text-center max-w-2xl">
-        Todos los planes incluyen briefing inicial, propuesta visual antes de
-        producir, y entrega en repositorio + deploy listo. La inversión en
-        dominio y hosting (~$10-20 USD/año) corre por tu cuenta.
-      </p>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="mt-10 flex flex-col items-center gap-3"
+      >
+        <a
+          href="/desarrollo-web"
+          className="group relative inline-flex items-center justify-center gap-2 rounded-full liquid-glass text-foreground text-sm font-medium px-6 py-3 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.35)]"
+        >
+          <span
+            aria-hidden
+            className="absolute inset-0 rounded-full bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"
+          />
+          <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background inline-flex items-center gap-2">
+            Ver más sobre Desarrollo Web
+            <ArrowRight size={14} />
+          </span>
+        </a>
+        <p className="text-xs text-gray-500 text-center max-w-2xl">
+          Entrega en 72h hábiles · 50% inicial + 50% entrega · Portafolio de
+          páginas reales
+        </p>
+      </motion.div>
     </section>
   );
 }

@@ -5,7 +5,8 @@ import logo from "@/assets/logo.png";
 const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
   { label: "Precios IA", anchor: "#planes" },
   { label: "Integraciones", anchor: "#integraciones" },
-  { label: "Perform & Ads", anchor: "/perform-ads", isRoute: true },
+  { label: "Performance ADS", anchor: "/perform-ads", isRoute: true },
+  { label: "Desarrollo web", anchor: "/desarrollo-web", isRoute: true },
   { label: "Nosotros", anchor: "/nosotros", isRoute: true },
   { label: "Partners", anchor: "/partners", isRoute: true },
 ];
