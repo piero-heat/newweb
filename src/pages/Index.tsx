@@ -25,25 +25,46 @@ const VIDEO_SRC =
 
 const FADE = 0.5;
 
-const BRANDS = [
-  "WhatsApp",
-  "Instagram",
-  "Shopify",
-  "Google Ads",
-  "TikTok",
-  "Dentalink",
+// Real clients of HEAT. Stylized text logos as interim until SVG/PNGs land.
+// Each brand can optionally specify a font + tracking to mimic the wordmark.
+type Brand = {
+  name: string;
+  /** Tailwind classes overriding default text style (font, weight, tracking, case). */
+  style?: string;
+};
+
+const BRANDS: Brand[] = [
+  { name: "Ztyle", style: "font-display italic tracking-tight" },
+  { name: "PrintMe", style: "font-display tracking-tight" },
+  { name: "La Santoría", style: "font-display italic tracking-tight" },
+  { name: "COCH", style: "font-display tracking-[0.18em]" },
+  { name: "Wolford", style: "font-display tracking-[0.05em]" },
+  { name: "PROMIXX", style: "font-display tracking-[0.14em]" },
+  { name: "DMOOV", style: "font-display tracking-[0.18em] font-light" },
+  { name: "CREW", style: "font-display italic tracking-tight font-bold" },
+  { name: "Ready", style: "font-display italic tracking-tight" },
+  { name: "Concepto Blanco", style: "font-display tracking-tight uppercase text-[14px]" },
+  { name: "MARENGO", style: "font-display tracking-[0.16em]" },
+  { name: "Todo Cotillón", style: "font-display tracking-tight" },
+  { name: "SHAKS", style: "font-display tracking-[0.16em] font-bold" },
+  { name: "XMIAMI", style: "font-display tracking-[0.18em] font-bold" },
+  { name: "PALMETTO", style: "font-display tracking-[0.18em]" },
+  { name: "Mr. Detailing", style: "font-display tracking-tight" },
+  { name: "Mr. Shopper", style: "font-display tracking-tight font-bold" },
+  { name: "Barquillos", style: "font-display italic tracking-tight" },
+  { name: "GoSmile", style: "font-display tracking-tight font-bold" },
+  { name: "Century 21", style: "font-display tracking-[0.12em]" },
 ];
 
-function BrandLogo({ name }: { name: string }) {
+function BrandLogo({ brand }: { brand: Brand }) {
   return (
-    <div className="group flex items-center gap-3 shrink-0 transition-opacity duration-300 hover:opacity-100 opacity-90">
-      <div className="liquid-glass w-6 h-6 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-        <span className="text-[10px] font-semibold text-foreground/90 leading-none">
-          {name[0]}
-        </span>
-      </div>
-      <span className="text-base font-semibold text-foreground whitespace-nowrap">
-        {name}
+    <div className="group flex items-center shrink-0 transition-opacity duration-300 opacity-70 hover:opacity-100">
+      <span
+        className={`text-[18px] text-foreground whitespace-nowrap transition-colors duration-300 ${
+          brand.style ?? "font-display font-semibold tracking-tight"
+        }`}
+      >
+        {brand.name}
       </span>
     </div>
   );
@@ -134,7 +155,7 @@ export default function Index() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
               </span>
-              +100 negocios en LATAM y EEUU
+              +350 negocios en LATAM y EEUU
             </div>
 
             <h1
@@ -192,15 +213,23 @@ export default function Index() {
         <div className="pb-10 px-8">
           <div className="max-w-5xl mx-auto flex items-center gap-12">
             <p className="text-foreground/50 text-sm shrink-0 leading-tight">
-              +100 negocios confían
+              +350 negocios confían
               <br />
               en LATAM y EEUU
             </p>
 
-            <div className="flex-1 overflow-hidden">
-              <div className="flex items-center gap-16 animate-marquee w-max">
-                {[...BRANDS, ...BRANDS].map((name, i) => (
-                  <BrandLogo key={`${name}-${i}`} name={name} />
+            <div
+              className="flex-1 overflow-hidden"
+              style={{
+                maskImage:
+                  "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+              }}
+            >
+              <div className="flex items-center gap-12 animate-marquee w-max">
+                {[...BRANDS, ...BRANDS].map((b, i) => (
+                  <BrandLogo key={`${b.name}-${i}`} brand={b} />
                 ))}
               </div>
             </div>

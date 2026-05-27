@@ -579,7 +579,7 @@ export default function Nosotros() {
                   <Briefcase size={11} /> FUNDADOR · CEO
                 </span>
                 <h3 className="font-display text-3xl md:text-4xl font-medium text-white tracking-tight leading-tight mb-3">
-                  Piero Setti González
+                  Piero Setti
                 </h3>
                 <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-5">
                   CEO de HEAT IA y fundador de HEAT Agency. Más de 15 años en

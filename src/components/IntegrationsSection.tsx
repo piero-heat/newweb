@@ -1,4 +1,6 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ChevronDown } from "lucide-react";
 import {
   SiWhatsapp,
   SiMeta,
@@ -227,15 +229,16 @@ const INTEGRATIONS: Brand[] = [
 function IntegrationCard({ brand, index }: { brand: Brand; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      layout
+      initial={{ opacity: 0, y: 14, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -8, scale: 0.96 }}
       transition={{
-        duration: 0.45,
+        duration: 0.4,
         ease: "easeOut",
-        delay: Math.min(index * 0.015, 0.45),
+        delay: Math.min(index * 0.012, 0.4),
       }}
-      className="group relative flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 h-[120px] transition-all duration-400 ease-out hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/[0.04]"
+      className="group relative flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 h-[120px] transition-[border,background,box-shadow,transform] duration-400 ease-out hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/[0.04]"
       style={{ ["--brand" as never]: brand.color }}
     >
       <span
@@ -264,7 +267,13 @@ function IntegrationCard({ brand, index }: { brand: Brand; index: number }) {
   );
 }
 
+const INITIAL_COUNT = 18; // 3 rows × 6 cols on desktop
+
 export default function IntegrationsSection() {
+  const [expanded, setExpanded] = useState(false);
+  const visible = expanded ? INTEGRATIONS : INTEGRATIONS.slice(0, INITIAL_COUNT);
+  const hiddenCount = INTEGRATIONS.length - INITIAL_COUNT;
+
   return (
     <section
       id="integraciones"
@@ -301,10 +310,70 @@ export default function IntegrationsSection() {
         </p>
       </div>
 
-      <div className="grid w-full max-w-[1180px] grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
-        {INTEGRATIONS.map((b, i) => (
-          <IntegrationCard key={b.name} brand={b} index={i} />
-        ))}
+      {/* Grid + fade + expand button */}
+      <div className="relative w-full max-w-[1180px]">
+        <motion.div
+          layout
+          transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4"
+        >
+          <AnimatePresence initial={false}>
+            {visible.map((b, i) => (
+              <IntegrationCard key={b.name} brand={b} index={i} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Fade gradient + Ver más button — only when collapsed */}
+        {!expanded && hiddenCount > 0 && (
+          <>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/85 to-transparent"
+            />
+            <div className="relative -mt-6 flex justify-center pointer-events-none">
+              <button
+                type="button"
+                onClick={() => setExpanded(true)}
+                className="group pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#0E0E14] hover:border-white/30 hover:bg-[#15151c] px-5 py-2.5 text-sm font-medium text-foreground transition-all duration-400 ease-out shadow-[0_12px_40px_-12px_rgba(99,102,241,0.4)]"
+              >
+                Ver {hiddenCount} integraciones más
+                <ChevronDown
+                  size={16}
+                  className="transition-transform duration-400 group-hover:translate-y-0.5"
+                />
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* Ver menos when expanded */}
+        {expanded && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mt-6 flex justify-center"
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setExpanded(false);
+                // Scroll back up to top of section so the user sees the change
+                document
+                  .getElementById("integraciones")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.05] px-5 py-2.5 text-sm font-medium text-gray-300 hover:text-foreground transition-all duration-400 ease-out"
+            >
+              Ver menos
+              <ChevronDown
+                size={16}
+                className="rotate-180 transition-transform duration-400 group-hover:-translate-y-0.5"
+              />
+            </button>
+          </motion.div>
+        )}
       </div>
 
       <p className="mt-10 text-xs text-gray-500 text-center max-w-xl">
