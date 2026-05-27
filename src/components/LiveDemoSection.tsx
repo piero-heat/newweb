@@ -224,7 +224,7 @@ export default function LiveDemoSection() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
           </span>
-          PROBALO EN VIVO · 100% REAL · AHORA
+          PRUEBA UN AGENTE DE IA EN VIVO · 100% REAL · AHORA
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
           Habla con un agente HEAT

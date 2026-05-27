@@ -465,7 +465,7 @@ export default function Partners() {
                     </span>
                     <textarea
                       rows={3}
-                      placeholder="¿Qué proponés? ¿Cuántos clientes tenés en pipeline?"
+                      placeholder="¿Qué propones? ¿Cuántos clientes tienes en pipeline?"
                       className={inputClass + " resize-none"}
                     />
                   </label>
