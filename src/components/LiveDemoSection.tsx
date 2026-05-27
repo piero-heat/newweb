@@ -33,7 +33,7 @@ const INDUSTRIES: Industry[] = [
   },
   {
     id: "auto",
-    name: "Automotor",
+    name: "Automotora",
     emoji: "🚗",
     agentName: "AutoStar",
     agentSub: "Asesor de ventas",
