@@ -310,140 +310,146 @@ export default function Suscripcion() {
         </div>
       </section>
 
-      {/* ── Two-column checkout layout ── */}
+      {/* ── Stacked checkout layout (horizontal blocks, top-down) ── */}
       <section className="bg-[#F8FAFC] px-6 md:px-12 pb-20 md:pb-24">
-        <div className="mx-auto max-w-[1180px] grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-8 lg:gap-12 items-start">
-          {/* ── LEFT · Plan summary ── */}
+        <div className="mx-auto max-w-[1080px] flex flex-col gap-8 md:gap-10">
+          {/* ── TOP · Plan summary (horizontal inner grid) ── */}
           <motion.aside
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="lg:sticky lg:top-6 rounded-3xl overflow-hidden shadow-[0_24px_60px_-20px_rgba(168,85,247,0.18)]"
+            className="rounded-3xl overflow-hidden shadow-[0_24px_60px_-20px_rgba(168,85,247,0.18)]"
             style={{
               border: "1.5px solid transparent",
               background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
             }}
           >
-            <div className="p-7 md:p-8">
-              {/* Plan header */}
-              <div className="flex items-center justify-between mb-4">
-                <span
-                  className="inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-[0.18em] px-2.5 py-1"
-                  style={{
-                    background: HIGHLIGHT_GRADIENT,
-                    color: "#0A0A0B",
-                  }}
-                >
-                  ★ {PLAN.badge}
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-medium tracking-wide">
-                  <Sparkles size={11} />
-                  TRIAL {PLAN.trialDays} DÍAS
-                </span>
-              </div>
-
-              <h2 className="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-2">
-                {PLAN.name}
-              </h2>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                {PLAN.tagline}
-              </p>
-
-              {/* Price block */}
-              <div className="rounded-2xl border border-black/[0.06] bg-gray-50 p-5 mb-6">
-                <p className="text-[10px] tracking-[0.22em] text-gray-500 uppercase mb-2">
-                  Después de tu trial · Plan mensual
-                </p>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-gray-500 text-base">$</span>
+            <div className="p-7 md:p-10 grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-8 md:gap-10">
+              {/* Inner LEFT: identidad + precio + garantías */}
+              <div>
+                {/* Plan header */}
+                <div className="flex items-center justify-between mb-4">
                   <span
-                    className="font-display font-medium bg-clip-text text-transparent"
+                    className="inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-[0.18em] px-2.5 py-1"
                     style={{
-                      fontSize: "clamp(48px, 5vw, 64px)",
-                      lineHeight: 1,
-                      letterSpacing: "-0.035em",
-                      backgroundImage: PRICE_GRADIENT,
+                      background: HIGHLIGHT_GRADIENT,
+                      color: "#0A0A0B",
                     }}
                   >
-                    {PLAN.price}
+                    ★ {PLAN.badge}
                   </span>
-                  <span className="text-gray-500 text-sm">{PLAN.billing}</span>
-                </div>
-                <div className="mt-4 pt-4 border-t border-black/[0.06] flex items-center justify-between text-sm">
-                  <span className="text-gray-600">Hoy pagas</span>
-                  <span className="text-emerald-600 font-semibold">
-                    $0 USD
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-medium tracking-wide">
+                    <Sparkles size={11} />
+                    TRIAL {PLAN.trialDays} DÍAS
                   </span>
                 </div>
-                <p className="mt-2 text-[11px] text-gray-500 leading-relaxed">
-                  Sin cargos durante los primeros {PLAN.trialDays} días. El día
-                  15 se cobra el primer mes — cancela antes y no pagas nada.
+
+                <h2 className="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-2">
+                  {PLAN.name}
+                </h2>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  {PLAN.tagline}
                 </p>
+
+                {/* Price block */}
+                <div className="rounded-2xl border border-black/[0.06] bg-gray-50 p-5 mb-5">
+                  <p className="text-[10px] tracking-[0.22em] text-gray-500 uppercase mb-2">
+                    Después de tu trial · Plan mensual
+                  </p>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-gray-500 text-base">$</span>
+                    <span
+                      className="font-display font-medium bg-clip-text text-transparent"
+                      style={{
+                        fontSize: "clamp(54px, 5.5vw, 72px)",
+                        lineHeight: 1,
+                        letterSpacing: "-0.035em",
+                        backgroundImage: PRICE_GRADIENT,
+                      }}
+                    >
+                      {PLAN.price}
+                    </span>
+                    <span className="text-gray-500 text-sm">{PLAN.billing}</span>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-black/[0.06] flex items-center justify-between text-sm">
+                    <span className="text-gray-600">Hoy pagas</span>
+                    <span className="text-emerald-600 font-semibold">
+                      $0 USD
+                    </span>
+                  </div>
+                  <p className="mt-2 text-[11px] text-gray-500 leading-relaxed">
+                    Sin cargos durante los primeros {PLAN.trialDays} días. El
+                    día 15 se cobra el primer mes — cancela antes y no pagas
+                    nada.
+                  </p>
+                </div>
+
+                {/* Guarantee row */}
+                <div className="grid grid-cols-3 gap-2">
+                  {PLAN.guarantees.map((g) => (
+                    <div
+                      key={g.label}
+                      className="rounded-xl border border-black/[0.06] bg-gray-50 px-2 py-2.5 text-center"
+                    >
+                      <g.icon
+                        size={14}
+                        className="text-gray-600 mx-auto mb-1"
+                        strokeWidth={2}
+                      />
+                      <p className="text-[10px] text-gray-600 leading-tight">
+                        {g.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {/* Features */}
-              <p className="text-[11px] font-semibold tracking-[0.18em] text-gray-500 mb-3">
-                LO QUE INCLUYE
-              </p>
-              <ul className="space-y-2.5 mb-6">
-                {PLAN.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-start gap-2.5 text-[13.5px] text-gray-700 leading-relaxed"
-                  >
-                    <Check
-                      size={15}
-                      className="text-emerald-600 mt-0.5 shrink-0"
-                      strokeWidth={2.4}
-                    />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Guarantee row */}
-              <div className="grid grid-cols-3 gap-2 pt-5 border-t border-black/[0.06]">
-                {PLAN.guarantees.map((g) => (
-                  <div
-                    key={g.label}
-                    className="rounded-xl border border-black/[0.06] bg-gray-50 px-2 py-2.5 text-center"
-                  >
-                    <g.icon
-                      size={14}
-                      className="text-gray-600 mx-auto mb-1"
-                      strokeWidth={2}
-                    />
-                    <p className="text-[10px] text-gray-600 leading-tight">
-                      {g.label}
-                    </p>
-                  </div>
-                ))}
+              {/* Inner RIGHT: features list en 2 columnas */}
+              <div className="md:border-l md:border-black/[0.06] md:pl-10">
+                <p className="text-[11px] font-semibold tracking-[0.18em] text-gray-500 mb-4">
+                  LO QUE INCLUYE
+                </p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2.5">
+                  {PLAN.features.map((f) => (
+                    <li
+                      key={f}
+                      className="flex items-start gap-2.5 text-[13px] text-gray-700 leading-relaxed"
+                    >
+                      <Check
+                        size={15}
+                        className="text-emerald-600 mt-0.5 shrink-0"
+                        strokeWidth={2.4}
+                      />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            {/* Testimonial */}
-            <div className="border-t border-black/[0.06] bg-gray-50 px-7 md:px-8 py-5">
-              <p className="text-[13px] text-gray-700 leading-relaxed italic mb-3">
+            {/* Testimonial — strip horizontal full-width */}
+            <div className="border-t border-black/[0.06] bg-gray-50 px-7 md:px-10 py-5 flex flex-col md:flex-row md:items-center md:gap-6">
+              <p className="text-[13px] text-gray-700 leading-relaxed italic md:flex-1">
                 "{TESTIMONIAL.quote}"
               </p>
-              <p className="text-[11px] text-gray-500">
-                <span className="text-gray-900 font-medium">
+              <p className="mt-2 md:mt-0 text-[11px] text-gray-500 md:text-right md:shrink-0">
+                <span className="text-gray-900 font-medium block md:inline">
                   {TESTIMONIAL.author}
                 </span>
-                {" · "}
+                <span className="hidden md:inline">{" · "}</span>
                 {TESTIMONIAL.business}
               </p>
             </div>
           </motion.aside>
 
-          {/* ── RIGHT · GHL embed o mockup ── */}
+          {/* ── BOTTOM · GHL embed (centrado, ancho contenido) ── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className={
               GHL_EMBED_URL
-                ? "" // En modo embed el wrapper desaparece, el iframe respira por sí solo
+                ? "w-full max-w-[760px] mx-auto" // Iframe centrado, no estirado
                 : "rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9"
             }
           >
