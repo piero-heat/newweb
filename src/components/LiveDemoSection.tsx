@@ -12,7 +12,15 @@ import {
 } from "lucide-react";
 
 type Industry = {
-  id: "auto" | "educacion" | "inmo" | "retail" | "salud" | "seguros" | "servicios";
+  id:
+    | "auto"
+    | "educacion"
+    | "inmo"
+    | "retail"
+    | "salud"
+    | "seguros"
+    | "servicios"
+    | "ecommerce";
   name: string;
   emoji: string;
   agentName: string;
@@ -91,6 +99,16 @@ const INDUSTRIES: Industry[] = [
     welcome:
       "¡Hola! Soy de Pulse Digital. ¿Qué objetivo concreto te trae por acá — más leads, más ventas, o web nueva?",
     suggestion: "Necesito generar más leads para mi negocio",
+  },
+  {
+    id: "ecommerce",
+    name: "E-commerce",
+    emoji: "🛒",
+    agentName: "Helios Shop",
+    agentSub: "Tienda online",
+    welcome:
+      "¡Hola! 👋 Soy de Helios Shop. ¿Necesitas ayuda con un pedido en curso, tienes una consulta de producto, o estás navegando?",
+    suggestion: "¿Cuándo me llega mi pedido #HSH-1284?",
   },
 ];
 
@@ -253,12 +271,26 @@ export default function LiveDemoSection() {
   return (
     <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24">
       <div className="w-full max-w-[1080px] mb-12 text-center">
-        <p className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] text-emerald-300 mb-4">
+        <p className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] mb-4">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-70" />
+            <span
+              className="relative inline-flex h-2 w-2 rounded-full"
+              style={{
+                background:
+                  "linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #EC4899 100%)",
+              }}
+            />
           </span>
-          PRUEBA UN AGENTE DE IA EN VIVO · 100% REAL · AHORA
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, #7DD3FC 0%, #C084FC 50%, #F0ABFC 100%)",
+            }}
+          >
+            PRUEBA UN AGENTE DE IA EN VIVO · 100% REAL · AHORA
+          </span>
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
           Habla con un agente HEAT IA
@@ -280,8 +312,8 @@ export default function LiveDemoSection() {
             </p>
           </div>
           <div
-            className="grid grid-cols-2 gap-2.5 mb-6 pr-1 -mr-1 overflow-y-auto"
-            style={{ maxHeight: 360 }}
+            className="grid grid-cols-2 gap-3 mb-6 pt-2 pr-2 -mr-1 overflow-y-auto"
+            style={{ maxHeight: 380 }}
           >
             {INDUSTRIES.map((i) => {
               const active = i.id === industry.id;
@@ -289,12 +321,33 @@ export default function LiveDemoSection() {
                 <button
                   key={i.id}
                   onClick={() => switchIndustry(i)}
-                  className={`group relative rounded-2xl border px-3 py-3 text-left transition-all duration-400 ${
+                  className={`group relative rounded-2xl px-3 py-3 text-left transition-all duration-400 ${
                     active
-                      ? "border-white/30 bg-white/[0.06] shadow-[0_8px_30px_-10px_rgba(168,85,247,0.4)]"
-                      : "border-white/[0.08] bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.04]"
+                      ? "shadow-[0_12px_40px_-8px_rgba(168,85,247,0.55)]"
+                      : "border border-white/[0.08] bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
                   }`}
+                  style={
+                    active
+                      ? {
+                          border: "1.5px solid transparent",
+                          background:
+                            "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #EC4899 100%) border-box",
+                        }
+                      : undefined
+                  }
                 >
+                  {/* Outer color glow for active state */}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -inset-1 rounded-2xl opacity-60 blur-md -z-10"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, rgba(6,182,212,0.35), rgba(168,85,247,0.35), rgba(236,72,153,0.35))",
+                      }}
+                    />
+                  )}
+
                   <div className="flex items-center gap-2.5">
                     <span className="text-[18px] shrink-0">{i.emoji}</span>
                     <div className="min-w-0">
@@ -310,8 +363,16 @@ export default function LiveDemoSection() {
                       </p>
                     </div>
                   </div>
+
+                  {/* Active dot — inside card (was being clipped before) */}
                   {active && (
-                    <span className="absolute -top-1.5 -right-1.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0A0A0B]" />
+                    <span
+                      className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full ring-2 ring-[#0E0E14]"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #EC4899 100%)",
+                      }}
+                    />
                   )}
                 </button>
               );
