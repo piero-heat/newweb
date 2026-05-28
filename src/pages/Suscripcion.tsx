@@ -165,8 +165,9 @@ const GHL_EMBED_URL =
   "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371";
 // Ancho ≥1000px → GHL sirve layout horizontal (producto izq / form der).
 // Por debajo colapsa a vertical (mobile) y necesita ~1320px de alto.
-// 740px = altura natural del form horizontal (sin dead-white debajo).
-const GHL_EMBED_HEIGHT = 740;
+// 690px = altura justa para form + Pagar + fine print, sin dead-white.
+// El reCAPTCHA queda pegado al borde inferior (no flotando con whitespace).
+const GHL_EMBED_HEIGHT = 690;
 
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
@@ -181,12 +182,12 @@ function GHLFormEmbed({ url, height }: { url: string; height: number }) {
         }}
       />
 
-      {/* Iframe directo — sin doble-marco blanco */}
+      {/* Iframe directo — sombra suave, sin ring rígido que dibuje "caluga" */}
       <div
         className="relative rounded-2xl overflow-hidden"
         style={{
           boxShadow:
-            "0 30px 90px -20px rgba(99,102,241,0.25), 0 4px 16px -4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06)",
+            "0 24px 60px -24px rgba(99,102,241,0.22), 0 2px 8px -2px rgba(0,0,0,0.05)",
         }}
       >
         <iframe
