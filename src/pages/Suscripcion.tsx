@@ -317,15 +317,15 @@ export default function Suscripcion() {
       {/* Section bg = blanco (mismo que iframe) → sin "doble caluga" por contraste */}
       <section className="bg-white px-6 md:px-12 pt-10 md:pt-12 pb-20 md:pb-24">
         <div className="mx-auto max-w-[1080px] flex flex-col gap-6 md:gap-8">
-          {/* ── TOP · GHL iframe (la acción de pagar es lo primero que ve) ── */}
+          {/* ── BOTTOM · GHL iframe (la acción de pagar, después del resumen) ── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className={
               GHL_EMBED_URL
-                ? "w-full"
-                : "rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9"
+                ? "w-full order-2"
+                : "rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9 order-2"
             }
           >
             {GHL_EMBED_URL ? (
@@ -542,12 +542,12 @@ export default function Suscripcion() {
             )}
           </motion.div>
 
-          {/* ── BOTTOM · Plan compacto (reassurance, no scroll) ── */}
+          {/* ── TOP · Plan compacto (oferta primero, después el pago) ── */}
           <motion.aside
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-3xl overflow-hidden shadow-[0_18px_48px_-20px_rgba(168,85,247,0.16)]"
+            transition={{ duration: 0.5 }}
+            className="rounded-3xl overflow-hidden shadow-[0_18px_48px_-20px_rgba(168,85,247,0.16)] order-1"
             style={{
               border: "1.5px solid transparent",
               background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
