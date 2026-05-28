@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   Target,
   GaugeCircle,
@@ -6,6 +7,8 @@ import {
   Filter,
   Database,
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   Check,
   X,
   Calendar,
@@ -151,6 +154,28 @@ const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 const HIGHLIGHT_GRADIENT =
   "linear-gradient(137deg, #FF3D77 0%, #FFB1CE 45%, #FF9D3C 100%)";
 
+// Casos publicados oficialmente por Meta sobre Conversion API.
+// Pídele al usuario más casos para sumar al carrusel.
+type MetaCase = {
+  industry: string;
+  title: string;
+  description: string;
+  stats: { value: string; label: string }[];
+};
+
+const META_CASES: MetaCase[] = [
+  {
+    industry: "SERVICIOS · SEGUROS",
+    title: "Axis Max Life Insurance — campañas Advantage+",
+    description:
+      "Aseguradora implementó la API de Conversiones de Meta conectada a su CRM con eventos del embudo completo. Resultado en campañas de adquisición de clientes potenciales:",
+    stats: [
+      { value: "−17%", label: "de reducción del costo por captación" },
+      { value: "+40%", label: "de aumento de clientes potenciales de calidad" },
+    ],
+  },
+];
+
 // Video Ad creative packs — production for Meta paid ads only.
 const VIDEO_PACKS: PricingCardProps[] = [
   {
@@ -207,6 +232,13 @@ const VIDEO_PACKS: PricingCardProps[] = [
 /* ────────────────────────────────────────────────────────────── */
 
 export default function PerformAds() {
+  const [caseIdx, setCaseIdx] = useState(0);
+  const totalCases = META_CASES.length;
+  const activeCase = META_CASES[caseIdx];
+  const prevCase = () =>
+    setCaseIdx((i) => (i - 1 + totalCases) % totalCases);
+  const nextCase = () => setCaseIdx((i) => (i + 1) % totalCases);
+
   return (
     <div className="bg-background min-h-screen">
       <Navbar />
@@ -607,70 +639,111 @@ export default function PerformAds() {
             ))}
           </div>
 
-          {/* Axis Max Life Insurance case study — services vertical */}
+          {/* Carrusel de casos publicados por Meta */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-8 rounded-3xl p-8 md:p-10"
+            className="mt-8 rounded-3xl p-8 md:p-10 relative"
             style={{
               border: "1.5px solid transparent",
               background: `linear-gradient(#0E0E10, #0E0E10) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
             }}
           >
-            <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-3">
-              CASO PUBLICADO POR META · SERVICIOS · SEGUROS
-            </p>
-            <h3 className="font-display text-2xl md:text-3xl font-medium text-white tracking-tight mb-3 leading-tight">
-              Axis Max Life Insurance — campañas Advantage+
-            </h3>
-            <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-7 max-w-2xl">
-              Aseguradora india implementó la API de Conversiones de Meta
-              conectada a su CRM con eventos del embudo completo. Resultado en
-              campañas de adquisición de clientes potenciales:
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCase.title}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+              >
+                <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-3">
+                  CASO PUBLICADO POR META · {activeCase.industry}
+                </p>
+                <h3 className="font-display text-2xl md:text-3xl font-medium text-white tracking-tight mb-3 leading-tight">
+                  {activeCase.title}
+                </h3>
+                <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-7 max-w-2xl">
+                  {activeCase.description}
+                </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5">
-                <p
-                  className="font-display font-medium bg-clip-text text-transparent"
-                  style={{
-                    fontSize: "clamp(36px, 3.4vw, 48px)",
-                    lineHeight: 1,
-                    letterSpacing: "-0.03em",
-                    backgroundImage: PRICE_GRADIENT,
-                  }}
+                <div
+                  className={`grid grid-cols-1 ${
+                    activeCase.stats.length >= 2 ? "sm:grid-cols-2" : ""
+                  } gap-5`}
                 >
-                  −17%
-                </p>
-                <p className="text-gray-300 text-sm mt-2">
-                  de reducción del costo por captación
-                </p>
-              </div>
-              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5">
-                <p
-                  className="font-display font-medium bg-clip-text text-transparent"
-                  style={{
-                    fontSize: "clamp(36px, 3.4vw, 48px)",
-                    lineHeight: 1,
-                    letterSpacing: "-0.03em",
-                    backgroundImage: PRICE_GRADIENT,
-                  }}
+                  {activeCase.stats.map((s) => (
+                    <div
+                      key={s.value + s.label}
+                      className="rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5"
+                    >
+                      <p
+                        className="font-display font-medium bg-clip-text text-transparent"
+                        style={{
+                          fontSize: "clamp(36px, 3.4vw, 48px)",
+                          lineHeight: 1,
+                          letterSpacing: "-0.03em",
+                          backgroundImage: PRICE_GRADIENT,
+                        }}
+                      >
+                        {s.value}
+                      </p>
+                      <p className="text-gray-300 text-sm mt-2">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Carousel controls — arrows + dots */}
+            {totalCases > 1 && (
+              <div className="mt-8 flex items-center justify-between gap-4 pt-6 border-t border-white/[0.06]">
+                <button
+                  type="button"
+                  aria-label="Caso anterior"
+                  onClick={prevCase}
+                  className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/30 flex items-center justify-center text-foreground transition-all"
                 >
-                  +40%
-                </p>
-                <p className="text-gray-300 text-sm mt-2">
-                  de aumento de clientes potenciales{" "}
-                  <span className="text-foreground font-medium">
-                    de calidad
-                  </span>
-                </p>
+                  <ChevronLeft size={18} />
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {META_CASES.map((_, i) => {
+                    const active = i === caseIdx;
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        aria-label={`Caso ${i + 1}`}
+                        onClick={() => setCaseIdx(i)}
+                        className={`rounded-full transition-all duration-300 ${
+                          active
+                            ? "w-6 h-1.5 bg-foreground"
+                            : "w-1.5 h-1.5 bg-white/25 hover:bg-white/50"
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
+
+                <button
+                  type="button"
+                  aria-label="Caso siguiente"
+                  onClick={nextCase}
+                  className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/30 flex items-center justify-center text-foreground transition-all"
+                >
+                  <ChevronRight size={18} />
+                </button>
               </div>
-            </div>
+            )}
 
             <p className="mt-6 text-[11px] text-gray-600 leading-relaxed">
-              Caso documentado oficialmente por Meta Business. Más historias
+              {totalCases > 1
+                ? `${caseIdx + 1} de ${totalCases} · `
+                : ""}
+              Casos documentados oficialmente por Meta Business. Más historias
               en{" "}
               <a
                 href="https://www.facebook.com/business/tools/conversions-api"
@@ -875,9 +948,9 @@ export default function PerformAds() {
               Precios transparentes. Sin sorpresas.
             </h2>
             <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
-              Fee fijo bajo de entrada + 10% solo sobre lo que supera $1.000
-              USD de inversión. Nuestro incentivo está alineado: ganamos cuando
-              crece tu inversión rentable.
+              Fee fijo bajo de entrada + 10% sobre el total de la inversión
+              publicitaria mensual. Nuestro incentivo está alineado: ganamos
+              cuando crece tu inversión rentable.
             </p>
           </div>
 
@@ -914,16 +987,16 @@ export default function PerformAds() {
                 <p className="mt-4 text-gray-300 text-sm leading-relaxed">
                   +{" "}
                   <span className="text-foreground font-medium">10%</span>{" "}
-                  solo sobre el monto que supera{" "}
+                  sobre el{" "}
                   <span className="text-foreground font-medium">
-                    $1.000 USD
+                    total de la inversión
                   </span>{" "}
-                  de inversión mensual en Meta.
+                  publicitaria mensual en Meta.
                 </p>
                 <ul className="mt-5 space-y-2 text-sm text-gray-400">
                   <li>✓ Fee bajo de entrada</li>
                   <li>✓ Inversión Meta la pagas tú directamente</li>
-                  <li>✓ Solo cobramos el exceso, no el primer dólar</li>
+                  <li>✓ Comisión proporcional a tu inversión</li>
                   <li>✓ Incentivos alineados con tu crecimiento</li>
                 </ul>
               </div>
@@ -943,7 +1016,7 @@ export default function PerformAds() {
                           Fee
                         </th>
                         <th className="text-left px-4 py-3 font-medium">
-                          +10% Exceso
+                          +10% Inversión
                         </th>
                         <th className="text-left px-4 py-3 font-medium">
                           Total
@@ -952,11 +1025,11 @@ export default function PerformAds() {
                     </thead>
                     <tbody>
                       {[
-                        ["Hasta $1.000", "$449", "—", "$449"],
-                        ["$3.000", "$449", "$200", "$649"],
-                        ["$5.000", "$449", "$400", "$849"],
-                        ["$10.000", "$449", "$900", "$1.349"],
-                        ["$25.000", "$449", "$2.400", "$2.849"],
+                        ["$1.000", "$449", "$100", "$549"],
+                        ["$3.000", "$449", "$300", "$749"],
+                        ["$5.000", "$449", "$500", "$949"],
+                        ["$10.000", "$449", "$1.000", "$1.449"],
+                        ["$25.000", "$449", "$2.500", "$2.949"],
                       ].map((row) => (
                         <tr
                           key={row[0]}

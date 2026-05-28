@@ -28,10 +28,10 @@ const SERVICES: {
 ];
 
 const PROJECTIONS = [
-  { invest: "Hasta $1.000", excess: "—", fee: "$449", total: "$449" },
-  { invest: "$3.000", excess: "$200", fee: "$449", total: "$649" },
-  { invest: "$5.000", excess: "$400", fee: "$449", total: "$849" },
-  { invest: "$10.000", excess: "$900", fee: "$449", total: "$1.349" },
+  { invest: "$1.000", commission: "$100", fee: "$449", total: "$549" },
+  { invest: "$3.000", commission: "$300", fee: "$449", total: "$749" },
+  { invest: "$5.000", commission: "$500", fee: "$449", total: "$949" },
+  { invest: "$10.000", commission: "$1.000", fee: "$449", total: "$1.449" },
 ];
 
 const NOT_INCLUDED = [
@@ -129,14 +129,16 @@ export default function PerformanceAdsSection() {
               <span className="text-gray-400 text-sm">USD / mes</span>
             </div>
             <p className="mt-4 text-gray-300 text-sm leading-relaxed">
-              + <span className="text-foreground font-medium">10%</span> solo
-              sobre el monto que supera{" "}
-              <span className="text-foreground font-medium">$1.000 USD</span> de
-              inversión mensual.
+              + <span className="text-foreground font-medium">10%</span> sobre
+              el{" "}
+              <span className="text-foreground font-medium">
+                total de la inversión
+              </span>{" "}
+              publicitaria mensual en Meta.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-gray-400">
               <li>✓ Fee bajo de entrada</li>
-              <li>✓ Solo cobramos el exceso</li>
+              <li>✓ Comisión proporcional a tu inversión</li>
               <li>✓ Incentivos alineados con tu crecimiento</li>
             </ul>
           </div>
@@ -154,7 +156,7 @@ export default function PerformanceAdsSection() {
                     </th>
                     <th className="text-left px-4 py-3 font-medium">Fee</th>
                     <th className="text-left px-4 py-3 font-medium">
-                      +10% Exceso
+                      +10% Inversión
                     </th>
                     <th className="text-left px-4 py-3 font-medium">Total</th>
                   </tr>
@@ -167,7 +169,9 @@ export default function PerformanceAdsSection() {
                     >
                       <td className="px-4 py-3">{row.invest} USD</td>
                       <td className="px-4 py-3 text-gray-400">{row.fee}</td>
-                      <td className="px-4 py-3 text-gray-400">{row.excess}</td>
+                      <td className="px-4 py-3 text-gray-400">
+                        {row.commission}
+                      </td>
                       <td className="px-4 py-3 font-medium text-foreground">
                         {row.total} USD
                       </td>
