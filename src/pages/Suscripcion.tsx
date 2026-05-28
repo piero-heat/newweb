@@ -165,9 +165,9 @@ const GHL_EMBED_URL =
   "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371";
 // Ancho ≥1000px → GHL sirve layout horizontal (producto izq / form der).
 // Por debajo colapsa a vertical (mobile) y necesita ~1320px de alto.
-// 800px = aloja form + Pagar + fine print + reCAPTCHA sin scroll interno.
-// El dead-white inferior ya no es visible porque la sección padre tb es blanca.
-const GHL_EMBED_HEIGHT = 800;
+// 720px = altura ajustada al form real → reCAPTCHA queda dentro del bloque,
+// no flotando en dead-white. Sin scroll interno.
+const GHL_EMBED_HEIGHT = 720;
 
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
