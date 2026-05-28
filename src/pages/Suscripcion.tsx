@@ -14,11 +14,13 @@ import {
   Tag,
   Globe,
   MessageSquare,
-  Mic,
   Smartphone,
   Users,
   BarChart3,
-  GraduationCap,
+  Contact,
+  Workflow,
+  LayoutTemplate,
+  Brain,
 } from "lucide-react";
 import {
   SiVisa,
@@ -61,15 +63,16 @@ const PLAN = {
   ],
 };
 
-// Versión compacta: 6 chips visuales para mostrar capacidades sin saturar
+// Chips visuales del PRO — exactamente lo que incluye el plan
 const COMPACT_FEATURES = [
-  { icon: MessageSquare, label: "WhatsApp · IG · FB · TikTok · Google" },
-  { icon: Phone, label: "Call Center con IA" },
-  { icon: Mic, label: "Voz clonada del agente" },
-  { icon: Smartphone, label: "CRM + app móvil" },
-  { icon: Users, label: "10 usuarios · contactos ∞" },
-  { icon: BarChart3, label: "Reportería Meta + Google ADS" },
-  { icon: GraduationCap, label: "Academia + Comunidad VIP" },
+  { icon: MessageSquare, label: "WhatsApp + Instagram + Facebook" },
+  { icon: Smartphone, label: "CRM + App móvil con IA" },
+  { icon: Users, label: "10 usuarios" },
+  { icon: Contact, label: "100.000 contactos" },
+  { icon: Workflow, label: "3 embudos configurados" },
+  { icon: LayoutTemplate, label: "Landing pages incluidas" },
+  { icon: BarChart3, label: "Reportes Meta + Google ADS" },
+  { icon: Brain, label: "ASK IA · IA interna para consultas" },
 ];
 
 const TESTIMONIAL = {
