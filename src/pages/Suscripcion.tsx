@@ -247,14 +247,15 @@ export default function Suscripcion() {
     <div className="bg-background min-h-screen">
       <Navbar />
 
-      {/* ── Top strip / hero ── */}
-      <section className="relative bg-[#F8FAFC] px-6 md:px-12 pt-8 md:pt-12 pb-6 overflow-hidden">
+      {/* ── Top strip / hero · dark void con halo HEAT ── */}
+      <section className="relative bg-background px-6 md:px-12 pt-10 md:pt-14 pb-8 overflow-hidden">
+        {/* Atmósfera: 2 halos radiales en cyan/purple/yellow + grain sutil */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-40"
+          className="pointer-events-none absolute inset-0 opacity-70"
           style={{
             background:
-              "radial-gradient(circle at 30% 0%, rgba(168,85,247,0.18), transparent 55%), radial-gradient(circle at 70% 0%, rgba(99,102,241,0.16), transparent 55%)",
+              "radial-gradient(60% 80% at 25% 0%, rgba(168,85,247,0.22), transparent 60%), radial-gradient(60% 80% at 75% 0%, rgba(125,211,252,0.18), transparent 60%), radial-gradient(40% 60% at 50% 100%, rgba(252,211,77,0.10), transparent 70%)",
           }}
         />
         <div className="relative mx-auto max-w-[1180px] text-center">
@@ -262,7 +263,7 @@ export default function Suscripcion() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white px-3 py-1 text-[11px] font-semibold tracking-[0.18em] mb-5 shadow-[0_4px_12px_-2px_rgba(99,102,241,0.12)]"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-sm px-3 py-1 text-[11px] font-semibold tracking-[0.18em] mb-5"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
@@ -283,7 +284,7 @@ export default function Suscripcion() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display font-medium text-gray-900 tracking-tight leading-[1.05] mb-3"
+            className="font-display font-medium text-white tracking-tight leading-[1.05] mb-3"
             style={{
               fontSize: "clamp(30px, 4vw, 52px)",
               letterSpacing: "-0.025em",
@@ -305,7 +306,7 @@ export default function Suscripcion() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-gray-600 text-sm md:text-base max-w-xl mx-auto"
+            className="text-gray-400 text-sm md:text-base max-w-xl mx-auto"
           >
             Plataforma completa de Agentes IA + CRM. Activación inmediata, sin
             instalación. Tu primer mes solo se cobra el día 15.
@@ -313,13 +314,22 @@ export default function Suscripcion() {
         </div>
       </section>
 
-      {/* ── Unified card: header + iframe + chips + garantías, todo en un bloque ── */}
-      <section className="bg-white px-6 md:px-12 pt-10 md:pt-12 pb-20 md:pb-24">
+      {/* ── Unified card: caluga blanca flotando sobre void dark con halo ── */}
+      <section className="relative bg-background px-6 md:px-12 pt-8 md:pt-10 pb-20 md:pb-28 overflow-hidden">
+        {/* Spotlight detrás del card: halo púrpura concentrado */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-80"
+          style={{
+            background:
+              "radial-gradient(50% 60% at 50% 35%, rgba(168,85,247,0.18), transparent 65%), radial-gradient(60% 40% at 50% 95%, rgba(99,102,241,0.12), transparent 70%)",
+          }}
+        />
         <motion.aside
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mx-auto max-w-[1080px] rounded-3xl overflow-hidden shadow-[0_24px_60px_-20px_rgba(168,85,247,0.18)]"
+          className="relative mx-auto max-w-[1080px] rounded-3xl overflow-hidden shadow-[0_40px_120px_-30px_rgba(168,85,247,0.45),0_0_0_1px_rgba(255,255,255,0.03)]"
           style={{
             border: "1.5px solid transparent",
             background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
@@ -422,14 +432,14 @@ export default function Suscripcion() {
         </motion.aside>
       </section>
 
-      {/* ── FAQ ── */}
-      <section className="bg-[#F8FAFC] px-6 md:px-12 py-16 md:py-20 border-t border-black/[0.05]">
+      {/* ── FAQ · dark glass ── */}
+      <section className="bg-background px-6 md:px-12 py-16 md:py-20 border-t border-white/[0.05]">
         <div className="mx-auto max-w-[820px]">
           <div className="text-center mb-10">
-            <p className="text-xs font-medium tracking-[0.18em] text-gray-500 mb-3">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-3">
               💬 PREGUNTAS FRECUENTES
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-medium text-gray-900 tracking-tight leading-tight">
+            <h2 className="font-display text-3xl md:text-4xl font-medium text-white tracking-tight leading-tight">
               Lo que todos preguntan antes de suscribirse
             </h2>
           </div>
@@ -442,21 +452,21 @@ export default function Suscripcion() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="group rounded-2xl border border-black/[0.06] bg-white hover:border-black/[0.12] hover:shadow-[0_8px_24px_-12px_rgba(99,102,241,0.18)] transition-all duration-400 ease-out overflow-hidden"
+                className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.035] hover:shadow-[0_8px_24px_-12px_rgba(168,85,247,0.25)] transition-all duration-400 ease-out overflow-hidden"
               >
                 <summary className="flex items-start justify-between gap-4 cursor-pointer list-none p-5">
-                  <span className="text-gray-900 text-[15px] font-medium tracking-tight">
+                  <span className="text-foreground text-[15px] font-medium tracking-tight">
                     {item.q}
                   </span>
                   <span
                     aria-hidden
-                    className="shrink-0 text-gray-400 transition-transform duration-400 group-open:rotate-45"
+                    className="shrink-0 text-gray-500 transition-transform duration-400 group-open:rotate-45"
                   >
                     +
                   </span>
                 </summary>
                 <div className="px-5 pb-5 -mt-1">
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-400 text-sm leading-relaxed">
                     {item.a}
                   </p>
                 </div>
@@ -468,7 +478,7 @@ export default function Suscripcion() {
             ¿Otra duda? Escríbenos a{" "}
             <a
               href="mailto:hola@heatlatam.com"
-              className="text-gray-700 hover:text-gray-900 underline underline-offset-2"
+              className="text-gray-300 hover:text-foreground underline underline-offset-2"
             >
               hola@heatlatam.com
             </a>{" "}
@@ -477,7 +487,7 @@ export default function Suscripcion() {
               href="https://wa.me/56978919125"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-gray-900 underline underline-offset-2"
+              className="text-gray-300 hover:text-foreground underline underline-offset-2"
             >
               +56 9 7891 9125
             </a>
