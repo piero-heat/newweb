@@ -272,6 +272,29 @@ const META_CASES: CaseStudy[] = [
     ],
     url: "https://www.instagram.com/lanostracasa.trattoria/",
   },
+  {
+    source: "heat",
+    industry: "SALUD · CLÍNICA ESTÉTICA",
+    title:
+      "Clínica Palavas — Agentes IA 24/7 + CRM con dashboard comercial",
+    description:
+      "Clínica estética con 4 sucursales (Las Condes, La Dehesa, Chicureo, Chillán) y más de 35.000 pacientes desde 2013 (4,8 en Google). El cuello de botella estaba en la gestión comercial: muchos leads se perdían fuera de horario o porque el equipo no respondía con la rapidez que la dueña quería. Implementamos agentes de IA en WhatsApp respondiendo 24/7 con tono de la marca, calificando y agendando directamente al CRM HEAT — visible en un dashboard de gestión comercial para que cada ejecutiva supiera en tiempo real qué lead atender. Las campañas de Meta Ads ahora optimizan sobre data del cierre real (CAPI conectada), no sobre el clic.",
+    stats: [
+      {
+        value: "24/7",
+        label: "atención del agente IA — leads de noche y fin de semana recuperados",
+      },
+      {
+        value: "+58%",
+        label: "tasa de cierre tras conectar agente IA + CRM con dashboard",
+      },
+      {
+        value: "<2 min",
+        label: "tiempo de primer contacto vs ~6 hrs promedio del rubro",
+      },
+    ],
+    url: "https://palavas.cl",
+  },
 ];
 
 // Video Ad creative packs — production for Meta paid ads only.
