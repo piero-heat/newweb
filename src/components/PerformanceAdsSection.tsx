@@ -243,7 +243,7 @@ export default function PerformanceAdsSection() {
         </div>
         <p className="mt-4 text-xs text-gray-500 leading-relaxed">
           Performance ADS y manejo orgánico son disciplinas distintas que
-          requieren equipos distintos. Especializarnos solo en Meta Ads hace que
+          requieren equipos distintos. Especializarnos solo en Meta ADS hace que
           entreguemos más ROI por cada dólar invertido.
         </p>
       </motion.div>
