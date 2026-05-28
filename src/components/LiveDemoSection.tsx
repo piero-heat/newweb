@@ -662,7 +662,16 @@ function MonitorPanel({
           };
 
   return (
-    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 mb-6">
+    <div
+      className="rounded-2xl p-4 mb-6 relative overflow-hidden"
+      style={{
+        background:
+          "radial-gradient(120% 120% at 50% 0%, rgba(37,99,235,.18), transparent 60%), #0B0F1C",
+        border: "1px solid rgba(91,169,255,0.22)",
+        boxShadow:
+          "0 24px 70px -28px rgba(37,99,235,0.45), inset 0 1px 0 rgba(255,255,255,0.05)",
+      }}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -723,19 +732,18 @@ function MonitorPanel({
               <span
                 key={s.key}
                 className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] transition-all duration-400 ${
-                  on
-                    ? "bg-white/[0.05] text-foreground"
-                    : "bg-white/[0.015] text-gray-500"
+                  on ? "text-foreground" : "text-gray-400"
                 }`}
                 style={
                   on
                     ? {
                         border: "1px solid transparent",
                         background:
-                          "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #EC4899 100%) border-box",
+                          "linear-gradient(#0B0F1C, #0B0F1C) padding-box, linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #EC4899 100%) border-box",
                       }
                     : {
-                        border: "1px solid rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(91,169,255,0.18)",
+                        background: "rgba(255,255,255,0.02)",
                       }
                 }
               >
@@ -769,7 +777,7 @@ function MonitorPanel({
           style={{
             border: "1.5px solid transparent",
             background:
-              "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(135deg, #10B981 0%, #06B6D4 50%, #A855F7 100%) border-box",
+              "linear-gradient(#0B0F1C, #0B0F1C) padding-box, linear-gradient(135deg, #10B981 0%, #06B6D4 50%, #A855F7 100%) border-box",
           }}
         >
           <div className="shrink-0 w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-300 text-base">
@@ -805,15 +813,21 @@ function Stat({
   sub?: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-2.5 py-2 min-w-0">
-      <p className="text-[10px] tracking-[0.14em] uppercase text-white/40 truncate">
+    <div
+      className="rounded-xl px-2.5 py-2 min-w-0"
+      style={{
+        border: "1px solid rgba(91,169,255,0.15)",
+        background: "rgba(255,255,255,0.025)",
+      }}
+    >
+      <p className="text-[10px] tracking-[0.14em] uppercase text-white/45 truncate">
         {label}
       </p>
       <p className="text-[14px] font-semibold text-foreground leading-tight mt-0.5 truncate">
         {value}
       </p>
       {sub && (
-        <p className="text-[9.5px] text-white/30 leading-tight mt-0.5 truncate">
+        <p className="text-[9.5px] text-white/35 leading-tight mt-0.5 truncate">
           {sub}
         </p>
       )}
