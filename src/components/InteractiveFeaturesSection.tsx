@@ -393,22 +393,30 @@ function IntegrationsCircleVisual() {
           const rad = (b.angle * Math.PI) / 180;
           const x = Math.cos(rad) * R;
           const y = Math.sin(rad) * R;
+          // Position OUTER wrapper (no animation) and animate INNER motion.div
+          // — otherwise motion's animate prop overwrites the positional transform
           return (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.07, duration: 0.4, ease: "easeOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-              style={{ transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))` }}
+              className="absolute top-1/2 left-1/2 pointer-events-none"
+              style={{
+                transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
+              }}
             >
-              <div
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  delay: i * 0.07,
+                  duration: 0.4,
+                  ease: "easeOut",
+                }}
                 className="w-12 h-12 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md flex items-center justify-center shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)]"
                 style={{ color: b.color }}
               >
                 <b.Icon size={22} color="currentColor" />
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           );
         })}
       </div>
