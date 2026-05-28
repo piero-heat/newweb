@@ -327,48 +327,6 @@ export default function PerformAds() {
         </div>
       </section>
 
-      {/* ── 4 Pillars ── */}
-      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24">
-        <div className="mx-auto max-w-[1080px]">
-          <div className="text-center mb-12">
-            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
-              🎯 NUESTRO STACK
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
-              Cómo logramos un CPA bajo (y sostenible)
-            </h2>
-            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
-              Cuatro pilares técnicos que separan una campaña amateur de una
-              que genera ROI mes a mes. Implementamos los cuatro desde el día
-              uno.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {PILLARS.map((p, i) => (
-              <motion.div
-                key={p.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group rounded-3xl border border-white/[0.06] bg-white/[0.02] p-7 hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-1 transition-all duration-500 ease-out hover:shadow-[0_16px_50px_-12px_rgba(255,61,119,0.22)]"
-              >
-                <div className="liquid-glass w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-500 ease-out group-hover:scale-110">
-                  <p.icon size={20} strokeWidth={2.2} className="text-white/90" />
-                </div>
-                <h3 className="text-foreground font-medium text-lg tracking-tight mb-2">
-                  {p.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {p.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── CPA deep dive ── */}
       <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
         <div className="mx-auto max-w-[1080px]">
@@ -728,6 +686,48 @@ export default function PerformAds() {
         </div>
       </section>
 
+      {/* ── 4 Pillars HEAT — Cómo HEAT aplica todo lo anterior ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              🎯 NUESTRO STACK
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Cómo logramos un CPA bajo (y sostenible)
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              Cuatro pilares técnicos que separan una campaña amateur de una
+              que genera ROI mes a mes. Implementamos los cuatro desde el día
+              uno.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {PILLARS.map((p, i) => (
+              <motion.div
+                key={p.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group rounded-3xl border border-white/[0.06] bg-white/[0.02] p-7 hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-1 transition-all duration-500 ease-out hover:shadow-[0_16px_50px_-12px_rgba(255,61,119,0.22)]"
+              >
+                <div className="liquid-glass w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-500 ease-out group-hover:scale-110">
+                  <p.icon size={20} strokeWidth={2.2} className="text-white/90" />
+                </div>
+                <h3 className="text-foreground font-medium text-lg tracking-tight mb-2">
+                  {p.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {p.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Lead funnel ── */}
       <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
         <div className="mx-auto max-w-[1080px]">
@@ -782,51 +782,6 @@ export default function PerformAds() {
             IA en medio, el equipo comercial perdía 4 horas al día filtrando
             curiosos en vez de cerrando reuniones.
           </p>
-        </div>
-      </section>
-
-      {/* ── Video Ads creative packs ── */}
-      <section
-        id="videos-ads"
-        className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05] scroll-mt-8"
-      >
-        <div className="mx-auto max-w-[1080px]">
-          <div className="text-center mb-12">
-            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
-              📦 PACKS DE VIDEOS · CREATIVIDAD PARA META ADS
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
-              Sin creatividades buenas, tu CPA no baja
-            </h2>
-            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
-              El algoritmo de Meta optimiza, pero no inventa. Si tu hook no
-              detiene el scroll en los primeros 3 segundos, ningún CAPI ni
-              estructura te salva. Producimos los videos junto a las campañas.
-              Mismo equipo, misma estrategia.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {VIDEO_PACKS.map((pack) => (
-              <PricingCard key={pack.name} {...pack} />
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-10 rounded-2xl border border-yellow-300/15 bg-yellow-300/[0.03] p-6"
-          >
-            <p className="text-sm text-yellow-200/90 leading-relaxed">
-              <span className="font-semibold">⚠️ Importante:</span> estos videos
-              son exclusivamente para usar como creatividad publicitaria en
-              Meta Ads pagados. No son contenido orgánico para feed. Están
-              guionizados para captar atención en feed pagado con hooks,
-              no para construir presencia de marca.
-            </p>
-          </motion.div>
         </div>
       </section>
 
@@ -1058,6 +1013,51 @@ export default function PerformAds() {
               Performance Ads y manejo orgánico son disciplinas distintas que
               requieren equipos distintos. Especializarnos solo en Meta Ads hace
               que entreguemos más ROI por cada dólar invertido.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Video Ads creative packs ── */}
+      <section
+        id="videos-ads"
+        className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05] scroll-mt-8"
+      >
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              📦 PACKS DE VIDEOS · CREATIVIDAD PARA META ADS
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Sin creatividades buenas, tu CPA no baja
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              El algoritmo de Meta optimiza, pero no inventa. Si tu hook no
+              detiene el scroll en los primeros 3 segundos, ningún CAPI ni
+              estructura te salva. Producimos los videos junto a las campañas.
+              Mismo equipo, misma estrategia.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {VIDEO_PACKS.map((pack) => (
+              <PricingCard key={pack.name} {...pack} />
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-10 rounded-2xl border border-yellow-300/15 bg-yellow-300/[0.03] p-6"
+          >
+            <p className="text-sm text-yellow-200/90 leading-relaxed">
+              <span className="font-semibold">⚠️ Importante:</span> estos videos
+              son exclusivamente para usar como creatividad publicitaria en
+              Meta Ads pagados. No son contenido orgánico para feed. Están
+              guionizados para captar atención en feed pagado con hooks,
+              no para construir presencia de marca.
             </p>
           </motion.div>
         </div>
