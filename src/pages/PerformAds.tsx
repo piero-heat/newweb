@@ -318,6 +318,52 @@ const META_CASES: CaseStudy[] = [
     ],
     url: "https://vitanutrition.cl",
   },
+  {
+    source: "heat",
+    industry: "E-COMMERCE · JOYERÍA MIAMI",
+    title:
+      "C4G Jewelers — Restructura de campañas con foco en hero product (cadenas cubanas)",
+    description:
+      "Joyería en Miami especializada en oro 10K/14K/18K, con foco en la comunidad latina (\"In Gold We Trust · FAMILIA\"). E-commerce ya operativo en Shopify y pulido visualmente, pero el problema estaba arriba en el funnel: campañas de Meta Ads sin estructura — todo el catálogo compitiendo en los mismos ad sets, presupuesto diluido. Hicimos un análisis profundo de venta por SKU y reordenamos la estructura: campañas dedicadas al hero product (cadenas cubanas, que concentran el grueso de la rentabilidad), separación clara por categoría y por margen, creativos específicos por intención. En 6 meses casi triplicamos las ventas online totales de la tienda.",
+    stats: [
+      {
+        value: "~3x",
+        label: "ventas online totales en 6 meses tras reestructura de campañas",
+      },
+      {
+        value: "Hero focus",
+        label: "del presupuesto al hero product (cadenas cubanas)",
+      },
+      {
+        value: "+EE.UU.",
+        label: "validamos modelo HEAT en mercado USA latino",
+      },
+    ],
+    url: "https://c4gjewelers.com",
+  },
+  {
+    source: "heat",
+    industry: "RETAIL · MODA DE LUJO INTERNACIONAL",
+    title:
+      "Wolford Chile — Despegue del canal digital de ~$200 a ~$8K USD/mes",
+    description:
+      "Marca europea de moda y media de alta gama (sedes en Europa y Miami), con tienda física en Vitacura. En Chile el motor era 100% retail físico: el canal digital existía sobre WordPress pero apenas vendía ~$200 USD al mes. Migramos a Shopify, levantamos toda la calidad del contenido y diseñamos el e-commerce para el cliente real de la marca: mujer 45+, elegante, sensible al detalle. Conectamos Pixel y armamos grupos de anuncios separados por dolor/gusto del cliente ideal (no por producto a granel). El canal digital pasó a generar ~$8.000 USD/mes constante — un motor nuevo de ingreso recurrente que la marca no tenía antes en Chile.",
+    stats: [
+      {
+        value: "~40x",
+        label: "venta digital mensual tras migración Shopify + restructura ads",
+      },
+      {
+        value: "~$8K USD",
+        label: "ingreso digital constante (era ~$200 USD pre-HEAT)",
+      },
+      {
+        value: "Mujer 45+",
+        label: "audiencia segmentada por dolores y gustos reales",
+      },
+    ],
+    url: "https://wolfordchile.cl",
+  },
 ];
 
 // Video Ad creative packs — production for Meta paid ads only.
