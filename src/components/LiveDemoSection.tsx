@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 type Industry = {
-  id: "clinica" | "auto" | "inmo" | "servicios";
+  id: "auto" | "educacion" | "inmo" | "retail" | "salud" | "seguros" | "servicios";
   name: string;
   emoji: string;
   agentName: string;
@@ -23,40 +23,74 @@ type Industry = {
 
 const INDUSTRIES: Industry[] = [
   {
-    id: "clinica",
-    name: "Clínica",
-    emoji: "🦷",
-    agentName: "Clínica Sonríe",
-    agentSub: "Recepción",
-    welcome: "¡Hola! 😊 Soy la asistente de Clínica Sonríe. ¿En qué te puedo ayudar hoy?",
-    suggestion: "Quería pedir hora para una limpieza",
-  },
-  {
     id: "auto",
-    name: "Automotora",
+    name: "Automotriz",
     emoji: "🚗",
-    agentName: "AutoStar",
+    agentName: "AutoStar Concesionaria",
     agentSub: "Asesor de ventas",
-    welcome: "¡Hola! Soy de AutoStar Concesionaria. ¿Estás buscando un modelo en particular?",
+    welcome:
+      "¡Hola! 👋 Soy de AutoStar Concesionaria. ¿Estás buscando un modelo en particular o quieres que te recomiende según uso?",
     suggestion: "Busco un SUV para mi familia, 4 personas",
   },
   {
+    id: "educacion",
+    name: "Educación",
+    emoji: "🎓",
+    agentName: "Academia Cumbre",
+    agentSub: "Admisión",
+    welcome:
+      "¡Hola! Soy de admisión de Academia Cumbre. ¿Estás buscando una carrera técnica, un diplomado corto, o todavía explorando?",
+    suggestion: "Quiero saber sobre la carrera de marketing digital",
+  },
+  {
     id: "inmo",
-    name: "Inmobiliaria",
+    name: "Inmobiliario",
     emoji: "🏠",
-    agentName: "Hogar Inmobiliaria",
+    agentName: "Prima Propiedades",
     agentSub: "Asesor",
-    welcome: "¡Hola! 👋 Soy de Hogar Inmobiliaria. ¿Buscas arriendo, compra o solo información?",
+    welcome:
+      "¡Hola! 👋 Soy de Prima Propiedades. ¿Buscas arriendo, compra o estás explorando proyectos en preventa?",
     suggestion: "Busco departamento en arriendo en Providencia",
   },
   {
+    id: "retail",
+    name: "Retail · Moda",
+    emoji: "🛍️",
+    agentName: "Boutique Velvet",
+    agentSub: "Asesora de estilo",
+    welcome:
+      "¡Hola! 😊 Soy tu asesora de Boutique Velvet. ¿Andas buscando algo para una ocasión especial o solo paseando?",
+    suggestion: "Necesito un vestido para un matrimonio",
+  },
+  {
+    id: "salud",
+    name: "Salud",
+    emoji: "🩺",
+    agentName: "Clínica Vital",
+    agentSub: "Recepción",
+    welcome:
+      "¡Hola! Soy la recepción de Clínica Vital. ¿En qué especialidad necesitas atención o tienes alguna duda específica?",
+    suggestion: "Necesito hora con dermatóloga lo antes posible",
+  },
+  {
+    id: "seguros",
+    name: "Seguros",
+    emoji: "🛡️",
+    agentName: "AsegurAlfa",
+    agentSub: "Corredor de seguros",
+    welcome:
+      "¡Hola! Soy de AsegurAlfa, corredora de seguros. ¿Qué seguro te interesa cotizar — auto, hogar, vida, viajes?",
+    suggestion: "Quiero cotizar seguro para mi auto nuevo",
+  },
+  {
     id: "servicios",
-    name: "Agencia",
-    emoji: "💼",
+    name: "Servicios · Agencia",
+    emoji: "⚡",
     agentName: "Pulse Digital",
     agentSub: "Comercial",
-    welcome: "¡Hola! Soy de Pulse Agencia Digital. ¿Qué objetivo o problema te trae por acá?",
-    suggestion: "Necesito una web nueva y mejorar mi marca",
+    welcome:
+      "¡Hola! Soy de Pulse Digital. ¿Qué objetivo concreto te trae por acá — más leads, más ventas, o web nueva?",
+    suggestion: "Necesito generar más leads para mi negocio",
   },
 ];
 
@@ -237,33 +271,41 @@ export default function LiveDemoSection() {
 
       <div className="grid w-full max-w-[1100px] gap-12 lg:gap-16 lg:grid-cols-[1fr_auto] items-center">
         <div className="order-2 lg:order-1">
-          <p className="text-[11px] font-semibold tracking-[0.18em] text-white/50 mb-4">
-            ELIGE TU INDUSTRIA
-          </p>
-          <div className="grid grid-cols-2 gap-3 mb-8">
+          <div className="flex items-baseline justify-between mb-4">
+            <p className="text-[11px] font-semibold tracking-[0.18em] text-white/50">
+              ELIGE TU INDUSTRIA
+            </p>
+            <p className="text-[10px] text-white/30">
+              {INDUSTRIES.length} disponibles
+            </p>
+          </div>
+          <div
+            className="grid grid-cols-2 gap-2.5 mb-6 pr-1 -mr-1 overflow-y-auto"
+            style={{ maxHeight: 360 }}
+          >
             {INDUSTRIES.map((i) => {
               const active = i.id === industry.id;
               return (
                 <button
                   key={i.id}
                   onClick={() => switchIndustry(i)}
-                  className={`group relative rounded-2xl border px-4 py-3.5 text-left transition-all duration-400 ${
+                  className={`group relative rounded-2xl border px-3 py-3 text-left transition-all duration-400 ${
                     active
                       ? "border-white/30 bg-white/[0.06] shadow-[0_8px_30px_-10px_rgba(168,85,247,0.4)]"
                       : "border-white/[0.08] bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.04]"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xl">{i.emoji}</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-[18px] shrink-0">{i.emoji}</span>
                     <div className="min-w-0">
                       <p
-                        className={`text-sm font-semibold tracking-tight ${
+                        className={`text-[13px] font-semibold tracking-tight leading-tight truncate ${
                           active ? "text-foreground" : "text-gray-300"
                         }`}
                       >
                         {i.name}
                       </p>
-                      <p className="text-[11px] text-gray-500 truncate">
+                      <p className="text-[10.5px] text-gray-500 truncate leading-tight mt-0.5">
                         {i.agentName}
                       </p>
                     </div>
