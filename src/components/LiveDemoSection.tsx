@@ -189,6 +189,46 @@ function StatusBar() {
   );
 }
 
+/* ─── Signal detection for "live monitor" panel ─── */
+type SignalKey = "budget" | "urgency" | "authority" | "intent";
+const SIGNAL_DEFS: {
+  key: SignalKey;
+  label: string;
+  test: (msg: string) => boolean;
+}[] = [
+  {
+    key: "budget",
+    label: "Presupuesto detectado",
+    test: (m) => /\$\s*[\d.,]+|[\d.,]+\s*(usd|clp|peso|dólar|millon|mil\b)/i.test(m),
+  },
+  {
+    key: "urgency",
+    label: "Urgencia detectada",
+    test: (m) =>
+      /(urgente|urgencia|pronto|ahora|esta semana|hoy|mañana|asap|antes posible)/i.test(m),
+  },
+  {
+    key: "authority",
+    label: "Decisor confirmado",
+    test: (m) =>
+      /(soy (?:el |la )?(?:dueñ|fundador|jef)|mi (?:negocio|empresa|tienda|clínica|consulta|equipo)|yo (?:decido|elijo))/i.test(
+        m,
+      ),
+  },
+  {
+    key: "intent",
+    label: "Intención clara",
+    test: (m) =>
+      m.trim().length > 30 &&
+      /(busco|necesito|quiero|me interesa|estoy buscando|me gustaría|recomienda)/i.test(
+        m,
+      ),
+  },
+];
+
+const HANDOFF_RE =
+  /(agend(ar|emos|amos)|te (?:conecto|llamo|llamamos|paso|derivo)|reserv(ar|amos|emos)|coordin(ar|emos|amos)|confirm(emos|amos|ar)\s+(la|tu|el)?\s*(cita|visita|test|llamada|reunión|asesoría|hora)|\d{1,2}:\d{2}\s*(am|pm|hrs)?|este\s+(lunes|martes|miércoles|jueves|viernes))/i;
+
 export default function LiveDemoSection() {
   const [industry, setIndustry] = useState<Industry>(INDUSTRIES[0]);
   const [messages, setMessages] = useState<Message[]>([
@@ -197,7 +237,26 @@ export default function LiveDemoSection() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [responseTimes, setResponseTimes] = useState<number[]>([]);
+  const [signals, setSignals] = useState<Record<SignalKey, boolean>>({
+    budget: false,
+    urgency: false,
+    authority: false,
+    intent: false,
+  });
+  const [handedOff, setHandedOff] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const resetMonitor = () => {
+    setResponseTimes([]);
+    setSignals({
+      budget: false,
+      urgency: false,
+      authority: false,
+      intent: false,
+    });
+    setHandedOff(false);
+  };
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -212,6 +271,7 @@ export default function LiveDemoSection() {
     setMessages([{ role: "assistant", content: i.welcome, time: now() }]);
     setInput("");
     setError(null);
+    resetMonitor();
   };
 
   const reset = () => {
@@ -220,6 +280,7 @@ export default function LiveDemoSection() {
     ]);
     setInput("");
     setError(null);
+    resetMonitor();
   };
 
   const send = async (textOverride?: string) => {
@@ -230,9 +291,18 @@ export default function LiveDemoSection() {
       return;
     }
     if (messages.length >= MAX_HISTORY) {
-      setError("Llegaste al límite del demo. Refrescá para reiniciar.");
+      setError("Llegaste al límite del demo. Refresca para reiniciar.");
       return;
     }
+
+    // Detect signals from the user message
+    setSignals((prev) => {
+      const next = { ...prev };
+      for (const s of SIGNAL_DEFS) {
+        if (!next[s.key] && s.test(text)) next[s.key] = true;
+      }
+      return next;
+    });
 
     const userMsg: Message = { role: "user", content: text, time: now() };
     const nextMessages = [...messages, userMsg];
@@ -241,6 +311,7 @@ export default function LiveDemoSection() {
     setLoading(true);
     setError(null);
 
+    const startedAt = Date.now();
     try {
       const res = await fetch("/.netlify/functions/chat", {
         method: "POST",
@@ -255,12 +326,21 @@ export default function LiveDemoSection() {
       const data = (await res.json()) as { reply?: string; error?: string };
       if (!data.reply) throw new Error(data.error ?? "no_reply");
 
+      // Track response time
+      const elapsed = Date.now() - startedAt;
+      setResponseTimes((r) => [...r, elapsed]);
+
+      // Detect handoff trigger in agent reply
+      if (!handedOff && HANDOFF_RE.test(data.reply)) {
+        setHandedOff(true);
+      }
+
       setMessages([
         ...nextMessages,
         { role: "assistant", content: data.reply, time: now() },
       ]);
     } catch {
-      setError("No pudimos contactar al agente. Intentá de nuevo.");
+      setError("No pudimos contactar al agente. Intenta de nuevo.");
     } finally {
       setLoading(false);
     }
@@ -379,24 +459,14 @@ export default function LiveDemoSection() {
             })}
           </div>
 
-          <ul className="space-y-3 mb-6 text-sm text-gray-300">
-            <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Conversación <strong className="text-foreground">real</strong> con HEAT IA, no un script grabado.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Prueba tono, claridad y velocidad antes de contratar.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Cambia de industria cuando quieras — el agente se adapta.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-              <span>Cuando lo contrates, lo personalizamos a <strong className="text-foreground">tu negocio real</strong>.</span>
-            </li>
-          </ul>
+          <MonitorPanel
+            userMsgCount={messages.filter((m) => m.role === "user").length}
+            responseTimes={responseTimes}
+            signals={signals}
+            handedOff={handedOff}
+            industry={industry}
+          />
+
 
           <button
             onClick={() => send(industry.suggestion)}
@@ -537,5 +607,216 @@ export default function LiveDemoSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ───────────────────────────────────────────────────────── */
+/* MONITOR PANEL — live signals + metrics + handoff          */
+/* ───────────────────────────────────────────────────────── */
+
+function MonitorPanel({
+  userMsgCount,
+  responseTimes,
+  signals,
+  handedOff,
+  industry,
+}: {
+  userMsgCount: number;
+  responseTimes: number[];
+  signals: Record<SignalKey, boolean>;
+  handedOff: boolean;
+  industry: Industry;
+}) {
+  const avgMs =
+    responseTimes.length > 0
+      ? Math.round(
+          responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length,
+        )
+      : null;
+
+  const lastMs =
+    responseTimes.length > 0 ? responseTimes[responseTimes.length - 1] : null;
+
+  const status: { label: string; color: string; bg: string } = handedOff
+    ? {
+        label: "Listo para tu equipo",
+        color: "text-emerald-300",
+        bg: "bg-emerald-500/15 border-emerald-500/30",
+      }
+    : userMsgCount >= 4
+      ? {
+          label: "Lead calificado",
+          color: "text-violet-300",
+          bg: "bg-violet-500/15 border-violet-500/30",
+        }
+      : userMsgCount >= 1
+        ? {
+            label: "Calificando…",
+            color: "text-cyan-300",
+            bg: "bg-cyan-500/15 border-cyan-500/30",
+          }
+        : {
+            label: "Esperando primer mensaje",
+            color: "text-gray-400",
+            bg: "bg-white/[0.03] border-white/10",
+          };
+
+  return (
+    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 mb-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-70" />
+            <span
+              className="relative inline-flex h-2 w-2 rounded-full"
+              style={{
+                background:
+                  "linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #EC4899 100%)",
+              }}
+            />
+          </span>
+          <p className="text-[11px] font-semibold tracking-[0.18em] text-white/70 uppercase">
+            Monitor en vivo
+          </p>
+        </div>
+        <span className="text-[10px] text-white/30">
+          Lo que HEAT detecta en tiempo real
+        </span>
+      </div>
+
+      {/* Metrics row */}
+      <div className="grid grid-cols-3 gap-2 mb-3">
+        <Stat label="Mensajes" value={String(userMsgCount)} />
+        <Stat
+          label="Respuesta"
+          value={
+            lastMs == null
+              ? "—"
+              : lastMs < 1000
+                ? `${lastMs} ms`
+                : `${(lastMs / 1000).toFixed(1)} s`
+          }
+          sub={avgMs ? `prom. ${(avgMs / 1000).toFixed(1)} s` : undefined}
+        />
+        <div
+          className={`rounded-xl border px-2.5 py-2 ${status.bg} flex flex-col justify-center min-w-0`}
+        >
+          <p className={`text-[10px] tracking-[0.14em] uppercase ${status.color}`}>
+            Estado
+          </p>
+          <p className={`text-[12px] font-medium leading-tight mt-0.5 truncate ${status.color}`}>
+            {status.label}
+          </p>
+        </div>
+      </div>
+
+      {/* Signals */}
+      <div>
+        <p className="text-[10px] font-semibold tracking-[0.16em] text-white/40 uppercase mb-2">
+          Señales detectadas
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {SIGNAL_DEFS.map((s) => {
+            const on = signals[s.key];
+            return (
+              <span
+                key={s.key}
+                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] transition-all duration-400 ${
+                  on
+                    ? "bg-white/[0.05] text-foreground"
+                    : "bg-white/[0.015] text-gray-500"
+                }`}
+                style={
+                  on
+                    ? {
+                        border: "1px solid transparent",
+                        background:
+                          "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(135deg, #06B6D4 0%, #A855F7 50%, #EC4899 100%) border-box",
+                      }
+                    : {
+                        border: "1px solid rgba(255,255,255,0.06)",
+                      }
+                }
+              >
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    on ? "" : "bg-gray-600"
+                  }`}
+                  style={
+                    on
+                      ? {
+                          background:
+                            "linear-gradient(135deg, #06B6D4, #A855F7, #EC4899)",
+                        }
+                      : undefined
+                  }
+                />
+                {s.label}
+              </span>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Handoff card */}
+      {handedOff && (
+        <motion.div
+          initial={{ opacity: 0, y: 8, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+          className="mt-3 rounded-xl p-3 flex items-center gap-3"
+          style={{
+            border: "1.5px solid transparent",
+            background:
+              "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(135deg, #10B981 0%, #06B6D4 50%, #A855F7 100%) border-box",
+          }}
+        >
+          <div className="shrink-0 w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-300 text-base">
+            🤝
+          </div>
+          <div className="min-w-0">
+            <p className="text-[12px] font-semibold text-foreground tracking-tight">
+              Lead pasado a tu equipo
+            </p>
+            <p className="text-[10.5px] text-gray-400 truncate">
+              {industry.agentName} → ejecutiva del equipo comercial
+            </p>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Footer note */}
+      <p className="mt-3 text-[10px] text-white/30 leading-relaxed">
+        Cuando contratas HEAT, todo esto va sincronizado a tu CRM real,
+        no a un simulador.
+      </p>
+    </div>
+  );
+}
+
+function Stat({
+  label,
+  value,
+  sub,
+}: {
+  label: string;
+  value: string;
+  sub?: string;
+}) {
+  return (
+    <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-2.5 py-2 min-w-0">
+      <p className="text-[10px] tracking-[0.14em] uppercase text-white/40 truncate">
+        {label}
+      </p>
+      <p className="text-[14px] font-semibold text-foreground leading-tight mt-0.5 truncate">
+        {value}
+      </p>
+      {sub && (
+        <p className="text-[9.5px] text-white/30 leading-tight mt-0.5 truncate">
+          {sub}
+        </p>
+      )}
+    </div>
   );
 }
