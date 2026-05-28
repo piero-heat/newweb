@@ -143,8 +143,10 @@ const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 /* styling HEAT 3.0 alrededor.                                     */
 /* ────────────────────────────────────────────────────────────── */
 
-const GHL_EMBED_URL = ""; // ← Pegar la URL del widget GHL aquí
-const GHL_EMBED_HEIGHT = 720; // Pixel height (ajustar al alto real del form GHL)
+// Stripe Payment Link servida por GHL — auto-provisioning intacto.
+const GHL_EMBED_URL =
+  "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371";
+const GHL_EMBED_HEIGHT = 920; // Pixel height (Stripe Payment Link suele ser largo)
 
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
@@ -182,9 +184,22 @@ function GHLFormEmbed({ url, height }: { url: string; height: number }) {
           height={height}
           style={{ border: "none", display: "block" }}
           loading="lazy"
-          allow="payment"
+          allow="payment *; clipboard-write"
         />
       </div>
+
+      {/* Fallback — algunos navegadores bloquean iframes con pagos */}
+      <p className="mt-3 text-[11px] text-gray-500 text-center">
+        ¿No se carga el formulario?{" "}
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-300 hover:text-foreground underline underline-offset-2 transition-colors"
+        >
+          Abrir checkout en pestaña nueva →
+        </a>
+      </p>
 
       {/* Trust footer debajo del iframe */}
       <div className="mt-6 pt-5 border-t border-white/[0.06] grid grid-cols-3 gap-2 text-center">
