@@ -226,6 +226,29 @@ const META_CASES: CaseStudy[] = [
     ],
     url: "https://www.gosmile.cl",
   },
+  {
+    source: "heat",
+    industry: "RETAIL · JOYERÍA DE LUJO",
+    title:
+      "Gabriela Prieto Joyas — Shopify consultivo + video ads dirigidos al hombre",
+    description:
+      "Joyería chilena especializada en anillos de compromiso y argollas de matrimonio. Migramos su e-commerce de WordPress (baja calidad) a un Shopify premium alineado al branding de la marca — sin checkout directo, modelo consultivo: cada producto inicia una conversación de WhatsApp con contexto específico del modelo. Píxel + CAPI conectados al CRM HEAT para que las campañas optimicen sobre la consulta calificada, no el clic. Para alta gama produjimos video ads de alta calidad dirigidos al comprador masculino — contenido que frena el scroll y se posiciona como asesoría consultiva, no venta. MetaForm con calificación → CRM → round-robin entre las ejecutivas. Escalamos los mejores creativos enfocados en el tono del cliente ideal masculino + refresh de marca completo en el e-commerce.",
+    stats: [
+      {
+        value: "~2x",
+        label: "ventas en anillos de compromiso vs. baseline pre-refresh",
+      },
+      {
+        value: "+95%",
+        label: "agendamiento de asesoría consultiva con WhatsApp",
+      },
+      {
+        value: "−38%",
+        label: "CPA con video ads enfocados al comprador masculino",
+      },
+    ],
+    url: "https://www.gabrielaprieto.cl",
+  },
 ];
 
 // Video Ad creative packs — production for Meta paid ads only.
