@@ -146,7 +146,9 @@ const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 // Stripe Payment Link servida por GHL — auto-provisioning intacto.
 const GHL_EMBED_URL =
   "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371";
-const GHL_EMBED_HEIGHT = 1320; // Pixel height (Stripe Payment Link es largo: header + productos + datos + tarjeta + país + botón)
+// Ancho ≥1000px → GHL sirve layout horizontal (producto izq / form der).
+// Por debajo colapsa a vertical (mobile) y necesita ~1320px de alto.
+const GHL_EMBED_HEIGHT = 720;
 
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
@@ -442,14 +444,14 @@ export default function Suscripcion() {
             </div>
           </motion.aside>
 
-          {/* ── BOTTOM · GHL embed (centrado, ancho contenido) ── */}
+          {/* ── BOTTOM · GHL embed (full-width para que GHL sirva layout horizontal) ── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className={
               GHL_EMBED_URL
-                ? "w-full max-w-[760px] mx-auto" // Iframe centrado, no estirado
+                ? "w-full" // Ancho completo (≥1000px) → GHL sirve layout horizontal
                 : "rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9"
             }
           >
