@@ -135,7 +135,7 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
 
 export default function GoogleReviewsSection() {
   return (
-    <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-16 md:py-20">
+    <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 pt-24 md:pt-28 pb-16 md:pb-20">
       <div className="w-full max-w-[1080px] mb-8 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           ⭐ RESEÑAS REALES EN GOOGLE

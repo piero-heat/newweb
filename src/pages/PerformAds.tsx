@@ -179,18 +179,6 @@ type CaseStudy = {
 
 const META_CASES: CaseStudy[] = [
   {
-    source: "meta",
-    industry: "SERVICIOS · SEGUROS",
-    title: "Axis Max Life Insurance — campañas Advantage+",
-    description:
-      "Aseguradora implementó la API de Conversiones de Meta conectada a su CRM con eventos del embudo completo. Resultado en campañas de adquisición de clientes potenciales:",
-    stats: [
-      { value: "−17%", label: "de reducción del costo por captación" },
-      { value: "+40%", label: "de aumento de clientes potenciales de calidad" },
-    ],
-    url: "https://www.facebook.com/business/tools/conversions-api",
-  },
-  {
     source: "heat",
     industry: "RETAIL · CONFITERÍA ARTESANAL",
     title: "Barquillos.cl — Funnel multi-canal con CAPI conectada",

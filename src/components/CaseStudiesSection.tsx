@@ -161,7 +161,7 @@ export default function CaseStudiesSection() {
   return (
     <section
       id="casos"
-      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 pt-14 md:pt-16 pb-20 md:pb-24 scroll-mt-8"
+      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 pt-14 md:pt-16 pb-28 md:pb-32 scroll-mt-8"
     >
       <div className="w-full max-w-[1080px] mb-4 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
@@ -180,7 +180,7 @@ export default function CaseStudiesSection() {
         ref={containerRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        className="relative w-full max-w-[1280px] flex items-center justify-center h-[420px] sm:h-[400px]"
+        className="relative w-full max-w-[1280px] flex items-center justify-center h-[400px] sm:h-[380px]"
       >
         {CASES.map((c, i) => {
           let offset = i - index;
