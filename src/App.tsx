@@ -7,6 +7,7 @@ import PerformAds from "./pages/PerformAds";
 import DesarrolloWeb from "./pages/DesarrolloWeb";
 import Terminos from "./pages/Terminos";
 import Privacidad from "./pages/Privacidad";
+import Suscripcion from "./pages/Suscripcion";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -35,6 +36,8 @@ export default function App() {
         <Route path="/desarrollo-web" element={<DesarrolloWeb />} />
         <Route path="/terminos" element={<Terminos />} />
         <Route path="/privacidad" element={<Privacidad />} />
+        <Route path="/suscripcion/pro" element={<Suscripcion />} />
+        <Route path="/heat-ia-pro-14dias" element={<Suscripcion />} />
       </Routes>
     </BrowserRouter>
   );
