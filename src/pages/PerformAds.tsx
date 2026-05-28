@@ -295,6 +295,29 @@ const META_CASES: CaseStudy[] = [
     ],
     url: "https://palavas.cl",
   },
+  {
+    source: "heat",
+    industry: "E-COMMERCE · SUPLEMENTACIÓN DEPORTIVA",
+    title:
+      "Vita Nutrition — De $2K a $25K USD/mes en 12 meses con estructura por producto",
+    description:
+      "E-commerce chileno de suplementos nutricionales premium (Klarity, colágeno, magnesio, gomitas). Cuando HEAT entró estaban en <$2.000 USD de venta mensual con un Instagram poco trabajado. Primero subimos producción de contenido y la calidad creativa; en paralelo armamos estructura de campañas separadas por producto en Meta — protegiendo el budget del hero product (Klarity, que concentra +90% de las ventas) para no diluir la publicidad en SKUs marginales. Pixel calibrado con eventos de fondo y CAPI conectada al backend del e-commerce. En 12 meses escalamos de <$2K a $25K USD/mes de venta, manteniendo una tasa de conversión sostenida de 2,3% sobre tráfico pagado (e-commerce promedio: 1-2%).",
+    stats: [
+      {
+        value: "12,5x",
+        label: "ventas mensuales en 12 meses (de <$2K a $25K USD)",
+      },
+      {
+        value: "2,3%",
+        label: "tasa de conversión sostenida (industria e-comm ~1-2%)",
+      },
+      {
+        value: "+90%",
+        label: "del budget protegido en el hero product para no diluir",
+      },
+    ],
+    url: "https://vitanutrition.cl",
+  },
 ];
 
 // Video Ad creative packs — production for Meta paid ads only.
