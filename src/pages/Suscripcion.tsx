@@ -123,6 +123,124 @@ const HIGHLIGHT_GRADIENT =
 const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 
 /* ────────────────────────────────────────────────────────────── */
+/* GHL FORM EMBED — Configurar aquí                                */
+/* ────────────────────────────────────────────────────────────── */
+/*                                                                  */
+/* Para conectar el form REAL de GHL:                              */
+/*  1. Anda a GHL Dashboard → Sites → Funnels o Forms              */
+/*  2. Abre el form de Order/Checkout que tiene el Stripe + auto   */
+/*     subaccount provisioning                                      */
+/*  3. Click en "Share" o "Embed Code"                             */
+/*  4. Copia el URL del iframe (algo así):                         */
+/*     https://link.heatlatam.com/widget/form/XXXXXXXX             */
+/*     o el src del <iframe src="...">                             */
+/*  5. Pégala abajo en GHL_EMBED_URL                               */
+/*  6. Ajusta el alto si es necesario                              */
+/*                                                                  */
+/* Si GHL_EMBED_URL queda vacío → la página muestra el mockup     */
+/* visual (los 3 pasos numerados) como demo.                       */
+/* Si GHL_EMBED_URL está set → se renderiza el iframe real con    */
+/* styling HEAT 3.0 alrededor.                                     */
+/* ────────────────────────────────────────────────────────────── */
+
+const GHL_EMBED_URL = ""; // ← Pegar la URL del widget GHL aquí
+const GHL_EMBED_HEIGHT = 720; // Pixel height (ajustar al alto real del form GHL)
+
+function GHLFormEmbed({ url, height }: { url: string; height: number }) {
+  return (
+    <div className="relative">
+      {/* Header de marca arriba del iframe */}
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="text-foreground text-base font-medium tracking-tight">
+            Crea tu cuenta + activá tu trial
+          </p>
+          <p className="text-[11px] text-gray-500 mt-0.5">
+            Formulario seguro · Procesado por Stripe vía GHL
+          </p>
+        </div>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-300 tracking-wide">
+          <Lock size={10} /> SSL
+        </span>
+      </div>
+
+      {/* Iframe wrapper con bg claro para que el form GHL respire */}
+      <div
+        className="rounded-2xl overflow-hidden bg-white"
+        style={{
+          border: "1.5px solid transparent",
+          background:
+            "linear-gradient(white, white) padding-box, linear-gradient(135deg, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(252,211,77,0.4)) border-box",
+          boxShadow:
+            "0 30px 80px -20px rgba(168,85,247,0.3), 0 0 0 1px rgba(255,255,255,0.04)",
+        }}
+      >
+        <iframe
+          src={url}
+          title="HEAT IA · Suscripción"
+          width="100%"
+          height={height}
+          style={{ border: "none", display: "block" }}
+          loading="lazy"
+          allow="payment"
+        />
+      </div>
+
+      {/* Trust footer debajo del iframe */}
+      <div className="mt-6 pt-5 border-t border-white/[0.06] grid grid-cols-3 gap-2 text-center">
+        <div className="text-gray-500">
+          <Lock size={14} className="mx-auto mb-1 text-emerald-400/80" />
+          <p className="text-[10px] tracking-wide">Pago encriptado</p>
+        </div>
+        <div className="text-gray-500">
+          <ShieldCheck size={14} className="mx-auto mb-1 text-emerald-400/80" />
+          <p className="text-[10px] tracking-wide">Garantía total</p>
+        </div>
+        <div className="text-gray-500">
+          <Globe size={14} className="mx-auto mb-1 text-emerald-400/80" />
+          <p className="text-[10px] tracking-wide">Soporte en español</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GHLPlaceholder() {
+  return (
+    <div
+      className="relative rounded-2xl p-8 text-center"
+      style={{
+        border: "1.5px dashed rgba(91,169,255,0.3)",
+        background:
+          "radial-gradient(120% 120% at 50% 0%, rgba(99,102,241,.10), transparent 60%), rgba(11,15,28,0.6)",
+      }}
+    >
+      <div className="w-12 h-12 mx-auto mb-4 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+        <Sparkles size={20} className="text-white/60" />
+      </div>
+      <p className="text-foreground text-sm font-medium mb-2">
+        Esperando embed de GHL
+      </p>
+      <p className="text-gray-400 text-[12.5px] leading-relaxed max-w-md mx-auto">
+        Pega la URL del widget de checkout de GHL en{" "}
+        <code className="text-cyan-300 bg-white/[0.04] rounded px-1.5 py-0.5 text-[11px]">
+          GHL_EMBED_URL
+        </code>{" "}
+        dentro de{" "}
+        <code className="text-cyan-300 bg-white/[0.04] rounded px-1.5 py-0.5 text-[11px]">
+          src/pages/Suscripcion.tsx
+        </code>{" "}
+        y redespliega.
+      </p>
+      <p className="text-gray-500 text-[11px] leading-relaxed mt-4">
+        GHL Dashboard → Sites → Funnels/Forms → el form que tiene Stripe →
+        Embed Code
+      </p>
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────── */
 /* PAGE                                                            */
 /* ────────────────────────────────────────────────────────────── */
 
@@ -325,14 +443,36 @@ export default function Suscripcion() {
             </div>
           </motion.aside>
 
-          {/* ── RIGHT · Form ── */}
+          {/* ── RIGHT · GHL embed o mockup ── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9"
           >
-            {/* Section 1 — Cuenta */}
+            {GHL_EMBED_URL ? (
+              <GHLFormEmbed
+                url={GHL_EMBED_URL}
+                height={GHL_EMBED_HEIGHT}
+              />
+            ) : (
+              <>
+                {/* Heads-up de que estamos en modo demo */}
+                <div className="mb-6 rounded-xl border border-yellow-300/15 bg-yellow-300/[0.03] px-4 py-3">
+                  <p className="text-[12px] text-yellow-200/90 leading-relaxed">
+                    <span className="font-semibold">Modo demo:</span> esto es
+                    una maqueta visual. Cuando peguemos la URL del widget de
+                    GHL, este bloque se reemplaza por el form real con Stripe
+                    + auto-provisioning de subaccount.
+                  </p>
+                </div>
+
+                {/* Placeholder explicando dónde va el embed */}
+                <div className="mb-7">
+                  <GHLPlaceholder />
+                </div>
+
+                {/* Section 1 — Cuenta (mockup) */}
             <div className="mb-7">
               <div className="flex items-center gap-3 mb-5">
                 <span
@@ -520,6 +660,8 @@ export default function Suscripcion() {
                 </div>
               </div>
             </div>
+              </>
+            )}
           </motion.div>
         </div>
       </section>
