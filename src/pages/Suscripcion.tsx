@@ -172,28 +172,20 @@ const GHL_EMBED_HEIGHT = 800;
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
     <div className="relative">
-      {/* Iframe sobre fondo blanco — sin sombra ni borde (el bg de la sección ya es blanco). */}
-      {/* Solo un hairline ultra-sutil para diferenciar el área del form. */}
-      <div
-        className="relative rounded-2xl overflow-hidden"
+      {/* Iframe puro sobre bg-white: 0 sombra, 0 ring, 0 rounded → 0 borde visible */}
+      <iframe
+        src={url}
+        title="HEAT IA · Suscripción"
+        width="100%"
+        height={height}
         style={{
-          boxShadow: "0 0 0 1px rgba(0,0,0,0.04)",
+          border: "none",
+          display: "block",
+          background: "#ffffff",
         }}
-      >
-        <iframe
-          src={url}
-          title="HEAT IA · Suscripción"
-          width="100%"
-          height={height}
-          style={{
-            border: "none",
-            display: "block",
-            background: "#ffffff",
-          }}
-          loading="lazy"
-          allow="payment *; clipboard-write"
-        />
-      </div>
+        loading="lazy"
+        allow="payment *; clipboard-write"
+      />
 
       {/* Fallback — algunos navegadores bloquean iframes con pagos */}
       <p className="relative mt-4 text-[11px] text-gray-500 text-center">
