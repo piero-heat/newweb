@@ -166,7 +166,7 @@ function GHLFormEmbed({ url, height }: { url: string; height: number }) {
         className="relative rounded-2xl overflow-hidden"
         style={{
           boxShadow:
-            "0 30px 90px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)",
+            "0 30px 90px -20px rgba(99,102,241,0.25), 0 4px 16px -4px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06)",
         }}
       >
         <iframe
@@ -191,7 +191,7 @@ function GHLFormEmbed({ url, height }: { url: string; height: number }) {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-cyan-300 hover:text-foreground underline underline-offset-2 transition-colors"
+          className="text-indigo-600 hover:text-gray-900 underline underline-offset-2 transition-colors"
         >
           Abrir checkout en pestaña nueva →
         </a>
@@ -245,7 +245,7 @@ export default function Suscripcion() {
       <Navbar />
 
       {/* ── Top strip / hero ── */}
-      <section className="relative bg-[#0A0A0B] px-6 md:px-12 pt-8 md:pt-12 pb-6 overflow-hidden">
+      <section className="relative bg-[#F8FAFC] px-6 md:px-12 pt-8 md:pt-12 pb-6 overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-40"
@@ -259,7 +259,7 @@ export default function Suscripcion() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold tracking-[0.18em] mb-5"
+            className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white px-3 py-1 text-[11px] font-semibold tracking-[0.18em] mb-5 shadow-[0_4px_12px_-2px_rgba(99,102,241,0.12)]"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
@@ -280,7 +280,7 @@ export default function Suscripcion() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display font-medium text-white tracking-tight leading-[1.05] mb-3"
+            className="font-display font-medium text-gray-900 tracking-tight leading-[1.05] mb-3"
             style={{
               fontSize: "clamp(30px, 4vw, 52px)",
               letterSpacing: "-0.025em",
@@ -302,7 +302,7 @@ export default function Suscripcion() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-gray-400 text-sm md:text-base max-w-xl mx-auto"
+            className="text-gray-600 text-sm md:text-base max-w-xl mx-auto"
           >
             Plataforma completa de Agentes IA + CRM. Activación inmediata, sin
             instalación. Tu primer mes solo se cobra el día 15.
@@ -311,17 +311,17 @@ export default function Suscripcion() {
       </section>
 
       {/* ── Two-column checkout layout ── */}
-      <section className="bg-[#0A0A0B] px-6 md:px-12 pb-20 md:pb-24">
+      <section className="bg-[#F8FAFC] px-6 md:px-12 pb-20 md:pb-24">
         <div className="mx-auto max-w-[1180px] grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-8 lg:gap-12 items-start">
           {/* ── LEFT · Plan summary ── */}
           <motion.aside
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="lg:sticky lg:top-6 rounded-3xl overflow-hidden"
+            className="lg:sticky lg:top-6 rounded-3xl overflow-hidden shadow-[0_24px_60px_-20px_rgba(168,85,247,0.18)]"
             style={{
               border: "1.5px solid transparent",
-              background: `linear-gradient(#0E0E14, #0E0E14) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
+              background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
             }}
           >
             <div className="p-7 md:p-8">
@@ -336,28 +336,26 @@ export default function Suscripcion() {
                 >
                   ★ {PLAN.badge}
                 </span>
-                <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-300 font-medium tracking-wide">
+                <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-600 font-medium tracking-wide">
                   <Sparkles size={11} />
                   TRIAL {PLAN.trialDays} DÍAS
                 </span>
               </div>
 
-              <h2 className="font-display text-2xl md:text-3xl font-medium text-white tracking-tight mb-2">
+              <h2 className="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-2">
                 {PLAN.name}
               </h2>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
                 {PLAN.tagline}
               </p>
 
               {/* Price block */}
-              <div
-                className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 mb-6"
-              >
-                <p className="text-[10px] tracking-[0.22em] text-white/45 uppercase mb-2">
+              <div className="rounded-2xl border border-black/[0.06] bg-gray-50 p-5 mb-6">
+                <p className="text-[10px] tracking-[0.22em] text-gray-500 uppercase mb-2">
                   Después de tu trial · Plan mensual
                 </p>
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-gray-400 text-base">$</span>
+                  <span className="text-gray-500 text-base">$</span>
                   <span
                     className="font-display font-medium bg-clip-text text-transparent"
                     style={{
@@ -369,11 +367,11 @@ export default function Suscripcion() {
                   >
                     {PLAN.price}
                   </span>
-                  <span className="text-gray-400 text-sm">{PLAN.billing}</span>
+                  <span className="text-gray-500 text-sm">{PLAN.billing}</span>
                 </div>
-                <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center justify-between text-sm">
-                  <span className="text-gray-400">Hoy pagas</span>
-                  <span className="text-emerald-300 font-medium">
+                <div className="mt-4 pt-4 border-t border-black/[0.06] flex items-center justify-between text-sm">
+                  <span className="text-gray-600">Hoy pagas</span>
+                  <span className="text-emerald-600 font-semibold">
                     $0 USD
                   </span>
                 </div>
@@ -384,18 +382,18 @@ export default function Suscripcion() {
               </div>
 
               {/* Features */}
-              <p className="text-[11px] font-semibold tracking-[0.18em] text-white/50 mb-3">
+              <p className="text-[11px] font-semibold tracking-[0.18em] text-gray-500 mb-3">
                 LO QUE INCLUYE
               </p>
               <ul className="space-y-2.5 mb-6">
                 {PLAN.features.map((f) => (
                   <li
                     key={f}
-                    className="flex items-start gap-2.5 text-[13.5px] text-gray-300 leading-relaxed"
+                    className="flex items-start gap-2.5 text-[13.5px] text-gray-700 leading-relaxed"
                   >
                     <Check
                       size={15}
-                      className="text-emerald-400/90 mt-0.5 shrink-0"
+                      className="text-emerald-600 mt-0.5 shrink-0"
                       strokeWidth={2.4}
                     />
                     {f}
@@ -404,18 +402,18 @@ export default function Suscripcion() {
               </ul>
 
               {/* Guarantee row */}
-              <div className="grid grid-cols-3 gap-2 pt-5 border-t border-white/[0.06]">
+              <div className="grid grid-cols-3 gap-2 pt-5 border-t border-black/[0.06]">
                 {PLAN.guarantees.map((g) => (
                   <div
                     key={g.label}
-                    className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-2 py-2.5 text-center"
+                    className="rounded-xl border border-black/[0.06] bg-gray-50 px-2 py-2.5 text-center"
                   >
                     <g.icon
                       size={14}
-                      className="text-white/70 mx-auto mb-1"
+                      className="text-gray-600 mx-auto mb-1"
                       strokeWidth={2}
                     />
-                    <p className="text-[10px] text-gray-400 leading-tight">
+                    <p className="text-[10px] text-gray-600 leading-tight">
                       {g.label}
                     </p>
                   </div>
@@ -424,12 +422,12 @@ export default function Suscripcion() {
             </div>
 
             {/* Testimonial */}
-            <div className="border-t border-white/[0.06] bg-white/[0.015] px-7 md:px-8 py-5">
-              <p className="text-[13px] text-gray-300 leading-relaxed italic mb-3">
+            <div className="border-t border-black/[0.06] bg-gray-50 px-7 md:px-8 py-5">
+              <p className="text-[13px] text-gray-700 leading-relaxed italic mb-3">
                 "{TESTIMONIAL.quote}"
               </p>
               <p className="text-[11px] text-gray-500">
-                <span className="text-foreground font-medium">
+                <span className="text-gray-900 font-medium">
                   {TESTIMONIAL.author}
                 </span>
                 {" · "}
@@ -666,13 +664,13 @@ export default function Suscripcion() {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="bg-[#0A0A0B] px-6 md:px-12 py-16 md:py-20 border-t border-white/[0.05]">
+      <section className="bg-[#F8FAFC] px-6 md:px-12 py-16 md:py-20 border-t border-black/[0.05]">
         <div className="mx-auto max-w-[820px]">
           <div className="text-center mb-10">
-            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-3">
+            <p className="text-xs font-medium tracking-[0.18em] text-gray-500 mb-3">
               💬 PREGUNTAS FRECUENTES
             </p>
-            <h2 className="font-display text-3xl md:text-4xl font-medium text-white tracking-tight leading-tight">
+            <h2 className="font-display text-3xl md:text-4xl font-medium text-gray-900 tracking-tight leading-tight">
               Lo que todos preguntan antes de suscribirse
             </h2>
           </div>
@@ -685,21 +683,21 @@ export default function Suscripcion() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.035] transition-all duration-400 ease-out overflow-hidden"
+                className="group rounded-2xl border border-black/[0.06] bg-white hover:border-black/[0.12] hover:shadow-[0_8px_24px_-12px_rgba(99,102,241,0.18)] transition-all duration-400 ease-out overflow-hidden"
               >
                 <summary className="flex items-start justify-between gap-4 cursor-pointer list-none p-5">
-                  <span className="text-foreground text-[15px] font-medium tracking-tight">
+                  <span className="text-gray-900 text-[15px] font-medium tracking-tight">
                     {item.q}
                   </span>
                   <span
                     aria-hidden
-                    className="shrink-0 text-gray-500 transition-transform duration-400 group-open:rotate-45"
+                    className="shrink-0 text-gray-400 transition-transform duration-400 group-open:rotate-45"
                   >
                     +
                   </span>
                 </summary>
                 <div className="px-5 pb-5 -mt-1">
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-gray-600 text-sm leading-relaxed">
                     {item.a}
                   </p>
                 </div>
@@ -711,7 +709,7 @@ export default function Suscripcion() {
             ¿Otra duda? Escríbenos a{" "}
             <a
               href="mailto:hola@heatlatam.com"
-              className="text-gray-400 hover:text-foreground underline underline-offset-2"
+              className="text-gray-700 hover:text-gray-900 underline underline-offset-2"
             >
               hola@heatlatam.com
             </a>{" "}
@@ -720,7 +718,7 @@ export default function Suscripcion() {
               href="https://wa.me/56978919125"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-foreground underline underline-offset-2"
+              className="text-gray-700 hover:text-gray-900 underline underline-offset-2"
             >
               +56 9 7891 9125
             </a>
