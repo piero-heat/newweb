@@ -203,6 +203,29 @@ const META_CASES: CaseStudy[] = [
     ],
     url: "https://www.barquillos.cl",
   },
+  {
+    source: "heat",
+    industry: "SALUD · ODONTOLOGÍA HIGH-TICKET",
+    title:
+      "Clínica GoSmile — Meta Lead Forms + CAPI + landings para Invisalign e implantes",
+    description:
+      "Clínica dental especializada en Invisalign e implantología, con sucursales en Chicureo y La Dehesa. Antes operaban con campañas de WhatsApp masivo sin filtro y sin CAPI — leads baratos pero baja conversión a cita real. Pivoteamos a Meta Lead Forms con 2-3 preguntas de calificación, conectamos CAPI con el CRM HEAT para alimentar al algoritmo con data del agendamiento y la asistencia real, y escalamos los agentes de IA en WhatsApp. Sumamos landings dedicadas para servicios high-ticket (Invisalign + implantología) y corrimos A/B entre Lead Forms y Landings para optimizar el mix. En paralelo, una campaña sostenida de aumento de seguidores con métricas alineadas al promedio real del rubro.",
+    stats: [
+      {
+        value: "−45%",
+        label: "CPA al migrar de WhatsApp masivo a Meta Lead Forms + CAPI",
+      },
+      {
+        value: "+82%",
+        label: "conversión de lead a cita realmente agendada",
+      },
+      {
+        value: "+74%",
+        label: "calidad de leads con preguntas filtro pre-CRM",
+      },
+    ],
+    url: "https://www.gosmile.cl",
+  },
 ];
 
 // Video Ad creative packs — production for Meta paid ads only.
@@ -1004,7 +1027,7 @@ export default function PerformAds() {
                   >
                     {activeCase.source === "meta"
                       ? "Ver más en Meta Business →"
-                      : "Visitar barquillos.cl →"}
+                      : `Visitar ${activeCase.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")} →`}
                   </a>
                 </>
               )}
