@@ -28,6 +28,7 @@ import {
 } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StatsSection from "@/components/StatsSection";
 
 /* ────────────────────────────────────────────────────────────── */
 /* Plan data — easy to extend for /suscripcion/[plan] in the      */
@@ -431,6 +432,9 @@ export default function Suscripcion() {
           </div>
         </motion.aside>
       </section>
+
+      {/* ── Stats / social proof ── */}
+      <StatsSection />
 
       {/* ── FAQ · dark glass ── */}
       <section className="bg-background px-6 md:px-12 py-16 md:py-20 border-t border-white/[0.05]">
