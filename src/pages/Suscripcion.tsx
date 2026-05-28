@@ -313,330 +313,113 @@ export default function Suscripcion() {
         </div>
       </section>
 
-      {/* ── Stacked checkout: ACCIÓN PRIMERO (iframe), después reassurance ── */}
-      {/* Section bg = blanco (mismo que iframe) → sin "doble caluga" por contraste */}
+      {/* ── Unified card: header + iframe + chips + garantías, todo en un bloque ── */}
       <section className="bg-white px-6 md:px-12 pt-10 md:pt-12 pb-20 md:pb-24">
-        <div className="mx-auto max-w-[1080px] flex flex-col gap-6 md:gap-8">
-          {/* ── BOTTOM · GHL iframe (la acción de pagar, después del resumen) ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className={
-              GHL_EMBED_URL
-                ? "w-full order-2"
-                : "rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9 order-2"
-            }
-          >
+        <motion.aside
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto max-w-[1080px] rounded-3xl overflow-hidden shadow-[0_24px_60px_-20px_rgba(168,85,247,0.18)]"
+          style={{
+            border: "1.5px solid transparent",
+            background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
+          }}
+        >
+          {/* ── HEADER STRIP: badge + nombre + precio + trial (en línea) ── */}
+          <div className="px-6 md:px-8 py-5 flex flex-col md:flex-row md:items-center gap-4">
+            <div className="flex items-center gap-3">
+              <span
+                className="inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-[0.18em] px-2.5 py-1"
+                style={{
+                  background: HIGHLIGHT_GRADIENT,
+                  color: "#0A0A0B",
+                }}
+              >
+                ★ {PLAN.badge}
+              </span>
+              <h2 className="font-display text-xl md:text-2xl font-medium text-gray-900 tracking-tight">
+                {PLAN.name}
+              </h2>
+            </div>
+
+            <div className="flex items-baseline gap-1.5 md:ml-auto">
+              <span className="text-gray-500 text-sm">$</span>
+              <span
+                className="font-display font-medium bg-clip-text text-transparent"
+                style={{
+                  fontSize: "clamp(28px, 3vw, 36px)",
+                  lineHeight: 1,
+                  letterSpacing: "-0.025em",
+                  backgroundImage: PRICE_GRADIENT,
+                }}
+              >
+                {PLAN.price}
+              </span>
+              <span className="text-gray-500 text-sm">{PLAN.billing}</span>
+            </div>
+
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200/60 px-2.5 py-1 text-[11px] text-emerald-700 font-medium tracking-wide">
+              <Sparkles size={11} />
+              {PLAN.trialDays} días gratis
+            </span>
+          </div>
+
+          {/* ── IFRAME del checkout (full-width dentro del card) ── */}
+          <div className="border-t border-black/[0.06]">
             {GHL_EMBED_URL ? (
               <GHLFormEmbed
                 url={GHL_EMBED_URL}
                 height={GHL_EMBED_HEIGHT}
               />
             ) : (
-              <>
-                {/* Heads-up de que estamos en modo demo */}
-                <div className="mb-6 rounded-xl border border-yellow-300/15 bg-yellow-300/[0.03] px-4 py-3">
-                  <p className="text-[12px] text-yellow-200/90 leading-relaxed">
-                    <span className="font-semibold">Modo demo:</span> esto es
-                    una maqueta visual. Cuando peguemos la URL del widget de
-                    GHL, este bloque se reemplaza por el form real con Stripe
-                    + auto-provisioning de subaccount.
-                  </p>
-                </div>
-
-                {/* Placeholder explicando dónde va el embed */}
-                <div className="mb-7">
-                  <GHLPlaceholder />
-                </div>
-
-                {/* Section 1 — Cuenta (mockup) */}
-            <div className="mb-7">
-              <div className="flex items-center gap-3 mb-5">
-                <span
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold text-background"
-                  style={{ background: HIGHLIGHT_GRADIENT }}
-                >
-                  1
-                </span>
-                <h3 className="text-foreground text-base font-medium tracking-tight">
-                  Crea tu cuenta
-                </h3>
+              <div className="p-7 md:p-8 text-gray-500 text-sm">
+                <GHLPlaceholder />
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Field
-                  icon={User}
-                  label="Nombre completo"
-                  placeholder="Piero Setti"
-                />
-                <Field
-                  icon={Mail}
-                  label="Email"
-                  type="email"
-                  placeholder="tu@email.com"
-                />
-                <Field
-                  icon={Building2}
-                  label="Empresa o negocio"
-                  placeholder="HEAT IA"
-                />
-                <Field
-                  icon={Phone}
-                  label="WhatsApp"
-                  placeholder="+56 9 XXXX XXXX"
-                />
-              </div>
-            </div>
-
-            {/* Section 2 — Pago */}
-            <div className="mb-7">
-              <div className="flex items-center gap-3 mb-5">
-                <span
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold text-background"
-                  style={{ background: HIGHLIGHT_GRADIENT }}
-                >
-                  2
-                </span>
-                <h3 className="text-foreground text-base font-medium tracking-tight">
-                  Datos de pago
-                </h3>
-                <span className="text-[10px] text-gray-500 ml-auto">
-                  ⚡ Hoy no se cobra
-                </span>
-              </div>
-
-              {/* Stripe placeholder card */}
-              <div
-                className="rounded-2xl p-5 mb-3"
-                style={{
-                  border: "1.5px solid transparent",
-                  background:
-                    "radial-gradient(120% 120% at 50% 0%, rgba(99,102,241,.14), transparent 60%), #0B0F1C padding-box, linear-gradient(135deg, rgba(91,169,255,0.25), rgba(168,85,247,0.18)) border-box",
-                }}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <p className="text-[11px] font-semibold tracking-[0.16em] text-white/60">
-                    PROCESADO POR
-                  </p>
-                  <SiStripe size={28} color="#635BFF" />
-                </div>
-
-                {/* Fake card UI — Stripe Elements goes here */}
-                <div className="space-y-3">
-                  <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 flex items-center gap-3">
-                    <CreditCard size={14} className="text-white/50" />
-                    <span className="text-white/30 text-sm">
-                      1234 1234 1234 1234
-                    </span>
-                    <div className="ml-auto flex items-center gap-2">
-                      <SiVisa size={20} color="#1A1F71" className="opacity-80" />
-                      <SiMastercard
-                        size={20}
-                        color="#EB001B"
-                        className="opacity-80"
-                      />
-                      <SiAmericanexpress
-                        size={20}
-                        color="#016FD0"
-                        className="opacity-80"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5">
-                      <span className="text-white/30 text-sm">MM / YY</span>
-                    </div>
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5">
-                      <span className="text-white/30 text-sm">CVC</span>
-                    </div>
-                  </div>
-                </div>
-                <p className="mt-4 text-[10.5px] text-gray-500 leading-relaxed flex items-start gap-1.5">
-                  <Lock size={11} className="mt-0.5 shrink-0 text-emerald-400/80" />
-                  Pago seguro y encriptado vía Stripe. PCI DSS Nivel 1. HEAT IA
-                  nunca guarda los datos de tu tarjeta.
-                </p>
-              </div>
-
-              {/* Optional: discount code */}
-              <details className="group">
-                <summary className="cursor-pointer list-none flex items-center gap-1.5 text-[12px] text-gray-400 hover:text-foreground transition-colors">
-                  <Tag size={12} />
-                  <span>¿Tienes código de descuento?</span>
-                  <span className="ml-auto text-gray-500 transition-transform group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <div className="mt-3">
-                  <Field
-                    icon={Tag}
-                    label="Código"
-                    placeholder="HEAT-LATAM"
-                    optional
-                  />
-                </div>
-              </details>
-            </div>
-
-            {/* Section 3 — CTA */}
-            <div>
-              <button
-                type="button"
-                className="group relative w-full inline-flex items-center justify-center gap-2 rounded-full text-background text-sm font-semibold px-6 py-3.5 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_18px_60px_-12px_rgba(168,85,247,0.6)]"
-                style={{
-                  background: HIGHLIGHT_GRADIENT,
-                }}
-              >
-                <span className="relative z-10 inline-flex items-center gap-2">
-                  Activar mi prueba de {PLAN.trialDays} días
-                  <ArrowRight size={15} />
-                </span>
-              </button>
-
-              <p className="mt-4 text-[11px] text-gray-500 leading-relaxed text-center">
-                Al continuar aceptas nuestros{" "}
-                <a
-                  href="/terminos"
-                  className="text-gray-400 hover:text-foreground underline underline-offset-2"
-                >
-                  Términos y Condiciones
-                </a>{" "}
-                y la{" "}
-                <a
-                  href="/privacidad"
-                  className="text-gray-400 hover:text-foreground underline underline-offset-2"
-                >
-                  Política de Privacidad
-                </a>
-                . El cargo del primer mes se realiza el día 15 si no cancelas
-                antes.
-              </p>
-
-              {/* Trust signals row */}
-              <div className="mt-6 pt-5 border-t border-white/[0.06] grid grid-cols-3 gap-2 text-center">
-                <div className="text-gray-500">
-                  <Lock size={14} className="mx-auto mb-1 text-emerald-400/80" />
-                  <p className="text-[10px] tracking-wide">
-                    Pago encriptado
-                  </p>
-                </div>
-                <div className="text-gray-500">
-                  <ShieldCheck
-                    size={14}
-                    className="mx-auto mb-1 text-emerald-400/80"
-                  />
-                  <p className="text-[10px] tracking-wide">
-                    Garantía total
-                  </p>
-                </div>
-                <div className="text-gray-500">
-                  <Globe size={14} className="mx-auto mb-1 text-emerald-400/80" />
-                  <p className="text-[10px] tracking-wide">
-                    Soporte en español
-                  </p>
-                </div>
-              </div>
-            </div>
-              </>
             )}
-          </motion.div>
+          </div>
 
-          {/* ── TOP · Plan compacto (oferta primero, después el pago) ── */}
-          <motion.aside
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="rounded-3xl overflow-hidden shadow-[0_18px_48px_-20px_rgba(168,85,247,0.16)] order-1"
-            style={{
-              border: "1.5px solid transparent",
-              background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
-            }}
-          >
-            <div className="p-6 md:p-7">
-              {/* TOP ROW: badge + nombre + precio + trial (todo en una sola línea) */}
-              <div className="flex flex-col md:flex-row md:items-center gap-4 pb-5 border-b border-black/[0.06]">
-                <div className="flex items-center gap-3">
-                  <span
-                    className="inline-flex items-center gap-1 rounded-full text-[10px] font-semibold tracking-[0.18em] px-2.5 py-1"
-                    style={{
-                      background: HIGHLIGHT_GRADIENT,
-                      color: "#0A0A0B",
-                    }}
-                  >
-                    ★ {PLAN.badge}
-                  </span>
-                  <h2 className="font-display text-xl md:text-2xl font-medium text-gray-900 tracking-tight">
-                    {PLAN.name}
-                  </h2>
-                </div>
-
-                <div className="flex items-baseline gap-1.5 md:ml-auto">
-                  <span className="text-gray-500 text-sm">$</span>
-                  <span
-                    className="font-display font-medium bg-clip-text text-transparent"
-                    style={{
-                      fontSize: "clamp(28px, 3vw, 36px)",
-                      lineHeight: 1,
-                      letterSpacing: "-0.025em",
-                      backgroundImage: PRICE_GRADIENT,
-                    }}
-                  >
-                    {PLAN.price}
-                  </span>
-                  <span className="text-gray-500 text-sm">{PLAN.billing}</span>
-                </div>
-
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200/60 px-2.5 py-1 text-[11px] text-emerald-700 font-medium tracking-wide">
-                  <Sparkles size={11} />
-                  {PLAN.trialDays} días gratis
+          {/* ── QUÉ ACTIVAS HOY: chips de capacidades ── */}
+          <div className="border-t border-black/[0.06] px-6 md:px-8 py-5">
+            <p className="text-[10px] font-semibold tracking-[0.22em] text-gray-500 uppercase mb-3">
+              Qué activas hoy
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {COMPACT_FEATURES.map((f) => (
+                <span
+                  key={f.label}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] bg-gray-50 px-3 py-1.5 text-[12px] text-gray-700 hover:border-black/[0.12] hover:bg-white transition-colors"
+                >
+                  <f.icon size={13} className="text-emerald-600" strokeWidth={2.2} />
+                  {f.label}
                 </span>
-              </div>
-
-              {/* MIDDLE: chips de capacidades — visual, sin texto largo */}
-              <div className="pt-5">
-                <p className="text-[10px] font-semibold tracking-[0.22em] text-gray-500 uppercase mb-3">
-                  Qué activas hoy
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {COMPACT_FEATURES.map((f) => (
-                    <span
-                      key={f.label}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] bg-gray-50 px-3 py-1.5 text-[12px] text-gray-700 hover:border-black/[0.12] hover:bg-white transition-colors"
-                    >
-                      <f.icon size={13} className="text-emerald-600" strokeWidth={2.2} />
-                      {f.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* BOTTOM: garantías inline + testimonial mini en una sola fila */}
-              <div className="mt-5 pt-5 border-t border-black/[0.06] flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-gray-600">
-                  {PLAN.guarantees.map((g) => (
-                    <span
-                      key={g.label}
-                      className="inline-flex items-center gap-1.5"
-                    >
-                      <g.icon size={13} className="text-emerald-600" strokeWidth={2.2} />
-                      {g.label}
-                    </span>
-                  ))}
-                </div>
-                <p className="md:ml-auto text-[11px] text-gray-500 italic md:text-right md:shrink-0">
-                  "Antes perdíamos pacientes por no contestar. Ahora el agente
-                  agenda 24/7."
-                  <br className="hidden md:block" />
-                  <span className="not-italic text-gray-700 font-medium">
-                    — {TESTIMONIAL.author}
-                  </span>{" "}
-                  <span className="not-italic">· {TESTIMONIAL.business}</span>
-                </p>
-              </div>
+              ))}
             </div>
-          </motion.aside>
-        </div>
+          </div>
+
+          {/* ── GARANTÍAS + TESTIMONIAL en strip inferior ── */}
+          <div className="border-t border-black/[0.06] bg-gray-50 px-6 md:px-8 py-5 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-gray-600">
+              {PLAN.guarantees.map((g) => (
+                <span
+                  key={g.label}
+                  className="inline-flex items-center gap-1.5"
+                >
+                  <g.icon size={13} className="text-emerald-600" strokeWidth={2.2} />
+                  {g.label}
+                </span>
+              ))}
+            </div>
+            <p className="md:ml-auto text-[11px] text-gray-500 italic md:text-right md:shrink-0">
+              "Antes perdíamos pacientes por no contestar. Ahora el agente
+              agenda 24/7."
+              <br className="hidden md:block" />
+              <span className="not-italic text-gray-700 font-medium">
+                — {TESTIMONIAL.author}
+              </span>{" "}
+              <span className="not-italic">· {TESTIMONIAL.business}</span>
+            </p>
+          </div>
+        </motion.aside>
       </section>
 
       {/* ── FAQ ── */}
