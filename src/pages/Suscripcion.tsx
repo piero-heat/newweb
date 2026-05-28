@@ -146,35 +146,27 @@ const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 // Stripe Payment Link servida por GHL — auto-provisioning intacto.
 const GHL_EMBED_URL =
   "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371";
-const GHL_EMBED_HEIGHT = 920; // Pixel height (Stripe Payment Link suele ser largo)
+const GHL_EMBED_HEIGHT = 1320; // Pixel height (Stripe Payment Link es largo: header + productos + datos + tarjeta + país + botón)
 
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
     <div className="relative">
-      {/* Header de marca arriba del iframe */}
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <p className="text-foreground text-base font-medium tracking-tight">
-            Crea tu cuenta + activá tu trial
-          </p>
-          <p className="text-[11px] text-gray-500 mt-0.5">
-            Formulario seguro · Procesado por Stripe vía GHL
-          </p>
-        </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-300 tracking-wide">
-          <Lock size={10} /> SSL
-        </span>
-      </div>
-
-      {/* Iframe wrapper con bg claro para que el form GHL respire */}
+      {/* Soft radial glow detrás del iframe — suaviza la transición dark→white */}
       <div
-        className="rounded-2xl overflow-hidden bg-white"
+        aria-hidden
+        className="pointer-events-none absolute -inset-8 rounded-[40px] opacity-70 blur-3xl"
         style={{
-          border: "1.5px solid transparent",
           background:
-            "linear-gradient(white, white) padding-box, linear-gradient(135deg, rgba(99,102,241,0.4), rgba(168,85,247,0.4), rgba(252,211,77,0.4)) border-box",
+            "radial-gradient(70% 70% at 50% 50%, rgba(168,85,247,0.18), transparent 75%)",
+        }}
+      />
+
+      {/* Iframe directo — sin doble-marco blanco */}
+      <div
+        className="relative rounded-2xl overflow-hidden"
+        style={{
           boxShadow:
-            "0 30px 80px -20px rgba(168,85,247,0.3), 0 0 0 1px rgba(255,255,255,0.04)",
+            "0 30px 90px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)",
         }}
       >
         <iframe
@@ -182,14 +174,18 @@ function GHLFormEmbed({ url, height }: { url: string; height: number }) {
           title="HEAT IA · Suscripción"
           width="100%"
           height={height}
-          style={{ border: "none", display: "block" }}
+          style={{
+            border: "none",
+            display: "block",
+            background: "#ffffff",
+          }}
           loading="lazy"
           allow="payment *; clipboard-write"
         />
       </div>
 
       {/* Fallback — algunos navegadores bloquean iframes con pagos */}
-      <p className="mt-3 text-[11px] text-gray-500 text-center">
+      <p className="relative mt-4 text-[11px] text-gray-500 text-center">
         ¿No se carga el formulario?{" "}
         <a
           href={url}
@@ -200,22 +196,6 @@ function GHLFormEmbed({ url, height }: { url: string; height: number }) {
           Abrir checkout en pestaña nueva →
         </a>
       </p>
-
-      {/* Trust footer debajo del iframe */}
-      <div className="mt-6 pt-5 border-t border-white/[0.06] grid grid-cols-3 gap-2 text-center">
-        <div className="text-gray-500">
-          <Lock size={14} className="mx-auto mb-1 text-emerald-400/80" />
-          <p className="text-[10px] tracking-wide">Pago encriptado</p>
-        </div>
-        <div className="text-gray-500">
-          <ShieldCheck size={14} className="mx-auto mb-1 text-emerald-400/80" />
-          <p className="text-[10px] tracking-wide">Garantía total</p>
-        </div>
-        <div className="text-gray-500">
-          <Globe size={14} className="mx-auto mb-1 text-emerald-400/80" />
-          <p className="text-[10px] tracking-wide">Soporte en español</p>
-        </div>
-      </div>
     </div>
   );
 }
@@ -463,7 +443,11 @@ export default function Suscripcion() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9"
+            className={
+              GHL_EMBED_URL
+                ? "" // En modo embed el wrapper desaparece, el iframe respira por sí solo
+                : "rounded-3xl border border-white/[0.08] bg-white/[0.02] p-7 md:p-9"
+            }
           >
             {GHL_EMBED_URL ? (
               <GHLFormEmbed
