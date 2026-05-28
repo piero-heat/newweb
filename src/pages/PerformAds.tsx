@@ -7,6 +7,7 @@ import {
   Filter,
   Database,
   ArrowRight,
+  ArrowDown,
   ChevronLeft,
   ChevronRight,
   Check,
@@ -18,6 +19,16 @@ import {
   Video,
   Film,
   Clapperboard,
+  Globe,
+  Smartphone,
+  Store,
+  Mail,
+  MessageSquare,
+  Phone,
+  Workflow,
+  Shield,
+  Activity,
+  Sparkles,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -154,17 +165,21 @@ const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 const HIGHLIGHT_GRADIENT =
   "linear-gradient(137deg, #FF3D77 0%, #FFB1CE 45%, #FF9D3C 100%)";
 
-// Casos publicados oficialmente por Meta sobre Conversion API.
-// Pídele al usuario más casos para sumar al carrusel.
-type MetaCase = {
+// Casos de éxito en el carrusel — mezcla casos publicados por Meta
+// con casos reales de clientes HEAT.
+type CaseStudy = {
+  source: "meta" | "heat";
   industry: string;
   title: string;
   description: string;
   stats: { value: string; label: string }[];
+  /** URL opcional del cliente (HEAT) o del caso publicado (Meta) */
+  url?: string;
 };
 
-const META_CASES: MetaCase[] = [
+const META_CASES: CaseStudy[] = [
   {
+    source: "meta",
     industry: "SERVICIOS · SEGUROS",
     title: "Axis Max Life Insurance — campañas Advantage+",
     description:
@@ -173,6 +188,20 @@ const META_CASES: MetaCase[] = [
       { value: "−17%", label: "de reducción del costo por captación" },
       { value: "+40%", label: "de aumento de clientes potenciales de calidad" },
     ],
+    url: "https://www.facebook.com/business/tools/conversions-api",
+  },
+  {
+    source: "heat",
+    industry: "RETAIL · CONFITERÍA ARTESANAL",
+    title: "Barquillos.cl — Funnel multi-canal con CAPI conectada",
+    description:
+      "Confitería artesanal chilena (cuchuflies, barquillos, tortas). Diseñamos su funnel completo: campañas de contenido + un video viral con concurso nacional impulsado con Meta Ads que llevó la marca a +40.000 seguidores en menos de 30 días. Después lanzamos landings sectoriales B2B (emprendimiento y corporativo) con formulario calificador → derivación instantánea por WhatsApp, y finalmente sumamos el e-commerce B2C. Todo medido con CAPI conectada al CRM para que Meta optimizara con datos del cierre real.",
+    stats: [
+      { value: "+40.000", label: "seguidores en menos de 30 días con la campaña viral" },
+      { value: "+187%", label: "leads B2B calificados con landings sectoriales" },
+      { value: "−42%", label: "CPA al conectar CAPI con el CRM" },
+    ],
+    url: "https://www.barquillos.cl",
   },
 ];
 
@@ -566,6 +595,212 @@ export default function PerformAds() {
         </div>
       </section>
 
+      {/* ── CAPI · Infografía de cómo funciona ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              📡 API DE CONVERSIONES · TECH FOUNDATION
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Cómo funciona la API de Conversiones
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              CAPI crea una conexión directa más confiable entre los datos de
+              marketing de tu servidor, web, app o CRM, y los sistemas de
+              optimización de anuncios de Meta. Más fiable que el píxel solo.
+            </p>
+          </div>
+
+          {/* Infographic — 3 column flow desktop / vertical stack mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-5 md:gap-4 items-stretch mb-10">
+            {/* LEFT — Origins */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6"
+            >
+              <p className="text-[10px] font-semibold tracking-[0.22em] text-white/40 mb-5">
+                01 · TUS ORÍGENES DE DATOS
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { icon: Globe, label: "Sitio web · eventos del Pixel" },
+                  { icon: Smartphone, label: "App móvil" },
+                  { icon: Database, label: "CRM · conversiones offline" },
+                  { icon: Store, label: "Tienda física · POS" },
+                  { icon: Mail, label: "Correo electrónico" },
+                  { icon: MessageSquare, label: "Chats con el negocio" },
+                  { icon: Phone, label: "Teléfono · llamadas" },
+                ].map((s) => (
+                  <li
+                    key={s.label}
+                    className="flex items-center gap-3 text-[13px] text-gray-300"
+                  >
+                    <s.icon
+                      size={14}
+                      className="text-white/55 shrink-0"
+                      strokeWidth={2}
+                    />
+                    {s.label}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* CENTER — CAPI hub */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="flex items-center justify-center md:flex-col gap-3 py-2 md:py-6"
+            >
+              <ArrowRight
+                size={22}
+                className="md:hidden text-white/35"
+                strokeWidth={1.6}
+              />
+              <ArrowDown
+                size={22}
+                className="hidden md:block text-white/35"
+                strokeWidth={1.6}
+              />
+
+              <div
+                className="relative rounded-2xl px-6 py-5 text-center min-w-[140px] shadow-[0_24px_60px_-16px_rgba(168,85,247,0.5)]"
+                style={{
+                  border: "1.5px solid transparent",
+                  background:
+                    "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(137deg, #6366f1, #a855f7, #FF3D77) border-box",
+                }}
+              >
+                <Workflow
+                  size={26}
+                  className="text-purple-300 mx-auto mb-1.5"
+                  strokeWidth={1.8}
+                />
+                <p className="text-foreground font-semibold text-sm tracking-tight">
+                  CAPI
+                </p>
+                <p className="text-[10px] text-gray-400 mt-0.5">
+                  Hub único
+                </p>
+              </div>
+
+              <ArrowRight
+                size={22}
+                className="md:hidden text-white/35"
+                strokeWidth={1.6}
+              />
+              <ArrowDown
+                size={22}
+                className="hidden md:block text-white/35"
+                strokeWidth={1.6}
+              />
+            </motion.div>
+
+            {/* RIGHT — Meta output */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6"
+            >
+              <p className="text-[10px] font-semibold tracking-[0.22em] text-white/40 mb-5">
+                02 · META OPTIMIZA TUS CAMPAÑAS
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Segmentación más precisa por audiencia real",
+                  "Reducción del costo por resultado (CPA)",
+                  "Atribución correcta del cierre",
+                  "Personalización del mensaje",
+                  "Medición fiable del ROAS",
+                ].map((b) => (
+                  <li
+                    key={b}
+                    className="flex items-start gap-2.5 text-[13px] text-gray-300 leading-snug"
+                  >
+                    <Check
+                      size={14}
+                      className="text-emerald-400 mt-0.5 shrink-0"
+                      strokeWidth={2.4}
+                    />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          {/* 3 key concepts row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                icon: Activity,
+                title: "Una sola API, múltiples orígenes",
+                desc: "CAPI agrupa todos los eventos en un único pipeline. Sin mantener integraciones separadas por canal.",
+              },
+              {
+                icon: Shield,
+                title: "Calidad de coincidencias",
+                desc: "Mientras más eventos envíes con parámetros del cliente (email, teléfono, IP — hasheados), más conversiones atribuidas correctamente.",
+              },
+              {
+                icon: Sparkles,
+                title: "No siempre requiere desarrollador",
+                desc: "Shopify, WooCommerce, GTM y otros conectan CAPI sin código. El resto lo configuramos nosotros en setup.",
+              },
+            ].map((c, i) => (
+              <motion.div
+                key={c.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 hover:border-white/15 hover:bg-white/[0.04] transition-all duration-400"
+              >
+                <c.icon
+                  size={18}
+                  className="text-white/70 mb-3"
+                  strokeWidth={2}
+                />
+                <p className="text-foreground text-sm font-medium mb-1.5 tracking-tight">
+                  {c.title}
+                </p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  {c.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Migration notice */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-8 rounded-2xl border border-yellow-300/15 bg-yellow-300/[0.03] p-5"
+          >
+            <p className="text-sm text-yellow-200/90 leading-relaxed">
+              <span className="font-semibold">
+                ⚠️ Importante — migración obligatoria:
+              </span>{" "}
+              la API de Conversiones <strong>offline</strong> dejó de estar
+              disponible en mayo de 2025. Si todavía usas conjuntos de eventos
+              offline, hay que migrar a CAPI con conjuntos de datos. Lo
+              gestionamos sin que pierdas histórico de aprendizaje del
+              algoritmo.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── 4 Meta-recommended CAPI pillars + Axis case study ── */}
       <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
         <div className="mx-auto max-w-[1080px]">
@@ -659,8 +894,20 @@ export default function PerformAds() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
               >
-                <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-3">
-                  CASO PUBLICADO POR META · {activeCase.industry}
+                <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-3 flex items-center gap-2 flex-wrap">
+                  <span
+                    className={`inline-block px-2 py-0.5 rounded-full text-[10px] tracking-[0.18em] ${
+                      activeCase.source === "meta"
+                        ? "bg-[#1877F2]/15 text-[#7DB8FF] border border-[#1877F2]/30"
+                        : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                    }`}
+                  >
+                    {activeCase.source === "meta"
+                      ? "CASO META BUSINESS"
+                      : "CASO REAL HEAT"}
+                  </span>
+                  <span>·</span>
+                  <span>{activeCase.industry}</span>
                 </p>
                 <h3 className="font-display text-2xl md:text-3xl font-medium text-white tracking-tight mb-3 leading-tight">
                   {activeCase.title}
@@ -743,17 +990,24 @@ export default function PerformAds() {
               {totalCases > 1
                 ? `${caseIdx + 1} de ${totalCases} · `
                 : ""}
-              Casos documentados oficialmente por Meta Business. Más historias
-              en{" "}
-              <a
-                href="https://www.facebook.com/business/tools/conversions-api"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-300 underline underline-offset-2 transition-colors"
-              >
-                facebook.com/business/tools/conversions-api
-              </a>
-              .
+              {activeCase.source === "meta"
+                ? "Caso documentado oficialmente por Meta Business."
+                : "Caso real ejecutado por el equipo de HEAT."}
+              {activeCase.url && (
+                <>
+                  {" "}
+                  <a
+                    href={activeCase.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-500 hover:text-gray-300 underline underline-offset-2 transition-colors"
+                  >
+                    {activeCase.source === "meta"
+                      ? "Ver más en Meta Business →"
+                      : "Visitar barquillos.cl →"}
+                  </a>
+                </>
+              )}
             </p>
           </motion.div>
         </div>
