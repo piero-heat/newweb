@@ -165,29 +165,19 @@ const GHL_EMBED_URL =
   "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371";
 // Ancho ≥1000px → GHL sirve layout horizontal (producto izq / form der).
 // Por debajo colapsa a vertical (mobile) y necesita ~1320px de alto.
-// 690px = altura justa para form + Pagar + fine print, sin dead-white.
-// El reCAPTCHA queda pegado al borde inferior (no flotando con whitespace).
-const GHL_EMBED_HEIGHT = 690;
+// 800px = aloja form + Pagar + fine print + reCAPTCHA sin scroll interno.
+// El dead-white inferior ya no es visible porque la sección padre tb es blanca.
+const GHL_EMBED_HEIGHT = 800;
 
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
     <div className="relative">
-      {/* Soft radial glow detrás del iframe — suaviza la transición dark→white */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-8 rounded-[40px] opacity-70 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(70% 70% at 50% 50%, rgba(168,85,247,0.18), transparent 75%)",
-        }}
-      />
-
-      {/* Iframe directo — sombra suave, sin ring rígido que dibuje "caluga" */}
+      {/* Iframe sobre fondo blanco — sin sombra ni borde (el bg de la sección ya es blanco). */}
+      {/* Solo un hairline ultra-sutil para diferenciar el área del form. */}
       <div
         className="relative rounded-2xl overflow-hidden"
         style={{
-          boxShadow:
-            "0 24px 60px -24px rgba(99,102,241,0.22), 0 2px 8px -2px rgba(0,0,0,0.05)",
+          boxShadow: "0 0 0 1px rgba(0,0,0,0.04)",
         }}
       >
         <iframe
@@ -332,7 +322,8 @@ export default function Suscripcion() {
       </section>
 
       {/* ── Stacked checkout: ACCIÓN PRIMERO (iframe), después reassurance ── */}
-      <section className="bg-[#F8FAFC] px-6 md:px-12 pb-20 md:pb-24">
+      {/* Section bg = blanco (mismo que iframe) → sin "doble caluga" por contraste */}
+      <section className="bg-white px-6 md:px-12 pt-10 md:pt-12 pb-20 md:pb-24">
         <div className="mx-auto max-w-[1080px] flex flex-col gap-6 md:gap-8">
           {/* ── TOP · GHL iframe (la acción de pagar es lo primero que ve) ── */}
           <motion.div
