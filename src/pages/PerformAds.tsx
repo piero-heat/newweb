@@ -249,6 +249,29 @@ const META_CASES: CaseStudy[] = [
     ],
     url: "https://www.gabrielaprieto.cl",
   },
+  {
+    source: "heat",
+    industry: "GASTRONOMÍA · TRATTORIA ITALIANA",
+    title:
+      "La Nostra Casa Trattoria — De 10 a +35.000 seguidores en <90 días",
+    description:
+      "Restaurante italiano enfocado en la cocina de la nonna — recetas tradicionales hechas a mano. Arrancamos su Instagram desde 10 seguidores y diseñamos un funnel de awareness puro: video ads de alta producción mostrando a la nonna cocinando, hook fuerte en los primeros 3 segundos, foco emocional en la experiencia (no en el plato vendido). En menos de 90 días superamos los 35.000 seguidores reales. La segunda capa: pivote del awareness a reservas — campañas de reserva de mesa con Meta Lead Forms calificados y CAPI conectada al CRM para medir reservas efectivamente concretadas (no solo solicitadas).",
+    stats: [
+      {
+        value: "+35.000",
+        label: "seguidores reales en menos de 90 días desde 10 iniciales",
+      },
+      {
+        value: "+260%",
+        label: "tasa de reserva de mesa tras pivote del funnel a conversión",
+      },
+      {
+        value: "6,8%",
+        label: "engagement rate sostenido (industria gastro ~2-3%)",
+      },
+    ],
+    url: "https://www.instagram.com/lanostracasa.trattoria/",
+  },
 ];
 
 // Video Ad creative packs — production for Meta paid ads only.
@@ -1048,9 +1071,19 @@ export default function PerformAds() {
                     rel="noopener noreferrer"
                     className="text-gray-500 hover:text-gray-300 underline underline-offset-2 transition-colors"
                   >
-                    {activeCase.source === "meta"
-                      ? "Ver más en Meta Business →"
-                      : `Visitar ${activeCase.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")} →`}
+                    {(() => {
+                      if (activeCase.source === "meta")
+                        return "Ver más en Meta Business →";
+                      const u = activeCase.url!;
+                      if (u.includes("instagram.com"))
+                        return "Ver en Instagram →";
+                      if (u.includes("facebook.com"))
+                        return "Ver en Facebook →";
+                      const clean = u
+                        .replace(/^https?:\/\/(www\.)?/, "")
+                        .replace(/\/$/, "");
+                      return `Visitar ${clean} →`;
+                    })()}
                   </a>
                 </>
               )}
