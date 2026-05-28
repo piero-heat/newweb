@@ -385,7 +385,7 @@ function IntegrationsCircleVisual() {
 
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative w-28 h-28 rounded-full liquid-glass flex items-center justify-center shadow-[0_0_60px_-10px_rgba(168,85,247,0.6)]">
-            <img src={logo} alt="HEAT" className="h-7 relative z-10" />
+            <img src={logo} alt="HEAT" className="h-5 relative z-10" />
           </div>
         </div>
 
