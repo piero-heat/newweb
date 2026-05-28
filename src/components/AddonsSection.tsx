@@ -51,7 +51,7 @@ const ADDONS: Addon[] = [
   },
   {
     title: "Voice AI",
-    price: "89",
+    price: "199",
     description:
       "Atención automática de llamadas con IA + Token LLM. Tu agente HEAT también atiende al teléfono.",
     availableIn: ["Standard", "Pro"],
