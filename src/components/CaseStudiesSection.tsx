@@ -161,7 +161,7 @@ export default function CaseStudiesSection() {
   return (
     <section
       id="casos"
-      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8"
+      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 pt-20 md:pt-24 pb-32 md:pb-40 scroll-mt-8"
     >
       <div className="w-full max-w-[1080px] mb-10 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
