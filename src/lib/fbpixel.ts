@@ -96,3 +96,118 @@ export function newFbEventId(): string {
   const rnd = Math.random().toString(36).slice(2, 10);
   return `${Date.now()}-${rnd}`;
 }
+
+/* ────────────────────────────────────────────────────────────── */
+/* FASE 2 · Advanced Matching                                      */
+/* Meta puede matchear mejor un usuario con sus datos hasheados.   */
+/* Llama setAdvancedMatching({email, phone, ...}) cuando los       */
+/* tengas (form, Stripe redirect, GHL postMessage, etc).           */
+/* ────────────────────────────────────────────────────────────── */
+
+export type AdvancedMatchingData = {
+  email?: string;
+  phone?: string; // formato e164 sin "+", ej. "56978919125"
+  firstName?: string;
+  lastName?: string;
+  city?: string;
+  country?: string; // ISO 3166-1 alpha-2, ej. "cl"
+  externalId?: string; // tu ID interno del cliente
+};
+
+/** Normaliza un string para hashing (lower + trim) */
+function normalize(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+/** Hashea un string a SHA-256 hex usando Web Crypto API */
+async function sha256(value: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(value);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+/** Limpia un número de teléfono → solo dígitos */
+function cleanPhone(phone: string): string {
+  return phone.replace(/\D/g, "");
+}
+
+/**
+ * Configura Advanced Matching en el pixel. Hashea los datos antes de
+ * enviarlos a Meta — los datos en claro NUNCA salen del navegador.
+ *
+ * @example
+ *   await setAdvancedMatching({
+ *     email: "piero@heat.cl",
+ *     phone: "+56 9 7891 9125",
+ *     firstName: "Piero",
+ *     country: "cl",
+ *   });
+ */
+export async function setAdvancedMatching(
+  userData: AdvancedMatchingData
+): Promise<void> {
+  if (typeof window === "undefined" || !window.fbq) return;
+  try {
+    const am: Record<string, string> = {};
+    if (userData.email) am.em = await sha256(normalize(userData.email));
+    if (userData.phone) am.ph = await sha256(cleanPhone(userData.phone));
+    if (userData.firstName)
+      am.fn = await sha256(normalize(userData.firstName));
+    if (userData.lastName)
+      am.ln = await sha256(normalize(userData.lastName));
+    if (userData.city) am.ct = await sha256(normalize(userData.city));
+    if (userData.country)
+      am.country = await sha256(normalize(userData.country));
+    if (userData.externalId)
+      am.external_id = await sha256(normalize(userData.externalId));
+
+    // Re-init con AM hashed. Meta lo persiste para los siguientes events.
+    window.fbq("init", FB_PIXEL_ID, am);
+  } catch (e) {
+    if (import.meta.env.DEV)
+      console.warn("[fbq] setAdvancedMatching error", e);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────── */
+/* FASE 3 · Server-side mirror (Conversions API via Netlify Fn)   */
+/* fbqDualTrack envía el evento al pixel browser-side Y a la       */
+/* función /api/meta-capi server-side con el mismo eventID. Meta   */
+/* deduplica automáticamente. Sube el score de matching            */
+/* significativamente porque bypassa bloqueadores y iOS ITP.       */
+/* ────────────────────────────────────────────────────────────── */
+
+const CAPI_ENDPOINT = "/.netlify/functions/meta-capi";
+
+export async function fbqDualTrack(
+  event: FbStandardEvent,
+  params?: FbqArgs,
+  userData?: AdvancedMatchingData
+): Promise<void> {
+  const eventId = newFbEventId();
+
+  // 1) Browser pixel — incluye eventID para que CAPI pueda deduplicar
+  fbqTrack(event, params, { eventID: eventId });
+
+  // 2) Server-side mirror (CAPI). No bloquea si falla.
+  try {
+    await fetch(CAPI_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        eventName: event,
+        eventId,
+        eventSourceUrl:
+          typeof window !== "undefined" ? window.location.href : "",
+        customData: params ?? {},
+        userData: userData ?? {},
+      }),
+      keepalive: true, // permite que el request sobreviva un page unload
+    });
+  } catch (e) {
+    if (import.meta.env.DEV) console.warn("[capi] dual track error", e);
+  }
+}

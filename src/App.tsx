@@ -12,6 +12,7 @@ import PerformanceAdsCheckout from "./pages/PerformanceAdsCheckout";
 import WebPlanCheckout from "./pages/WebPlanCheckout";
 import ImplementationCheckout from "./pages/ImplementationCheckout";
 import MetaPixel from "./components/MetaPixel";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -56,6 +57,7 @@ export default function App() {
           element={<ImplementationCheckout />}
         />
       </Routes>
+      <WhatsAppFloat />
     </BrowserRouter>
   );
 }

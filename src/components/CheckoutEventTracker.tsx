@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fbqTrack } from "@/lib/fbpixel";
+import { fbqDualTrack } from "@/lib/fbpixel";
 
 /* ────────────────────────────────────────────────────────────── */
 /* CheckoutEventTracker — dispara InitiateCheckout en Meta Pixel  */
@@ -30,7 +30,9 @@ export default function CheckoutEventTracker({
   contentIds,
 }: CheckoutEventTrackerProps) {
   useEffect(() => {
-    fbqTrack("InitiateCheckout", {
+    // Dual track: pixel browser-side + Meta CAPI server-side con el
+    // mismo eventID → Meta deduplica y sube el score de matching.
+    fbqDualTrack("InitiateCheckout", {
       content_category: contentCategory,
       content_name: contentName,
       content_type: "product",
@@ -39,9 +41,6 @@ export default function CheckoutEventTracker({
       currency,
       num_items: 1,
     });
-    // Solo al montar — cada vez que cambia de plan, React remonta o
-    // el padre tiene que rerenderizar. Para evitar múltiples disparos,
-    // sin deps.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contentCategory, contentName, value, currency]);
 
