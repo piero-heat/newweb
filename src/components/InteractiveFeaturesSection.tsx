@@ -37,7 +37,7 @@ const FEATURES: Feature[] = [
     icon: CalendarCheck,
     title: "Agenda citas y reuniones 24/7",
     description:
-      "Conectado a tu calendario, HEAT cierra reuniones mientras tu equipo descansa. Integra Google Calendar, Calendly, Dentalink y más.",
+      "Conectado a tu calendario, HEAT cierra reuniones mientras tu equipo descansa. Integra Google Calendar, Cal.com, Calendly y más.",
   },
   {
     icon: MessageCircle,
@@ -49,7 +49,7 @@ const FEATURES: Feature[] = [
     icon: Plug,
     title: "Conectado con tu stack actual",
     description:
-      "Dentalink, Shopify, WooCommerce, Mercado Pago, WhatsApp Business API… Migración incluida en la implementación, sin fricciones.",
+      "HubSpot, Shopify, WooCommerce, Stripe, Mercado Pago, WhatsApp Business API… Migración incluida en la implementación, sin fricciones.",
   },
   {
     icon: BarChart3,

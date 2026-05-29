@@ -8,7 +8,7 @@ const STATS: { value: string; label: string; sub: string }[] = [
   {
     value: "+30",
     label: "Integraciones nativas",
-    sub: "WhatsApp, Shopify, Mercado Pago, Dentalink, Google Ads, TikTok…",
+    sub: "WhatsApp, Shopify, Stripe, HubSpot, Mercado Pago, Google Ads…",
   },
   {
     value: "5 días",
