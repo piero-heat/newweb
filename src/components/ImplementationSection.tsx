@@ -18,6 +18,7 @@ const PACKAGES: PricingCardProps[] = [
       "Entrega en 10 días",
       "30 días de soporte",
     ],
+    href: "/contratar/implementacion/ignite",
     delay: 0.05,
   },
   {
@@ -37,6 +38,7 @@ const PACKAGES: PricingCardProps[] = [
       "60 días de soporte",
     ],
     highlighted: true,
+    href: "/contratar/implementacion/accelerate",
     delay: 0.15,
   },
   {
@@ -56,6 +58,7 @@ const PACKAGES: PricingCardProps[] = [
       "90 días de soporte",
       "Dashboard + atribución",
     ],
+    href: "/contratar/implementacion/transform",
     delay: 0.25,
   },
 ];
