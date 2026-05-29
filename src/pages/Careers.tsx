@@ -7,7 +7,15 @@ import {
   MapPin,
   Sparkles,
   Flame,
+  Waves,
+  Dumbbell,
+  Bath,
+  Car,
+  Users,
+  Hotel,
+  ShoppingBag,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ROLES, WHY_HEAT } from "@/data/careers";
@@ -21,6 +29,74 @@ const HEAT_GRADIENT =
 
 const CULTURE_GRADIENT =
   "linear-gradient(90deg, #7DD3FC 0%, #C084FC 50%, #FCD34D 100%)";
+
+/* ────────────────────────────────────────────────────────────── */
+/* Office amenities · Spot Kennedy                                 */
+/* ────────────────────────────────────────────────────────────── */
+
+type Amenity = { icon: LucideIcon; label: string; sublabel?: string };
+
+const OFFICE_AMENITIES: Amenity[] = [
+  { icon: Waves, label: "Piscina temperada", sublabel: "Para despejarte" },
+  { icon: Dumbbell, label: "Gimnasio premium", sublabel: "Equipamiento top" },
+  { icon: Bath, label: "Jacuzzi", sublabel: "Recovery mode" },
+  { icon: Flame, label: "Sauna", sublabel: "Reset total" },
+  { icon: Car, label: "Estacionamiento", sublabel: "Disponible" },
+  { icon: Users, label: "Salas de reunión", sublabel: "Cuando las necesites" },
+];
+
+function AmenityCard({
+  amenity,
+  index,
+}: {
+  amenity: Amenity;
+  index: number;
+}) {
+  const Icon = amenity.icon;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.4, delay: index * 0.04 }}
+      className="group rounded-2xl border border-white/[0.08] bg-white/[0.02] px-4 py-5 text-center transition-all duration-400 ease-out hover:border-white/[0.18] hover:bg-white/[0.04] hover:shadow-[0_16px_50px_-20px_rgba(125,211,252,0.3)]"
+    >
+      <div
+        className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl text-white"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(125,211,252,0.22), rgba(192,132,252,0.18) 60%, rgba(252,211,77,0.18))",
+          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)",
+        }}
+      >
+        <Icon size={18} strokeWidth={1.8} />
+      </div>
+      <p className="text-foreground text-[13px] font-semibold leading-tight mb-1">
+        {amenity.label}
+      </p>
+      {amenity.sublabel && (
+        <p className="text-gray-500 text-[11px] leading-tight">
+          {amenity.sublabel}
+        </p>
+      )}
+    </motion.div>
+  );
+}
+
+function LocationChip({
+  children,
+  icon,
+}: {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+}) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm px-3 py-1.5 text-[12px] font-medium text-gray-300">
+      {icon && <span className="text-white/55">{icon}</span>}
+      {children}
+    </span>
+  );
+}
 
 function RoleCard({
   role,
@@ -295,35 +371,83 @@ export default function Careers() {
           className="pointer-events-none absolute inset-0 opacity-50"
           style={{
             background:
-              "radial-gradient(60% 80% at 50% 0%, rgba(239,68,68,0.12), transparent 65%)",
+              "radial-gradient(60% 80% at 50% 0%, rgba(239,68,68,0.12), transparent 65%), radial-gradient(40% 60% at 80% 100%, rgba(125,211,252,0.10), transparent 70%)",
           }}
         />
-        <div className="relative mx-auto max-w-[1080px] text-center">
-          <p className="text-[11px] font-semibold tracking-[0.22em] text-white/50 mb-3">
-            NUESTRA OFICINA
-          </p>
-          <h2 className="font-display text-foreground tracking-tight text-3xl md:text-4xl mb-4">
-            Te esperamos en Spot Kennedy
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-[15px] leading-7 mb-8">
-            La sede principal de HEAT en Santiago de Chile. Coworking premium
-            en Avenida Kennedy, sector Vitacura. Día a día con el equipo,
-            café, salas de reunión, y la posibilidad de remoto cuando lo
-            necesitas. Híbrido inteligente, no presencial forzado.
-          </p>
-          <a
-            href="https://maps.google.com/?q=Spot+Kennedy+Santiago+Chile"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-foreground/80 hover:text-foreground transition-colors group"
-          >
-            <MapPin size={14} />
-            Spot Kennedy · Vitacura, Santiago
-            <ArrowUpRight
-              size={14}
-              className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            />
-          </a>
+        <div className="relative mx-auto max-w-[1180px]">
+          {/* Header */}
+          <div className="text-center mb-10 md:mb-12">
+            <p
+              className="text-[11px] font-semibold tracking-[0.22em] mb-3 bg-clip-text text-transparent inline-block"
+              style={{ backgroundImage: HEAT_GRADIENT }}
+            >
+              NUESTRA OFICINA · SPOT KENNEDY
+            </p>
+            <h2 className="font-display text-foreground tracking-tight text-3xl md:text-[40px] mb-4 leading-tight">
+              Trabajar bien.{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: CULTURE_GRADIENT }}
+              >
+                Vivir bien.
+              </span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto text-[15px] leading-7">
+              Más que una oficina. Spot Kennedy es un coworking premium en
+              Vitacura — al lado de <strong className="text-foreground/90">Parque Arauco</strong>{" "}
+              y del <strong className="text-foreground/90">Hotel Hyatt</strong>. Después del code/sales review,
+              piscina temperada, gimnasio, jacuzzi o sauna. Sin moverte.
+            </p>
+          </div>
+
+          {/* Amenities grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4 mb-10">
+            {OFFICE_AMENITIES.map((a, i) => (
+              <AmenityCard key={a.label} amenity={a} index={i} />
+            ))}
+          </div>
+
+          {/* Location highlights */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+            <LocationChip icon={<MapPin size={12} />}>
+              Av. Kennedy · Vitacura
+            </LocationChip>
+            <LocationChip icon={<ShoppingBag size={12} />}>
+              Junto a Parque Arauco
+            </LocationChip>
+            <LocationChip icon={<Hotel size={12} />}>
+              Hotel Hyatt al lado
+            </LocationChip>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a
+              href="https://maps.google.com/?q=Spot+Oficinas+Kennedy+Vitacura+Santiago"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full liquid-glass text-foreground text-sm font-medium px-5 py-2.5 transition-all duration-300 ease-out hover:shadow-[0_10px_30px_-10px_rgba(255,255,255,0.25)]"
+            >
+              <MapPin size={14} />
+              Ver en Google Maps
+              <ArrowUpRight
+                size={13}
+                className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+              />
+            </a>
+            <a
+              href="https://www.spotoficinas.cl/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 text-sm text-gray-400 hover:text-foreground transition-colors px-3 py-2.5"
+            >
+              Conoce Spot Oficinas
+              <ArrowUpRight
+                size={13}
+                className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+              />
+            </a>
+          </div>
         </div>
       </section>
 
