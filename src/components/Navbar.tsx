@@ -3,6 +3,7 @@ import { ExternalLink, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import logo from "@/assets/logo.png";
+import CalendarModal from "@/components/CalendarModal";
 
 const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
   { label: "Precios IA", anchor: "#planes" },
@@ -16,6 +17,7 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const onHome = pathname === "/";
   const [open, setOpen] = useState(false);
+  const [calOpen, setCalOpen] = useState(false);
 
   // Close mobile menu on route change
   useEffect(() => setOpen(false), [pathname]);
@@ -87,8 +89,9 @@ export default function Navbar() {
             <ExternalLink size={12} className="opacity-70" />
           </a>
 
-          <a
-            href={onHome ? "#demo" : "/#demo"}
+          <button
+            type="button"
+            onClick={() => setCalOpen(true)}
             className="group relative inline-flex items-center justify-center rounded-full liquid-glass text-foreground text-sm font-medium px-5 py-2 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.35)]"
           >
             <span
@@ -98,17 +101,18 @@ export default function Navbar() {
             <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background">
               Agendar Demo
             </span>
-          </a>
+          </button>
         </div>
 
         {/* Mobile: tiny Demo CTA + hamburger */}
         <div className="flex md:hidden items-center gap-2">
-          <a
-            href={onHome ? "#demo" : "/#demo"}
+          <button
+            type="button"
+            onClick={() => setCalOpen(true)}
             className="inline-flex items-center justify-center rounded-full liquid-glass text-foreground text-[12px] font-medium px-3.5 py-1.5"
           >
             Demo
-          </a>
+          </button>
           <button
             type="button"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
@@ -182,19 +186,25 @@ export default function Navbar() {
                     Portal clientes
                     <ExternalLink size={12} className="opacity-70" />
                   </a>
-                  <a
-                    href={onHome ? "#demo" : "/#demo"}
-                    onClick={() => setOpen(false)}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(false);
+                      setCalOpen(true);
+                    }}
                     className="inline-flex items-center justify-center rounded-full bg-foreground text-background text-sm font-medium px-4 py-2.5"
                   >
                     Agendar Demo
-                  </a>
+                  </button>
                 </div>
               </nav>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      {/* Calendar popup global — disparado desde cualquier "Agendar Demo" */}
+      <CalendarModal open={calOpen} onClose={() => setCalOpen(false)} />
     </>
   );
 }
