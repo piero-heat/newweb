@@ -1106,54 +1106,59 @@ export default function PerformAds() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
               >
-                {/* Badge row */}
-                <p className="text-xs font-semibold tracking-[0.18em] text-white/60 flex items-center gap-2 flex-wrap mb-3">
-                  <span
-                    className={`inline-block px-2 py-0.5 rounded-full text-[10px] tracking-[0.18em] ${
-                      activeCase.source === "meta"
-                        ? "bg-[#1877F2]/15 text-[#7DB8FF] border border-[#1877F2]/30"
-                        : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
-                    }`}
-                  >
-                    {activeCase.source === "meta"
-                      ? "CASO META BUSINESS"
-                      : "CASO REAL HEAT"}
-                  </span>
-                  <span>·</span>
-                  <span>{activeCase.industry}</span>
-                </p>
+                {/* Top: 2 columnas — texto izq · logo cuadrado blanco der */}
+                <div className="grid md:grid-cols-[1fr_auto] gap-5 md:gap-7 items-start mb-7">
+                  <div className="min-w-0">
+                    {/* Badge row */}
+                    <p className="text-xs font-semibold tracking-[0.18em] text-white/60 flex items-center gap-2 flex-wrap mb-3">
+                      <span
+                        className={`inline-block px-2 py-0.5 rounded-full text-[10px] tracking-[0.18em] ${
+                          activeCase.source === "meta"
+                            ? "bg-[#1877F2]/15 text-[#7DB8FF] border border-[#1877F2]/30"
+                            : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                        }`}
+                      >
+                        {activeCase.source === "meta"
+                          ? "CASO META BUSINESS"
+                          : "CASO REAL HEAT"}
+                      </span>
+                      <span>·</span>
+                      <span>{activeCase.industry}</span>
+                    </p>
 
-                {/* Title — alineado izq */}
-                <h3 className="font-display text-xl md:text-2xl font-medium text-white tracking-tight mb-3 leading-snug">
-                  {activeCase.title}
-                </h3>
+                    {/* Title — alineado izq */}
+                    <h3 className="font-display text-xl md:text-2xl font-medium text-white tracking-tight mb-3 leading-snug">
+                      {activeCase.title}
+                    </h3>
 
-                {/* Descripción corta */}
-                <p className="text-gray-300 text-[14px] md:text-[15px] leading-7 mb-6">
-                  {activeCase.description}
-                </p>
+                    {/* Descripción corta */}
+                    <p className="text-gray-300 text-[14px] md:text-[15px] leading-7">
+                      {activeCase.description}
+                    </p>
+                  </div>
 
-                {/* Logo box · franja blanca horizontal grande y consistente */}
-                {activeCase.logo && (
-                  <a
-                    href={activeCase.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visitar sitio del cliente ${activeCase.title}`}
-                    className="group block w-full h-[110px] md:h-[130px] rounded-2xl bg-white flex items-center justify-center px-6 md:px-10 mb-7 transition-all duration-400 hover:shadow-[0_24px_60px_-20px_rgba(255,255,255,0.12)]"
-                    style={{
-                      boxShadow:
-                        "0 0 0 1px rgba(255,255,255,0.08), 0 18px 50px -18px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(0,0,0,0.04)",
-                    }}
-                  >
-                    <img
-                      src={activeCase.logo}
-                      alt={`Logo ${activeCase.title}`}
-                      loading="lazy"
-                      className="max-w-full max-h-full object-contain transition-transform duration-400 group-hover:scale-[1.03]"
-                    />
-                  </a>
-                )}
+                  {/* Logo box · cuadradito blanco a la derecha */}
+                  {activeCase.logo && (
+                    <a
+                      href={activeCase.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visitar sitio del cliente ${activeCase.title}`}
+                      className="group shrink-0 self-start w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-2xl bg-white flex items-center justify-center p-4 md:p-5 transition-all duration-400 hover:scale-[1.03]"
+                      style={{
+                        boxShadow:
+                          "0 0 0 1px rgba(255,255,255,0.08), 0 16px 50px -16px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,0,0,0.04)",
+                      }}
+                    >
+                      <img
+                        src={activeCase.logo}
+                        alt={`Logo ${activeCase.title}`}
+                        loading="lazy"
+                        className="max-w-full max-h-full object-contain transition-transform duration-400 group-hover:scale-[1.04]"
+                      />
+                    </a>
+                  )}
+                </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {activeCase.stats.map((s) => (
