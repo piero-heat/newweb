@@ -14,7 +14,7 @@ export interface PricingCardProps {
   price: string;
   billing: string;
   features: string[];
-  href: string;
+  href?: string;
   ctaLabel?: string;
   highlighted?: boolean;
   highlightLabel?: string;
@@ -108,15 +108,25 @@ export default function PricingCard({
             ))}
           </ul>
 
-          <a href={href} className="mt-8 block">
+          {href ? (
+            <a href={href} className="mt-8 block">
+              <Button
+                variant="heroSecondary"
+                size="none"
+                className="w-full rounded-full px-4 py-3 text-sm"
+              >
+                {ctaLabel}
+              </Button>
+            </a>
+          ) : (
             <Button
               variant="heroSecondary"
               size="none"
-              className="w-full rounded-full px-4 py-3 text-sm"
+              className="mt-8 w-full rounded-full px-4 py-3 text-sm"
             >
               {ctaLabel}
             </Button>
-          </a>
+          )}
         </div>
       </div>
     </motion.div>
