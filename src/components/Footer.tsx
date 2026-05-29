@@ -18,11 +18,9 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: "PRODUCTO",
     links: [
-      { label: "Precios IA", href: "/#planes" },
+      { label: "HEAT IA", href: "/#planes" },
       { label: "Performance ADS", href: "/perform-ads" },
-      { label: "Videos Ads", href: "/perform-ads#videos-ads" },
-      { label: "Desarrollo web", href: "/desarrollo-web" },
-      { label: "Integraciones", href: "/#integraciones" },
+      { label: "Páginas Web", href: "/desarrollo-web" },
     ],
   },
   {

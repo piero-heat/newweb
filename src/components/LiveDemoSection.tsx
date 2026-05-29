@@ -245,6 +245,8 @@ export default function LiveDemoSection() {
     intent: false,
   });
   const [handedOff, setHandedOff] = useState(false);
+  // Track si el usuario ya escribió algo para esconder el hint del input.
+  const [hasInteracted, setHasInteracted] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const resetMonitor = () => {
@@ -557,13 +559,76 @@ export default function LiveDemoSection() {
                   )}
                 </div>
 
-                <div className="bg-[#1F2C34] px-2 py-2 flex items-end gap-2">
-                  <div className="flex-1 bg-[#2A3942] rounded-3xl px-3 py-2 flex items-center gap-2 min-h-[40px]">
+                <div className="bg-[#1F2C34] px-2 py-2 flex items-end gap-2 relative">
+                  {/* Hint flotante "¡Probá escribir aquí!" — sale arriba del
+                       input hasta que el usuario interactúa. Auto-esconde después
+                       de la primera tecla. */}
+                  {!hasInteracted && remaining > 0 && (
+                    <motion.div
+                      key="input-hint"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      transition={{ duration: 0.4, delay: 0.6 }}
+                      className="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-0.5"
+                    >
+                      <motion.div
+                        animate={{
+                          y: [0, -3, 0],
+                          opacity: [0.9, 1, 0.9],
+                        }}
+                        transition={{
+                          duration: 1.4,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="px-2.5 py-1 rounded-full text-[10px] font-medium tracking-wide text-white whitespace-nowrap shadow-[0_4px_16px_-2px_rgba(168,85,247,0.6)]"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, #A855F7 0%, #EC4899 100%)",
+                        }}
+                      >
+                        ✍️ Escribe aquí · es real
+                      </motion.div>
+                      <motion.div
+                        animate={{ y: [0, 3, 0] }}
+                        transition={{
+                          duration: 1.4,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="w-0 h-0"
+                        style={{
+                          borderLeft: "5px solid transparent",
+                          borderRight: "5px solid transparent",
+                          borderTop: "5px solid #EC4899",
+                        }}
+                      />
+                    </motion.div>
+                  )}
+
+                  <div
+                    className="flex-1 bg-[#2A3942] rounded-3xl px-3 py-2 flex items-center gap-2 min-h-[40px] relative transition-shadow"
+                    style={
+                      !hasInteracted && remaining > 0
+                        ? {
+                            boxShadow:
+                              "0 0 0 2px rgba(168,85,247,0.35), 0 0 24px -4px rgba(168,85,247,0.5)",
+                          }
+                        : undefined
+                    }
+                  >
                     <Plus size={18} className="text-gray-400 shrink-0" />
                     <input
                       type="text"
                       value={input}
-                      onChange={(e) => setInput(e.target.value)}
+                      onChange={(e) => {
+                        setInput(e.target.value);
+                        if (!hasInteracted) setHasInteracted(true);
+                      }}
+                      onFocus={() => {
+                        if (!hasInteracted) setHasInteracted(true);
+                      }}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
                           e.preventDefault();
@@ -572,7 +637,7 @@ export default function LiveDemoSection() {
                       }}
                       placeholder={
                         remaining <= 0
-                          ? "Reiniciá para seguir…"
+                          ? "Reinicia para seguir…"
                           : "Escribe un mensaje"
                       }
                       maxLength={MAX_MSG_LEN}
@@ -580,13 +645,38 @@ export default function LiveDemoSection() {
                       className="flex-1 bg-transparent text-white text-[13px] placeholder:text-gray-500 outline-none disabled:opacity-50"
                     />
                   </div>
-                  <button
-                    onClick={() => send()}
-                    disabled={!input.trim() || loading || remaining <= 0}
-                    className="w-10 h-10 rounded-full bg-[#00A884] hover:bg-[#00B996] flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
-                  >
-                    <Send size={17} className="ml-0.5" />
-                  </button>
+
+                  {/* Botón Send con halo verde pulsante hasta que el usuario
+                       toca el input. Llama la atención al CTA real. */}
+                  <div className="relative shrink-0">
+                    {!hasInteracted && remaining > 0 && (
+                      <motion.span
+                        aria-hidden
+                        animate={{
+                          opacity: [0.5, 0.95, 0.5],
+                          scale: [1, 1.18, 1],
+                        }}
+                        transition={{
+                          duration: 1.6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="pointer-events-none absolute inset-0 rounded-full"
+                        style={{
+                          background:
+                            "radial-gradient(circle, rgba(0,168,132,0.6) 0%, rgba(0,168,132,0) 70%)",
+                          filter: "blur(8px)",
+                        }}
+                      />
+                    )}
+                    <button
+                      onClick={() => send()}
+                      disabled={!input.trim() || loading || remaining <= 0}
+                      className="relative w-10 h-10 rounded-full bg-[#00A884] hover:bg-[#00B996] flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    >
+                      <Send size={17} className="ml-0.5" />
+                    </button>
+                  </div>
                 </div>
 
                 <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full" />

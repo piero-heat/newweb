@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import {
   Linkedin,
+  Instagram,
   Building2,
   Sparkles,
   ArrowRight,
@@ -194,6 +195,20 @@ export default function Nosotros() {
                   size={14}
                   className="transition-transform group-hover:translate-x-0.5"
                 />
+              </a>
+              <a
+                href="https://www.instagram.com/pierosetti"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Sigue a Piero Setti en Instagram"
+                className="group inline-flex items-center gap-2 rounded-full text-white text-sm font-medium px-5 py-2.5 transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(228,64,95,0.55)]"
+                style={{
+                  background:
+                    "linear-gradient(45deg, #F58529 0%, #DD2A7B 35%, #8134AF 70%, #515BD4 100%)",
+                }}
+              >
+                <Instagram size={16} />
+                Instagram
               </a>
               <a
                 href="/#demo"
@@ -589,19 +604,35 @@ export default function Nosotros() {
                   HEAT, por cómo construimos los agentes, por lo que aprendimos
                   manejando cuentas en 4 países — me encanta hablar de esto.
                 </p>
-                <a
-                  href="https://www.linkedin.com/in/pierosetti/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 rounded-full bg-[#0A66C2] hover:bg-[#0a5aab] text-white text-sm font-medium px-5 py-2.5 transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(10,102,194,0.6)]"
-                >
-                  <Linkedin size={16} className="fill-white stroke-none" />
-                  Conectemos en LinkedIn
-                  <ArrowRight
-                    size={14}
-                    className="transition-transform group-hover:translate-x-0.5"
-                  />
-                </a>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href="https://www.linkedin.com/in/pierosetti/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 rounded-full bg-[#0A66C2] hover:bg-[#0a5aab] text-white text-sm font-medium px-5 py-2.5 transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(10,102,194,0.6)]"
+                  >
+                    <Linkedin size={16} className="fill-white stroke-none" />
+                    Conectemos en LinkedIn
+                    <ArrowRight
+                      size={14}
+                      className="transition-transform group-hover:translate-x-0.5"
+                    />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/pierosetti"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Sigue a Piero Setti en Instagram"
+                    className="group inline-flex items-center gap-2 rounded-full text-white text-sm font-medium px-5 py-2.5 transition-all duration-300 hover:shadow-[0_10px_40px_-10px_rgba(228,64,95,0.55)]"
+                    style={{
+                      background:
+                        "linear-gradient(45deg, #F58529 0%, #DD2A7B 35%, #8134AF 70%, #515BD4 100%)",
+                    }}
+                  >
+                    <Instagram size={16} />
+                    Instagram
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>

@@ -86,8 +86,13 @@ export default function PricingCard({
               {currency}
             </span>
             <span
-              className="font-display font-medium text-white tracking-tight"
-              style={{ fontSize: 56, lineHeight: 1 }}
+              className="font-display font-medium text-white tracking-tight whitespace-nowrap"
+              style={{
+                // Si el precio es texto largo (ej. "A medida"), bajamos la
+                // fuente para que ocupe un alto similar al de un número.
+                fontSize: /^[\d.,]+$/.test(price) ? 56 : 32,
+                lineHeight: 1,
+              }}
             >
               {price}
             </span>
