@@ -190,6 +190,9 @@ type CaseStudy = {
   stats: { value: string; label: string }[];
   /** URL opcional del cliente (HEAT) o del caso publicado (Meta) */
   url?: string;
+  /** Logo del cliente (URL pública). Se muestra discreto arriba a la
+   *  derecha del card. */
+  logo?: string;
 };
 
 const META_CASES: CaseStudy[] = [
@@ -203,8 +206,10 @@ const META_CASES: CaseStudy[] = [
       { value: "+40.000", label: "seguidores en menos de 30 días con la campaña viral" },
       { value: "+187%", label: "leads B2B calificados con landings sectoriales" },
       { value: "−42%", label: "CPA al conectar CAPI con el CRM" },
+      { value: "8 regiones", label: "despacho activo a todo Chile post-escalamiento" },
     ],
     url: "https://www.barquillos.cl",
+    logo: "https://barquillos.cl/cdn/shop/files/barquillos_logo-02_e40d2a0a-fa41-4661-a2c0-b647c8232d62_260x.png?v=1727830741",
   },
   {
     source: "heat",
@@ -226,8 +231,13 @@ const META_CASES: CaseStudy[] = [
         value: "+74%",
         label: "calidad de leads con preguntas filtro pre-CRM",
       },
+      {
+        value: "+34%",
+        label: "ticket promedio Invisalign vs paquetes básicos",
+      },
     ],
     url: "https://www.gosmile.cl",
+    logo: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/8WREvChBeeBG8LakVeUT/media/6775e4f4d24a8c73d3a7679e.png",
   },
   {
     source: "heat",
@@ -249,8 +259,13 @@ const META_CASES: CaseStudy[] = [
         value: "−38%",
         label: "CPA con VIDEO ADS enfocados al comprador masculino",
       },
+      {
+        value: "<5 min",
+        label: "tiempo de primer contacto con asesora calificada",
+      },
     ],
     url: "https://www.gabrielaprieto.cl",
+    logo: "https://cdn.shopify.com/s/files/1/0561/4180/7704/files/CLIENTES_600_x_300_px_1000_x_300_px.png?v=1701173229",
   },
   {
     source: "heat",
@@ -272,8 +287,13 @@ const META_CASES: CaseStudy[] = [
         value: "6,8%",
         label: "engagement rate sostenido (industria gastro ~2-3%)",
       },
+      {
+        value: "+85%",
+        label: "reservas confirmadas vs solo solicitadas con CAPI",
+      },
     ],
     url: "https://www.instagram.com/lanostracasa.trattoria/",
+    logo: "https://instagram.fscl1-1.fna.fbcdn.net/v/t51.82787-19/706154852_17890682508491260_3863667891164304389_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fscl1-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=Q6cZ2gF0ZwXPrqfBLcxgrz9rfZDM5N7O-rCcayWIRNgGqUUdw46D7DBt84fQzbsN0NSfXYI&_nc_ohc=cZq5e8G85qwQ7kNvwHYvLVR&_nc_gid=JxaMz4AzEThUsyVOiub7Ow&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Af4_0v5vMVlmGP0zJHlHoNs_-VjRhbEroEC5G1sfEaO3AQ&oe=6A1F9562&_nc_sid=22de04",
   },
   {
     source: "heat",
@@ -295,8 +315,13 @@ const META_CASES: CaseStudy[] = [
         value: "<2 min",
         label: "tiempo de primer contacto vs ~6 hrs promedio del rubro",
       },
+      {
+        value: "4 sucursales",
+        label: "atendidas en simultáneo desde el dashboard único",
+      },
     ],
     url: "https://palavas.cl",
+    logo: "https://palavas.cl/wp-content/uploads/2023/05/logo-h-1300x434.png",
   },
   {
     source: "heat",
@@ -318,8 +343,13 @@ const META_CASES: CaseStudy[] = [
         value: "+90%",
         label: "del budget protegido en el hero product para no diluir",
       },
+      {
+        value: "+340%",
+        label: "tráfico orgánico Instagram acumulado en 12 meses",
+      },
     ],
     url: "https://vitanutrition.cl",
+    logo: "https://vitanutrition.cl/cdn/shop/files/cropped-Mesa-de-trabajo-16-1536x911_180x.png?v=1738776580",
   },
   {
     source: "heat",
@@ -341,8 +371,13 @@ const META_CASES: CaseStudy[] = [
         value: "+EE.UU.",
         label: "validamos modelo HEAT en mercado USA latino",
       },
+      {
+        value: "+220%",
+        label: "rentabilidad en cadenas cubanas (categoría hero)",
+      },
     ],
     url: "https://c4gjewelers.com",
+    logo: "https://c4gjewelers.com/cdn/shop/files/logo-c4g-jewelers_135x.png?v=1693447818",
   },
   {
     source: "heat",
@@ -364,8 +399,13 @@ const META_CASES: CaseStudy[] = [
         value: "Mujer 45+",
         label: "audiencia segmentada por dolores y gustos reales",
       },
+      {
+        value: "12 meses",
+        label: "canal digital sostenido sin caer una vez activado",
+      },
     ],
     url: "https://wolfordchile.cl",
+    logo: "https://wolfordchile.cl/cdn/shop/files/Wolford_Logo_2005.svg?v=1749648764&width=300",
   },
 ];
 
@@ -1063,21 +1103,36 @@ export default function PerformAds() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
               >
-                <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-3 flex items-center gap-2 flex-wrap">
-                  <span
-                    className={`inline-block px-2 py-0.5 rounded-full text-[10px] tracking-[0.18em] ${
-                      activeCase.source === "meta"
-                        ? "bg-[#1877F2]/15 text-[#7DB8FF] border border-[#1877F2]/30"
-                        : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
-                    }`}
-                  >
-                    {activeCase.source === "meta"
-                      ? "CASO META BUSINESS"
-                      : "CASO REAL HEAT"}
-                  </span>
-                  <span>·</span>
-                  <span>{activeCase.industry}</span>
-                </p>
+                {/* Top row: badge + industria a la izquierda · logo del
+                    cliente discreto a la derecha (watermark con opacity baja) */}
+                <div className="mb-3 flex items-start justify-between gap-4">
+                  <p className="text-xs font-semibold tracking-[0.18em] text-white/60 flex items-center gap-2 flex-wrap min-w-0">
+                    <span
+                      className={`inline-block px-2 py-0.5 rounded-full text-[10px] tracking-[0.18em] ${
+                        activeCase.source === "meta"
+                          ? "bg-[#1877F2]/15 text-[#7DB8FF] border border-[#1877F2]/30"
+                          : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                      }`}
+                    >
+                      {activeCase.source === "meta"
+                        ? "CASO META BUSINESS"
+                        : "CASO REAL HEAT"}
+                    </span>
+                    <span>·</span>
+                    <span>{activeCase.industry}</span>
+                  </p>
+                  {activeCase.logo && (
+                    <img
+                      src={activeCase.logo}
+                      alt={`Logo ${activeCase.title}`}
+                      loading="lazy"
+                      className="shrink-0 h-7 md:h-8 w-auto max-w-[120px] object-contain opacity-60 hover:opacity-90 transition-opacity"
+                      style={{
+                        filter: "brightness(1.4) saturate(0.85)",
+                      }}
+                    />
+                  )}
+                </div>
                 <h3 className="font-display text-2xl md:text-3xl font-medium text-white tracking-tight mb-3 leading-tight">
                   {activeCase.title}
                 </h3>
@@ -1085,11 +1140,7 @@ export default function PerformAds() {
                   {activeCase.description}
                 </p>
 
-                <div
-                  className={`grid grid-cols-1 ${
-                    activeCase.stats.length >= 2 ? "sm:grid-cols-2" : ""
-                  } gap-5`}
-                >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {activeCase.stats.map((s) => (
                     <div
                       key={s.value + s.label}
