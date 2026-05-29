@@ -74,7 +74,7 @@ const INSTAGRAM_REELS: { url: string | null; caption?: string }[] = [
   { url: "https://www.instagram.com/reel/DWC1Waopqk3/" },
   { url: "https://www.instagram.com/reel/DWE-yN4JxVS/" },
   { url: "https://www.instagram.com/reel/DWZhpwkpMDT/" },
-  { url: null, caption: "Próximo reel" },
+  { url: "https://www.instagram.com/reel/DWHYe4ckRC4/" },
   // ⬇ Agregar más reels acá. Piero los manda y los plugueamos.
 ];
 
