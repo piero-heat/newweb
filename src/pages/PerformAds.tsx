@@ -35,8 +35,13 @@ import Footer from "@/components/Footer";
 import PricingCard, { type PricingCardProps } from "@/components/PricingCard";
 import StripeBuyButtonModal from "@/components/StripeBuyButtonModal";
 
-// Stripe Buy Button del Pack de 5 Videos (cuenta HEAT live).
-const STRIPE_5VIDEOS_BUTTON_ID = "buy_btn_1TcGdGIoomgopoagqtmVl9Ct";
+// Stripe Buy Buttons de los 3 packs de Videos (cuenta HEAT live).
+// Cada pack tiene su propio buy-button-id; comparten la misma publishable key.
+const STRIPE_VIDEO_BUTTONS: Record<string, string> = {
+  "3 VIDEOS": "buy_btn_1TcGdGIoomgopoagqtmVl9Ct",
+  "5 VIDEOS": "buy_btn_1TcPu7Ioomgopoage1SI6AG7",
+  "10 VIDEOS": "buy_btn_1TcPuPIoomgopoagZgOzUb8X",
+};
 const STRIPE_PUBLISHABLE_KEY =
   "pk_live_51SpdzYIoomgopoagdqM0oKTHBUQl6GY5H1irmyNvY1JIvEQg8ZQorGPPpIdA3tvvYTo5XbKSM4rVDVWgmRNQpD9L00CqUxwf3o";
 
@@ -417,7 +422,11 @@ const VIDEO_PACKS: PricingCardProps[] = [
 
 export default function PerformAds() {
   const [caseIdx, setCaseIdx] = useState(0);
-  const [videosCheckoutOpen, setVideosCheckoutOpen] = useState(false);
+  // Track cuál pack está siendo comprado para abrir el modal correcto.
+  // null = modal cerrado.
+  const [checkoutPack, setCheckoutPack] = useState<
+    (typeof VIDEO_PACKS)[number] | null
+  >(null);
   const totalCases = META_CASES.length;
   const activeCase = META_CASES[caseIdx];
   const prevCase = () =>
@@ -1533,22 +1542,14 @@ export default function PerformAds() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {VIDEO_PACKS.map((pack) => {
-              // El pack de 5 VIDEOS dispara el popup con el Stripe Buy Button
-              const isFiveVideos = pack.name === "5 VIDEOS";
-              return (
-                <PricingCard
-                  key={pack.name}
-                  {...pack}
-                  ctaLabel={isFiveVideos ? "Comprar pack →" : pack.ctaLabel}
-                  onCtaClick={
-                    isFiveVideos
-                      ? () => setVideosCheckoutOpen(true)
-                      : undefined
-                  }
-                />
-              );
-            })}
+            {VIDEO_PACKS.map((pack) => (
+              <PricingCard
+                key={pack.name}
+                {...pack}
+                ctaLabel="Comprar pack →"
+                onCtaClick={() => setCheckoutPack(pack)}
+              />
+            ))}
           </div>
 
           <motion.div
@@ -1655,13 +1656,19 @@ export default function PerformAds() {
 
       <Footer />
 
-      {/* Stripe Buy Button popup — disparado desde el card 5 VIDEOS */}
+      {/* Stripe Buy Button popup — disparado desde cualquiera de los 3 packs */}
       <StripeBuyButtonModal
-        open={videosCheckoutOpen}
-        onClose={() => setVideosCheckoutOpen(false)}
-        buyButtonId={STRIPE_5VIDEOS_BUTTON_ID}
+        open={checkoutPack !== null}
+        onClose={() => setCheckoutPack(null)}
+        buyButtonId={
+          checkoutPack ? STRIPE_VIDEO_BUTTONS[checkoutPack.name] : ""
+        }
         publishableKey={STRIPE_PUBLISHABLE_KEY}
-        title="Pack de 5 Videos · $850 USD"
+        title={
+          checkoutPack
+            ? `Pack ${checkoutPack.name} · $${checkoutPack.price} USD`
+            : ""
+        }
         subtitle="Pago único · Procesado por Stripe"
       />
     </div>
