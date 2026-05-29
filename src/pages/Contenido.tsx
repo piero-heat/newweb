@@ -262,37 +262,156 @@ function YouTubeVideoModal({
 function ReelCard({
   reel,
   index,
+  onPlay,
 }: {
   reel: (typeof INSTAGRAM_REELS)[number];
   index: number;
+  onPlay: (url: string) => void;
 }) {
+  const isInteractive = !!reel.url;
+
+  const inner = (
+    <div className="relative bg-white" style={{ aspectRatio: "9 / 16" }}>
+      {reel.url ? (
+        <iframe
+          src={instagramEmbedSrc(reel.url)}
+          title={reel.caption ?? "Instagram Reel"}
+          loading="lazy"
+          scrolling="no"
+          allowTransparency
+          allow="encrypted-media; clipboard-write"
+          // pointer-events-none → los clicks pasan al <button> padre,
+          // que es el que abre el modal. Sin esto el iframe captura
+          // los clicks y nunca llegan al handler.
+          className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+        />
+      ) : (
+        <PlaceholderReel />
+      )}
+
+      {/* Hover overlay sutil + play hint solo si es interactive */}
+      {isInteractive && (
+        <>
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300"
+          />
+          <span
+            aria-hidden
+            className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full text-white opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100"
+            style={{
+              background:
+                "linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%)",
+              boxShadow: "0 6px 18px -4px rgba(225,48,108,0.5)",
+            }}
+          >
+            <Play size={14} className="ml-0.5 fill-white" />
+          </span>
+        </>
+      )}
+    </div>
+  );
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="group relative rounded-2xl overflow-hidden bg-white border border-white/[0.08] transition-all duration-500 ease-out hover:shadow-[0_20px_60px_-20px_rgba(225,48,108,0.35)]"
+      className="group relative rounded-2xl overflow-hidden bg-white border border-white/[0.08] transition-all duration-500 ease-out hover:shadow-[0_20px_60px_-20px_rgba(225,48,108,0.4)]"
     >
-      <div
-        className="relative bg-white"
-        style={{ aspectRatio: "9 / 16" }}
+      {isInteractive ? (
+        <button
+          type="button"
+          onClick={() => onPlay(reel.url!)}
+          aria-label={`Ver reel${reel.caption ? `: ${reel.caption}` : ""}`}
+          className="block w-full text-left"
+        >
+          {inner}
+        </button>
+      ) : (
+        inner
+      )}
+    </motion.article>
+  );
+}
+
+/**
+ * Modal de reproducción de Reel Instagram. Tamaño phone (9:16) centrado.
+ * Backdrop blur · close button · ESC + click fuera cierran · body scroll
+ * lock. El usuario puede subir el volumen / interactuar con el embed.
+ */
+function ReelModal({
+  reelUrl,
+  onClose,
+}: {
+  reelUrl: string;
+  onClose: () => void;
+}) {
+  // ESC para cerrar
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  // Body scroll lock
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-6 bg-black/85 backdrop-blur-md"
+    >
+      <motion.div
+        initial={{ scale: 0.92, opacity: 0, y: 12 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.92, opacity: 0, y: 12 }}
+        transition={{ type: "spring", stiffness: 230, damping: 24 }}
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-[420px]"
       >
-        {reel.url ? (
+        {/* Close button — afuera del reel, arriba a la derecha */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Cerrar reel"
+          className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all hover:scale-105"
+        >
+          <X size={18} />
+        </button>
+
+        {/* Contenedor del reel · phone-shape 9:16 con halo gradient IG */}
+        <div
+          className="relative w-full rounded-2xl overflow-hidden bg-white"
+          style={{
+            aspectRatio: "9 / 16",
+            boxShadow:
+              "0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px -20px rgba(0,0,0,0.85), 0 0 0 6px rgba(225,48,108,0.12)",
+          }}
+        >
           <iframe
-            src={instagramEmbedSrc(reel.url)}
-            title={reel.caption ?? "Instagram Reel"}
-            loading="lazy"
-            scrolling="no"
+            src={instagramEmbedSrc(reelUrl)}
+            title="Instagram Reel"
             allowTransparency
-            allow="encrypted-media; clipboard-write"
+            allow="encrypted-media; clipboard-write; autoplay"
             className="absolute inset-0 w-full h-full border-0"
           />
-        ) : (
-          <PlaceholderReel />
-        )}
-      </div>
-    </motion.article>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -323,6 +442,7 @@ function PlaceholderReel() {
 
 export default function Contenido() {
   const [openVideoId, setOpenVideoId] = useState<string | null>(null);
+  const [openReelUrl, setOpenReelUrl] = useState<string | null>(null);
 
   return (
     <div className="bg-background min-h-screen">
@@ -520,7 +640,12 @@ export default function Contenido() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-5">
             {INSTAGRAM_REELS.map((reel, i) => (
-              <ReelCard key={i} reel={reel} index={i} />
+              <ReelCard
+                key={i}
+                reel={reel}
+                index={i}
+                onPlay={setOpenReelUrl}
+              />
             ))}
           </div>
         </div>
@@ -567,6 +692,16 @@ export default function Contenido() {
           <YouTubeVideoModal
             videoId={openVideoId}
             onClose={() => setOpenVideoId(null)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Reel Instagram — solo cuando hay uno abierto */}
+      <AnimatePresence>
+        {openReelUrl && (
+          <ReelModal
+            reelUrl={openReelUrl}
+            onClose={() => setOpenReelUrl(null)}
           />
         )}
       </AnimatePresence>
