@@ -4,8 +4,54 @@ import {
   SiAppstore,
   SiGoogleplay,
   SiMacos,
+  SiInstagram,
+  SiFacebook,
+  SiTiktok,
+  SiYoutube,
 } from "@icons-pack/react-simple-icons";
+import { Linkedin as LinkedinIcon } from "lucide-react";
 import logo from "@/assets/logo.png";
+
+type SocialItem = {
+  href: string;
+  label: string;
+  color: string; // brand color used on hover (text + glow)
+  // Loosely typed to accept both @icons-pack and lucide-react icon components
+  Icon: React.ComponentType<any>;
+};
+
+const SOCIALS: SocialItem[] = [
+  {
+    href: "https://www.instagram.com/heat.ia",
+    label: "Instagram",
+    color: "#E1306C",
+    Icon: SiInstagram,
+  },
+  {
+    href: "https://www.linkedin.com/company/42401125/",
+    label: "LinkedIn",
+    color: "#0A66C2",
+    Icon: LinkedinIcon,
+  },
+  {
+    href: "https://www.facebook.com/agenciaheat/",
+    label: "Facebook",
+    color: "#1877F2",
+    Icon: SiFacebook,
+  },
+  {
+    href: "https://www.tiktok.com/@heat.ia",
+    label: "TikTok",
+    color: "#FF0050",
+    Icon: SiTiktok,
+  },
+  {
+    href: "https://www.youtube.com/@heat-ia",
+    label: "YouTube",
+    color: "#FF0000",
+    Icon: SiYoutube,
+  },
+];
 
 type FooterLink = {
   label: string;
@@ -156,6 +202,29 @@ export default function Footer() {
             Plataforma de Agentes de IA + CRM para automatizar ventas y
             atención 24/7 en LATAM y EEUU.
           </p>
+
+          {/* Social icons */}
+          <div className="mt-6 flex items-center gap-2">
+            {SOCIALS.map(({ href, label, color, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                title={label}
+                className="group relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.02] text-white/55 transition-all duration-300 ease-out hover:border-white/20 hover:bg-white/[0.05] hover:text-[var(--brand-color)]"
+                style={{ ["--brand-color" as never]: color }}
+              >
+                <Icon size={15} color="currentColor" />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ boxShadow: `0 6px 22px -6px ${color}` }}
+                />
+              </a>
+            ))}
+          </div>
         </div>
 
         {COLUMNS.map((col) => (
@@ -213,7 +282,7 @@ export default function Footer() {
 
         <div className="lg:text-right">
           <p className="text-[10px] font-semibold tracking-[0.22em] text-white/40 mb-3">
-            DESCARGÁ HEAT
+            DESCARGA HEAT
           </p>
           <div className="flex flex-wrap items-center gap-3 lg:justify-end">
             <a

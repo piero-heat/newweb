@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "motion/react";
 import {
   Linkedin,
@@ -19,6 +20,7 @@ import {
 } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CalendarModal from "@/components/CalendarModal";
 import piero from "@/assets/branding/piero-portrait.jpg";
 import heatDashboard from "@/assets/branding/heat-app-dashboard.jpg";
 
@@ -125,6 +127,8 @@ function PillarCard({
 }
 
 export default function Nosotros() {
+  const [calOpen, setCalOpen] = useState(false);
+
   return (
     <div className="bg-background min-h-screen">
       <Navbar />
@@ -210,8 +214,9 @@ export default function Nosotros() {
                 <Instagram size={16} />
                 Instagram
               </a>
-              <a
-                href="/#demo"
+              <button
+                type="button"
+                onClick={() => setCalOpen(true)}
                 className="group relative inline-flex items-center justify-center rounded-full liquid-glass text-foreground text-sm font-medium px-5 py-2.5 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.35)]"
               >
                 <span
@@ -221,7 +226,7 @@ export default function Nosotros() {
                 <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background">
                   Agendar demo
                 </span>
-              </a>
+              </button>
             </div>
           </motion.div>
 
@@ -662,8 +667,9 @@ export default function Nosotros() {
             Agenda una demo de 20 minutos con nuestro equipo. Te mostramos cómo
             sería tu agente, tu CRM y tus campañas funcionando juntas.
           </p>
-          <a
-            href="/#demo"
+          <button
+            type="button"
+            onClick={() => setCalOpen(true)}
             className="group relative inline-flex items-center justify-center rounded-full liquid-glass text-foreground text-sm font-medium px-6 py-3 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.35)]"
           >
             <span
@@ -674,11 +680,13 @@ export default function Nosotros() {
               Agendar demo
               <ArrowRight size={14} />
             </span>
-          </a>
+          </button>
         </div>
       </section>
 
       <Footer />
+
+      <CalendarModal open={calOpen} onClose={() => setCalOpen(false)} />
     </div>
   );
 }
