@@ -4,6 +4,8 @@ import Index from "./pages/Index";
 import Partners from "./pages/Partners";
 import Nosotros from "./pages/Nosotros";
 import Contenido from "./pages/Contenido";
+import Careers from "./pages/Careers";
+import CareersRole from "./pages/CareersRole";
 import PerformAds from "./pages/PerformAds";
 import DesarrolloWeb from "./pages/DesarrolloWeb";
 import Terminos from "./pages/Terminos";
@@ -42,6 +44,8 @@ export default function App() {
         <Route path="/heat-life" element={<Contenido />} />
         {/* Alias legacy: /contenido sigue funcionando si alguien guardó el link */}
         <Route path="/contenido" element={<Contenido />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/careers/:slug" element={<CareersRole />} />
         <Route path="/perform-ads" element={<PerformAds />} />
         <Route path="/desarrollo-web" element={<DesarrolloWeb />} />
         <Route path="/terminos" element={<Terminos />} />

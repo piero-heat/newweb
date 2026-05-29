@@ -12,6 +12,7 @@ const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
   { label: "Nosotros", anchor: "/nosotros", isRoute: true },
   { label: "Partners", anchor: "/partners", isRoute: true },
   { label: "HEAT Life", anchor: "/heat-life", isRoute: true },
+  { label: "Careers", anchor: "/careers", isRoute: true },
 ];
 
 export default function Navbar() {
