@@ -32,6 +32,14 @@ import {
   SiStripe,
 } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
+import PlanSwitcher, { type PlanOption } from "@/components/PlanSwitcher";
+import BackToHomeLink from "@/components/BackToHomeLink";
+
+const SWITCHER_OPTIONS: PlanOption[] = [
+  { slug: "standard", label: "STANDARD", price: "$299" },
+  { slug: "pro", label: "PRO", price: "$349" },
+  { slug: "advance", label: "ADVANCE", price: "$649" },
+];
 import Footer from "@/components/Footer";
 import StatsSection from "@/components/StatsSection";
 
@@ -373,6 +381,12 @@ export default function Suscripcion() {
             Plataforma completa de Agentes IA + CRM. Activación inmediata, sin
             instalación. Tu primer mes solo se cobra el día 15.
           </motion.p>
+
+          <PlanSwitcher
+            options={SWITCHER_OPTIONS}
+            currentSlug={planSlug ?? "pro"}
+            basePath="/suscripcion"
+          />
         </div>
       </section>
 
@@ -492,6 +506,8 @@ export default function Suscripcion() {
             </p>
           </div>
         </motion.aside>
+
+        <BackToHomeLink />
       </section>
 
       {/* ── Stats / social proof ── */}

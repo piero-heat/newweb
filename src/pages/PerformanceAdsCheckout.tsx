@@ -30,6 +30,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { SiStripe } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
+import BackToHomeLink from "@/components/BackToHomeLink";
 import Footer from "@/components/Footer";
 
 /* ────────────────────────────────────────────────────────────── */
@@ -396,6 +397,8 @@ export default function PerformanceAdsCheckout() {
             </p>
           </div>
         </motion.aside>
+
+        <BackToHomeLink />
       </section>
 
       {/* ── Precios transparentes · pricing block reutilizado de PerformAds ── */}

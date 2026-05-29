@@ -23,6 +23,8 @@ import type { LucideIcon } from "lucide-react";
 import { SiStripe } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PlanSwitcher, { type PlanOption } from "@/components/PlanSwitcher";
+import BackToHomeLink from "@/components/BackToHomeLink";
 
 /* ────────────────────────────────────────────────────────────── */
 /* HEAT IMPLEMENTACIÓN · Checkout landings — Ignite/Accelerate/   */
@@ -153,6 +155,13 @@ const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 const VIBES_GRADIENT =
   "linear-gradient(137deg, #FF3D77 0%, #A855F7 50%, #7DD3FC 100%)";
 
+// Opciones para el switcher de planes — derivado del map de PLANS
+const SWITCHER_OPTIONS: PlanOption[] = [
+  { slug: "ignite", label: "IGNITE", price: "$500" },
+  { slug: "accelerate", label: "ACCELERATE", price: "$1.000" },
+  { slug: "transform", label: "TRANSFORM", price: "$1.500" },
+];
+
 export default function ImplementationCheckout() {
   // Lee el slug del plan desde la URL → /contratar/implementacion/:slug
   // Default a "accelerate" (el más vendido) si el slug no existe.
@@ -225,6 +234,12 @@ export default function ImplementationCheckout() {
           >
             {plan.tagline}
           </motion.p>
+
+          <PlanSwitcher
+            options={SWITCHER_OPTIONS}
+            currentSlug={slug ?? "accelerate"}
+            basePath="/contratar/implementacion"
+          />
         </div>
       </section>
 
@@ -418,6 +433,8 @@ export default function ImplementationCheckout() {
             </div>
           </div>
         </motion.aside>
+
+        <BackToHomeLink />
       </section>
 
       {/* ── PLACEHOLDER: aquí van los bloques de detalle específicos por plan

@@ -26,6 +26,15 @@ import type { LucideIcon } from "lucide-react";
 import { SiStripe } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PlanSwitcher, { type PlanOption } from "@/components/PlanSwitcher";
+import BackToHomeLink from "@/components/BackToHomeLink";
+
+// Opciones para el switcher de planes (Starter / Pro · no incluye Custom
+// porque ese se cotiza con calendario, no tiene checkout directo).
+const SWITCHER_OPTIONS: PlanOption[] = [
+  { slug: "starter", label: "STARTER", price: "$499" },
+  { slug: "pro", label: "PRO", price: "$990" },
+];
 
 /* ────────────────────────────────────────────────────────────── */
 /* HEAT WEB · Checkout landings — Starter / Pro                   */
@@ -283,6 +292,12 @@ export default function WebPlanCheckout() {
           >
             {plan.tagline}
           </motion.p>
+
+          <PlanSwitcher
+            options={SWITCHER_OPTIONS}
+            currentSlug={slug ?? "pro"}
+            basePath="/contratar/web"
+          />
         </div>
       </section>
 
@@ -480,6 +495,8 @@ export default function WebPlanCheckout() {
             </div>
           </div>
         </motion.aside>
+
+        <BackToHomeLink />
       </section>
 
       {/* ── Qué incluye / Qué se cotiza aparte ── */}
