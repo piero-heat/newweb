@@ -11,10 +11,10 @@ import { X, CalendarDays } from "lucide-react";
 const HIGHLIGHT_GRADIENT =
   "linear-gradient(137deg, #6366f1 0%, #a855f7 50%, #fcd34d 100%)";
 
-// URL del widget de booking de GHL. El iframe que pegó Piero usa este ID.
-// (Distinto del enlace permanente — GHL genera IDs separados para embeds).
+// URL del widget de booking de GHL — Reunión Demo Online HEAT.
+// (El ID Huxl2sb4… era el onboarding presencial · este es la demo).
 const CALENDAR_URL =
-  "https://go.heatlatam.com/widget/booking/Huxl2sb42iZcJL4s6NrY";
+  "https://go.heatlatam.com/widget/booking/jZtrNyIhd4n3PGcBqJvi";
 const CALENDAR_HEIGHT = 820;
 
 type CalendarModalProps = {
@@ -114,7 +114,7 @@ export default function CalendarModal({ open, onClose }: CalendarModalProps) {
                   Agenda una reunión
                 </p>
                 <p className="text-gray-500 text-[11px] mt-0.5">
-                  Elige el horario que te acomode · 120 minutos
+                  Elige el horario que te acomode
                 </p>
               </div>
               <button
