@@ -45,10 +45,12 @@ const PLANS: Plan[] = [
   {
     icon: Sparkles,
     name: "STARTER",
-    tagline: "Landing para validar tu negocio. Diseño premium, pocos días.",
+    tagline:
+      "Landing de 1 página para validar tu negocio. Menú con anclas, sin subpáginas.",
     price: "990",
     features: [
-      "Hasta 3 secciones",
+      "Landing de 1 página con hasta 5 secciones",
+      "Menú de navegación por anclas (#nosotros, #servicios, #contacto)",
       "Diseño 100% custom (no plantilla)",
       "Animaciones suaves al scroll",
       "Mobile-first responsive",
@@ -64,12 +66,13 @@ const PLANS: Plan[] = [
     icon: Zap,
     name: "PRO",
     tagline:
-      "Web completa para empresa establecida. Como la que estás viendo.",
+      "Sitio web completo con hasta 5 subpáginas. Como la que estás viendo.",
     price: "1.250",
     highlighted: true,
     highlightLabel: "MÁS POPULAR",
     features: [
-      "Hasta 5 secciones",
+      "Hasta 5 subpáginas reales (Home, Nosotros, Servicios, etc.)",
+      "Menú con rutas reales (no anclas)",
       "Todo lo del plan Starter",
       "Bloques interactivos (hover, parallax, scroll triggers)",
       "Integraciones (WhatsApp, Calendly, Stripe, CRM HEAT)",
@@ -84,10 +87,11 @@ const PLANS: Plan[] = [
   {
     icon: Layers,
     name: "CUSTOM",
-    tagline: "Plataforma a medida con portal interno + cotizador propio.",
+    tagline:
+      "Plataforma a medida con páginas ilimitadas + portal interno propio.",
     price: "1.990",
     features: [
-      "Secciones ilimitadas",
+      "Páginas ilimitadas",
       "Todo lo del plan Pro",
       "Portal interno (estilo cotizador.heatchile.com)",
       "Backend + base de datos + login de usuarios",
