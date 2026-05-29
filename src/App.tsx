@@ -8,6 +8,7 @@ import DesarrolloWeb from "./pages/DesarrolloWeb";
 import Terminos from "./pages/Terminos";
 import Privacidad from "./pages/Privacidad";
 import Suscripcion from "./pages/Suscripcion";
+import PerformanceAdsCheckout from "./pages/PerformanceAdsCheckout";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -38,6 +39,10 @@ export default function App() {
         <Route path="/privacidad" element={<Privacidad />} />
         <Route path="/suscripcion/:plan" element={<Suscripcion />} />
         <Route path="/heat-ia-pro-14dias" element={<Suscripcion />} />
+        <Route
+          path="/contratar/performance-ads"
+          element={<PerformanceAdsCheckout />}
+        />
       </Routes>
     </BrowserRouter>
   );

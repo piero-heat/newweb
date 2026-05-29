@@ -45,11 +45,9 @@ const STRIPE_VIDEO_BUTTONS: Record<string, string> = {
 const STRIPE_PUBLISHABLE_KEY =
   "pk_live_51SpdzYIoomgopoagdqM0oKTHBUQl6GY5H1irmyNvY1JIvEQg8ZQorGPPpIdA3tvvYTo5XbKSM4rVDVWgmRNQpD9L00CqUxwf3o";
 
-// Stripe Payment Link del servicio Performance ADS · $449/mes + 10% inversión.
-// Es un enlace de pago hosted (no un Buy Button), abre el checkout de Stripe
-// en pestaña nueva.
-const STRIPE_PERFORMANCE_ADS_URL =
-  "https://buy.stripe.com/cNidR9fY9cVW3rA4IW1kA0G";
+// Landing dedicada del checkout del servicio Performance ADS · $449/mes + 10%.
+// Allí se renderiza el Stripe Payment Link embebido + chips de servicios.
+const PERFORMANCE_ADS_CHECKOUT_URL = "/contratar/performance-ads";
 
 /* ────────────────────────────────────────────────────────────── */
 /* DATA                                                            */
@@ -1435,11 +1433,9 @@ export default function PerformAds() {
                   <li>✓ Incentivos alineados con tu crecimiento</li>
                 </ul>
 
-                {/* CTA — Stripe Payment Link del servicio Performance ADS */}
+                {/* CTA → landing dedicada de contratación con embed Stripe */}
                 <a
-                  href={STRIPE_PERFORMANCE_ADS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={PERFORMANCE_ADS_CHECKOUT_URL}
                   className="group relative mt-7 inline-flex items-center justify-center gap-2 rounded-full liquid-glass text-foreground text-sm font-medium px-6 py-3 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_14px_50px_-12px_rgba(255,255,255,0.45)]"
                 >
                   <span
@@ -1452,7 +1448,7 @@ export default function PerformAds() {
                   </span>
                 </a>
                 <p className="mt-3 text-[11px] text-gray-500">
-                  Checkout seguro vía Stripe · Cancela cuando quieras
+                  Activación en 5 días · Cancela cuando quieras
                 </p>
               </div>
 
