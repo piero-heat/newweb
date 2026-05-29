@@ -23,6 +23,7 @@ const PLANS: PricingCardProps[] = [
       "Reportes Meta & Google Ads",
       "ASK IA · IA interna para consultas",
     ],
+    href: "/suscripcion/standard",
     delay: 0.05,
   },
   {
@@ -41,6 +42,7 @@ const PLANS: PricingCardProps[] = [
       "Reportes Meta & Google Ads",
       "ASK IA · IA interna para consultas",
     ],
+    href: "/suscripcion/pro",
     highlighted: true,
     delay: 0.15,
   },
@@ -61,6 +63,7 @@ const PLANS: PricingCardProps[] = [
       "ASK IA · IA interna para consultas",
       "Voice AI · llamadas + Token LLM",
     ],
+    href: "/suscripcion/advance",
     delay: 0.25,
   },
 ];
