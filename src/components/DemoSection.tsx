@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { motion } from "motion/react";
-import { Target, Zap, Gift } from "lucide-react";
+import { Target, Zap, Gift, CalendarDays } from "lucide-react";
+import CalendarModal from "@/components/CalendarModal";
 
 const VALUE_PROPS = [
   {
@@ -23,40 +24,25 @@ const VALUE_PROPS = [
   },
 ];
 
-const HIGHLIGHT_GRADIENT =
-  "linear-gradient(137deg, #6366f1 0%, #a855f7 50%, #fcd34d 100%)";
-
-// Reunión Demo Online HEAT · 30 minutos (mismo calendario del popup).
-const CALENDAR_URL =
-  "https://go.heatlatam.com/widget/booking/jZtrNyIhd4n3PGcBqJvi";
-const CALENDAR_HEIGHT = 820;
+// Gradient con ONDA — rosado → morado → celeste
+const HEAT_VIBES_GRADIENT =
+  "linear-gradient(137deg, #FF3D77 0%, #A855F7 50%, #7DD3FC 100%)";
 
 export default function DemoSection() {
-  // Cargar form_embed.js de GHL para que el iframe se auto-ajuste de alto
-  useEffect(() => {
-    if (
-      document.querySelector<HTMLScriptElement>('script[src*="form_embed.js"]')
-    ) {
-      return;
-    }
-    const script = document.createElement("script");
-    script.src = "https://go.heatlatam.com/js/form_embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
+  const [calOpen, setCalOpen] = useState(false);
 
   return (
     <section
       id="demo"
       className="relative bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8 overflow-hidden"
     >
-      {/* Spotlight púrpura detrás del calendario */}
+      {/* Spotlight en el bg */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-70"
         style={{
           background:
-            "radial-gradient(60% 50% at 50% 70%, rgba(168,85,247,0.16), transparent 65%)",
+            "radial-gradient(60% 50% at 50% 70%, rgba(168,85,247,0.18), transparent 65%), radial-gradient(40% 30% at 50% 80%, rgba(255,61,119,0.08), transparent 70%)",
         }}
       />
 
@@ -74,13 +60,13 @@ export default function DemoSection() {
         </p>
       </div>
 
-      {/* Value props · 3 columnas horizontales */}
+      {/* Value props · 3 columnas */}
       <motion.ul
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative w-full max-w-[1080px] grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10"
+        className="relative w-full max-w-[1080px] grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-14"
       >
         {VALUE_PROPS.map((vp, i) => (
           <motion.li
@@ -104,41 +90,70 @@ export default function DemoSection() {
         ))}
       </motion.ul>
 
-      {/* Calendar embed · full-width con gradient border + glow */}
-      {/* IMPORTANTE: el ID del iframe es el ID oficial del embed de GHL — */}
-      {/* el script form_embed.js lo necesita para hablarle vía postMessage */}
-      {/* y resize-arlo a la altura real del contenido. Sin ID el script no */}
-      {/* lo encuentra y el iframe se queda en 0px. */}
+      {/* CTA con ONDA — solo el botón, sin caluga */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-        className="relative w-full max-w-[1080px] rounded-3xl overflow-hidden shadow-[0_40px_120px_-30px_rgba(168,85,247,0.45),0_0_0_1px_rgba(255,255,255,0.03)]"
-        style={{
-          border: "1.5px solid transparent",
-          background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
-          minHeight: CALENDAR_HEIGHT,
-        }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+        className="relative flex flex-col items-center gap-4"
       >
-        <iframe
-          src={CALENDAR_URL}
-          id="mhDBvhLDZhuL4tcpNwGW_1780021905689"
-          title="HEAT · Reserva tu Demo Online"
-          style={{
-            width: "100%",
-            border: "none",
-            overflow: "hidden",
-            display: "block",
-            minHeight: CALENDAR_HEIGHT,
+        {/* Glow pulsante detrás del botón */}
+        <motion.div
+          aria-hidden
+          animate={{
+            opacity: [0.5, 0.85, 0.5],
+            scale: [1, 1.06, 1],
           }}
-          scrolling="no"
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="pointer-events-none absolute -inset-12 blur-3xl rounded-full"
+          style={{ background: HEAT_VIBES_GRADIENT, opacity: 0.45 }}
         />
+
+        {/* Botón gradient-border con efecto group:hover shine */}
+        <button
+          type="button"
+          onClick={() => setCalOpen(true)}
+          className="group relative inline-flex items-center justify-center rounded-full overflow-hidden transition-transform duration-500 ease-out hover:scale-[1.03]"
+          style={{
+            padding: "2px",
+            background: HEAT_VIBES_GRADIENT,
+            boxShadow:
+              "0 18px 60px -12px rgba(168, 85, 247, 0.55), 0 6px 24px -6px rgba(255, 61, 119, 0.35)",
+          }}
+        >
+          {/* Inner dark capsule */}
+          <span
+            className="relative inline-flex items-center justify-center gap-2.5 rounded-full bg-[#0A0A0B] text-foreground font-medium px-8 md:px-10 py-4 md:py-5 text-[15px] md:text-base transition-colors duration-500 ease-out group-hover:bg-[#13131A]"
+          >
+            {/* Animated shimmer sweep */}
+            <span
+              aria-hidden
+              className="absolute inset-0 rounded-full overflow-hidden"
+            >
+              <span
+                className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 transition-transform duration-1000 ease-out group-hover:translate-x-[450%]"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)",
+                }}
+              />
+            </span>
+            <CalendarDays size={18} strokeWidth={2.2} className="relative" />
+            <span className="relative">Reservá tu demo gratis</span>
+          </span>
+        </button>
+
+        <p className="relative text-xs text-gray-500 mt-1">
+          30 minutos · Por videollamada · Sin compromiso
+        </p>
       </motion.div>
 
-      <p className="relative mt-6 text-xs text-gray-500 text-center">
-        Sin compromiso · Sin letra chica · 30 minutos por videollamada
-      </p>
+      <CalendarModal open={calOpen} onClose={() => setCalOpen(false)} />
     </section>
   );
 }
