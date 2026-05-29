@@ -163,7 +163,7 @@ export default function CaseStudiesSection() {
       id="casos"
       className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 pt-20 md:pt-24 pb-32 md:pb-40 scroll-mt-8"
     >
-      <div className="w-full max-w-[1080px] mb-2 text-center">
+      <div className="w-full max-w-[1080px] mb-12 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           🏆 CASOS DE ÉXITO
         </p>
@@ -180,7 +180,7 @@ export default function CaseStudiesSection() {
         ref={containerRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        className="relative w-full max-w-[1280px] flex items-center justify-center h-[260px] sm:h-[240px]"
+        className="relative w-full max-w-[1280px] flex items-center justify-center h-[400px] sm:h-[400px]"
       >
         {CASES.map((c, i) => {
           let offset = i - index;
@@ -223,7 +223,7 @@ export default function CaseStudiesSection() {
         })}
       </div>
 
-      <div className="mt-8 flex items-center gap-5">
+      <div className="mt-12 flex items-center gap-5">
         <button
           aria-label="Anterior"
           onClick={() => setIndex((i) => (i - 1 + N) % N)}
