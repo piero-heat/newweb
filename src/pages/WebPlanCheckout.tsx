@@ -372,11 +372,12 @@ export default function WebPlanCheckout() {
               Checkout seguro
             </p>
             <h3 className="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-3">
-              Activar mi slot
+              Comprar mi WEB
             </h3>
             <p className="text-gray-600 text-sm md:text-base max-w-md mb-8 leading-relaxed">
-              Te redirigimos al checkout de Stripe. Al confirmar, activamos tu
-              slot y arranca el cronómetro de las 72 horas hábiles.
+              Te redirigimos al checkout de Stripe. Al confirmar el 50% inicial,
+              activamos tu cuenta y arranca el cronómetro de las 72 horas
+              hábiles para la pre-entrega.
             </p>
 
             {/* Botón gigante con glow + onda HEAT */}
