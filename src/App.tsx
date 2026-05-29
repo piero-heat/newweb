@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Index from "./pages/Index";
 import Partners from "./pages/Partners";
 import Nosotros from "./pages/Nosotros";
+import Contenido from "./pages/Contenido";
 import PerformAds from "./pages/PerformAds";
 import DesarrolloWeb from "./pages/DesarrolloWeb";
 import Terminos from "./pages/Terminos";
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/" element={<Index />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/contenido" element={<Contenido />} />
         <Route path="/perform-ads" element={<PerformAds />} />
         <Route path="/desarrollo-web" element={<DesarrolloWeb />} />
         <Route path="/terminos" element={<Terminos />} />
