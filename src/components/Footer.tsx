@@ -11,6 +11,7 @@ import {
 } from "@icons-pack/react-simple-icons";
 import { Linkedin as LinkedinIcon } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { fbqTrack } from "@/lib/fbpixel";
 
 type SocialItem = {
   href: string;
@@ -233,20 +234,32 @@ export default function Footer() {
               {col.title}
             </p>
             <ul className="mt-5 space-y-3">
-              {col.links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={
-                      link.external ? "noopener noreferrer" : undefined
-                    }
-                    className="text-sm text-gray-300 hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {col.links.map((link) => {
+                const isWhatsApp = link.href.startsWith("https://wa.me");
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={
+                        link.external ? "noopener noreferrer" : undefined
+                      }
+                      onClick={
+                        isWhatsApp
+                          ? () =>
+                              fbqTrack("Contact", {
+                                content_name: "Soporte WhatsApp",
+                                method: "whatsapp",
+                              })
+                          : undefined
+                      }
+                      className="text-sm text-gray-300 hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))}

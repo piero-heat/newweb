@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, CalendarDays } from "lucide-react";
+import { fbqTrack } from "@/lib/fbpixel";
 
 /* ────────────────────────────────────────────────────────────── */
 /* GHL Calendar Modal — popup premium con look HEAT 3.0           */
@@ -31,6 +32,14 @@ export default function CalendarModal({ open, onClose }: CalendarModalProps) {
     return () => {
       document.body.style.overflow = original;
     };
+  }, [open]);
+
+  // Meta Pixel: dispara "Schedule" cuando el modal se abre.
+  // Meta lo considera evento de alto valor (intención de agendar).
+  useEffect(() => {
+    if (open) {
+      fbqTrack("Schedule", { content_name: "Demo HEAT IA" });
+    }
   }, [open]);
 
   // Close on Escape

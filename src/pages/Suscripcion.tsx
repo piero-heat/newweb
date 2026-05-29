@@ -34,6 +34,7 @@ import {
 import Navbar from "@/components/Navbar";
 import PlanSwitcher, { type PlanOption } from "@/components/PlanSwitcher";
 import BackToHomeLink from "@/components/BackToHomeLink";
+import CheckoutEventTracker from "@/components/CheckoutEventTracker";
 
 const SWITCHER_OPTIONS: PlanOption[] = [
   { slug: "standard", label: "STANDARD", price: "$299" },
@@ -312,9 +313,17 @@ export default function Suscripcion() {
   // /heat-ia-pro-14dias).
   const { plan: planSlug } = useParams<{ plan?: string }>();
   const plan = PLANS[planSlug ?? "pro"] ?? PLANS.pro;
+  const resolvedSlug = planSlug ?? "pro";
 
   return (
     <div className="bg-background min-h-screen">
+      <CheckoutEventTracker
+        contentCategory="suscripcion"
+        contentName={plan.name}
+        value={plan.price}
+        currency="USD"
+        contentIds={[`suscripcion-${resolvedSlug}`]}
+      />
       <Navbar />
 
       {/* ── Top strip / hero · dark void con halo HEAT ── */}

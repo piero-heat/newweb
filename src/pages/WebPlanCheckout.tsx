@@ -28,6 +28,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PlanSwitcher, { type PlanOption } from "@/components/PlanSwitcher";
 import BackToHomeLink from "@/components/BackToHomeLink";
+import CheckoutEventTracker from "@/components/CheckoutEventTracker";
 
 // Opciones para el switcher de planes (Starter / Pro · no incluye Custom
 // porque ese se cotiza con calendario, no tiene checkout directo).
@@ -226,9 +227,17 @@ export default function WebPlanCheckout() {
   // Fallback a "pro" si el slug es inválido o ausente.
   const { slug } = useParams<{ slug?: string }>();
   const plan = PLANS[slug ?? "pro"] ?? PLANS.pro;
+  const resolvedSlug = slug ?? "pro";
 
   return (
     <div className="bg-background min-h-screen">
+      <CheckoutEventTracker
+        contentCategory="web"
+        contentName={plan.name}
+        value={plan.price}
+        currency="USD"
+        contentIds={[`web-${resolvedSlug}`]}
+      />
       <Navbar />
 
       {/* ── Hero · dark void con halo HEAT ── */}

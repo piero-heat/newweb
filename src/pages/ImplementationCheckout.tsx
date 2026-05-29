@@ -23,6 +23,7 @@ import type { LucideIcon } from "lucide-react";
 import { SiStripe } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CheckoutEventTracker from "@/components/CheckoutEventTracker";
 import PlanSwitcher, { type PlanOption } from "@/components/PlanSwitcher";
 import BackToHomeLink from "@/components/BackToHomeLink";
 
@@ -168,9 +169,17 @@ export default function ImplementationCheckout() {
   const { slug } = useParams<{ slug?: string }>();
   const plan = PLANS[slug ?? "accelerate"] ?? PLANS.accelerate;
   const PlanIcon = plan.icon;
+  const resolvedSlug = slug ?? "accelerate";
 
   return (
     <div className="bg-background min-h-screen">
+      <CheckoutEventTracker
+        contentCategory="implementacion"
+        contentName={plan.name}
+        value={plan.price}
+        currency="USD"
+        contentIds={[`implementacion-${resolvedSlug}`]}
+      />
       <Navbar />
 
       {/* ── Hero · dark void con halo HEAT ── */}

@@ -11,6 +11,7 @@ import Suscripcion from "./pages/Suscripcion";
 import PerformanceAdsCheckout from "./pages/PerformanceAdsCheckout";
 import WebPlanCheckout from "./pages/WebPlanCheckout";
 import ImplementationCheckout from "./pages/ImplementationCheckout";
+import MetaPixel from "./components/MetaPixel";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -31,6 +32,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollManager />
+      <MetaPixel />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/partners" element={<Partners />} />

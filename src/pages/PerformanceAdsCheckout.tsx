@@ -32,6 +32,7 @@ import { SiStripe } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import BackToHomeLink from "@/components/BackToHomeLink";
 import Footer from "@/components/Footer";
+import CheckoutEventTracker from "@/components/CheckoutEventTracker";
 
 /* ────────────────────────────────────────────────────────────── */
 /* HEAT ADS · PERFORMANCE — landing de suscripción dedicada.      */
@@ -127,6 +128,13 @@ const VIBES_GRADIENT =
 export default function PerformanceAdsCheckout() {
   return (
     <div className="bg-background min-h-screen">
+      <CheckoutEventTracker
+        contentCategory="performance-ads"
+        contentName="HEAT Performance ADS · Setup"
+        value={500}
+        currency="USD"
+        contentIds={["performance-ads-setup"]}
+      />
       <Navbar />
 
       {/* ── Hero · dark void con halo HEAT ── */}
