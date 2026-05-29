@@ -45,6 +45,12 @@ const STRIPE_VIDEO_BUTTONS: Record<string, string> = {
 const STRIPE_PUBLISHABLE_KEY =
   "pk_live_51SpdzYIoomgopoagdqM0oKTHBUQl6GY5H1irmyNvY1JIvEQg8ZQorGPPpIdA3tvvYTo5XbKSM4rVDVWgmRNQpD9L00CqUxwf3o";
 
+// Stripe Payment Link del servicio Performance ADS · $449/mes + 10% inversión.
+// Es un enlace de pago hosted (no un Buy Button), abre el checkout de Stripe
+// en pestaña nueva.
+const STRIPE_PERFORMANCE_ADS_URL =
+  "https://buy.stripe.com/cNidR9fY9cVW3rA4IW1kA0G";
+
 /* ────────────────────────────────────────────────────────────── */
 /* DATA                                                            */
 /* ────────────────────────────────────────────────────────────── */
@@ -1428,6 +1434,26 @@ export default function PerformAds() {
                   <li>✓ Comisión proporcional a tu inversión</li>
                   <li>✓ Incentivos alineados con tu crecimiento</li>
                 </ul>
+
+                {/* CTA — Stripe Payment Link del servicio Performance ADS */}
+                <a
+                  href={STRIPE_PERFORMANCE_ADS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative mt-7 inline-flex items-center justify-center gap-2 rounded-full liquid-glass text-foreground text-sm font-medium px-6 py-3 overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_14px_50px_-12px_rgba(255,255,255,0.45)]"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 rounded-full bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"
+                  />
+                  <span className="relative z-10 inline-flex items-center gap-2 transition-colors duration-500 ease-out group-hover:text-background">
+                    Contratar Performance ADS
+                    <ArrowRight size={14} />
+                  </span>
+                </a>
+                <p className="mt-3 text-[11px] text-gray-500">
+                  Checkout seguro vía Stripe · Cancela cuando quieras
+                </p>
               </div>
 
               <div>
