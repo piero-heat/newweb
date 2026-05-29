@@ -15,6 +15,7 @@ export interface PricingCardProps {
   billing: string;
   features: string[];
   href?: string;
+  onCtaClick?: () => void;
   ctaLabel?: string;
   highlighted?: boolean;
   highlightLabel?: string;
@@ -30,6 +31,7 @@ export default function PricingCard({
   billing,
   features,
   href,
+  onCtaClick,
   ctaLabel = "Comenzar ahora →",
   highlighted = false,
   highlightLabel = "MÁS VENDIDO",
@@ -108,7 +110,17 @@ export default function PricingCard({
             ))}
           </ul>
 
-          {href ? (
+          {onCtaClick ? (
+            <Button
+              type="button"
+              onClick={onCtaClick}
+              variant="heroSecondary"
+              size="none"
+              className="mt-8 w-full rounded-full px-4 py-3 text-sm"
+            >
+              {ctaLabel}
+            </Button>
+          ) : href ? (
             <a href={href} className="mt-8 block">
               <Button
                 variant="heroSecondary"

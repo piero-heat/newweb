@@ -33,6 +33,12 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PricingCard, { type PricingCardProps } from "@/components/PricingCard";
+import StripeBuyButtonModal from "@/components/StripeBuyButtonModal";
+
+// Stripe Buy Button del Pack de 5 Videos (cuenta HEAT live).
+const STRIPE_5VIDEOS_BUTTON_ID = "buy_btn_1TcGdGIoomgopoagqtmVl9Ct";
+const STRIPE_PUBLISHABLE_KEY =
+  "pk_live_51SpdzYIoomgopoagdqM0oKTHBUQl6GY5H1irmyNvY1JIvEQg8ZQorGPPpIdA3tvvYTo5XbKSM4rVDVWgmRNQpD9L00CqUxwf3o";
 
 /* ────────────────────────────────────────────────────────────── */
 /* DATA                                                            */
@@ -411,6 +417,7 @@ const VIDEO_PACKS: PricingCardProps[] = [
 
 export default function PerformAds() {
   const [caseIdx, setCaseIdx] = useState(0);
+  const [videosCheckoutOpen, setVideosCheckoutOpen] = useState(false);
   const totalCases = META_CASES.length;
   const activeCase = META_CASES[caseIdx];
   const prevCase = () =>
@@ -1526,9 +1533,22 @@ export default function PerformAds() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {VIDEO_PACKS.map((pack) => (
-              <PricingCard key={pack.name} {...pack} />
-            ))}
+            {VIDEO_PACKS.map((pack) => {
+              // El pack de 5 VIDEOS dispara el popup con el Stripe Buy Button
+              const isFiveVideos = pack.name === "5 VIDEOS";
+              return (
+                <PricingCard
+                  key={pack.name}
+                  {...pack}
+                  ctaLabel={isFiveVideos ? "Comprar pack →" : pack.ctaLabel}
+                  onCtaClick={
+                    isFiveVideos
+                      ? () => setVideosCheckoutOpen(true)
+                      : undefined
+                  }
+                />
+              );
+            })}
           </div>
 
           <motion.div
@@ -1634,6 +1654,16 @@ export default function PerformAds() {
       </section>
 
       <Footer />
+
+      {/* Stripe Buy Button popup — disparado desde el card 5 VIDEOS */}
+      <StripeBuyButtonModal
+        open={videosCheckoutOpen}
+        onClose={() => setVideosCheckoutOpen(false)}
+        buyButtonId={STRIPE_5VIDEOS_BUTTON_ID}
+        publishableKey={STRIPE_PUBLISHABLE_KEY}
+        title="Pack de 5 Videos · $850 USD"
+        subtitle="Pago único · Procesado por Stripe"
+      />
     </div>
   );
 }
