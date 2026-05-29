@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "motion/react";
 import {
   Sparkles,
@@ -19,6 +20,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CalendarModal from "@/components/CalendarModal";
 
 /* ────────────────────────────────────────────────────────────── */
 /* DATA                                                            */
@@ -39,6 +41,10 @@ type Plan = {
   features: string[];
   highlighted?: boolean;
   highlightLabel?: string;
+  // Si true: muestra "A medida" en vez del precio, oculta el subtítulo
+  // de "Pago único 50/50", y el CTA principal abre el calendario en
+  // vez de ir al checkout.
+  quote?: boolean;
 };
 
 const PLANS: Plan[] = [
@@ -47,7 +53,7 @@ const PLANS: Plan[] = [
     name: "STARTER",
     tagline:
       "Landing de 1 página para validar tu negocio. Menú con anclas, sin subpáginas.",
-    price: "990",
+    price: "499",
     features: [
       "Landing de 1 página con hasta 5 secciones",
       "Menú de navegación por anclas (#nosotros, #servicios, #contacto)",
@@ -67,7 +73,7 @@ const PLANS: Plan[] = [
     name: "PRO",
     tagline:
       "Sitio web completo con hasta 5 subpáginas. Como la que estás viendo.",
-    price: "1.250",
+    price: "990",
     highlighted: true,
     highlightLabel: "MÁS POPULAR",
     features: [
@@ -89,7 +95,8 @@ const PLANS: Plan[] = [
     name: "CUSTOM",
     tagline:
       "Plataforma a medida con páginas ilimitadas + portal interno propio.",
-    price: "1.990",
+    price: "A medida",
+    quote: true,
     features: [
       "Páginas ilimitadas",
       "Todo lo del plan Pro",
@@ -221,6 +228,11 @@ const PRICE_GRADIENT =
 /* ────────────────────────────────────────────────────────────── */
 
 export default function DesarrolloWeb() {
+  // Calendar popup state — disparado desde el card CUSTOM y desde los
+  // links "¿Tienes dudas? Agenda reunión" de cada plan card.
+  const [calOpen, setCalOpen] = useState(false);
+  const openCalendar = () => setCalOpen(true);
+
   return (
     <div className="bg-background min-h-screen">
       <Navbar />
@@ -541,7 +553,12 @@ export default function DesarrolloWeb() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {PLANS.map((plan, i) => (
-              <PlanCard key={plan.name} plan={plan} index={i} />
+              <PlanCard
+                key={plan.name}
+                plan={plan}
+                index={i}
+                openCalendar={openCalendar}
+              />
             ))}
           </div>
 
@@ -699,6 +716,10 @@ export default function DesarrolloWeb() {
       </section>
 
       <Footer />
+
+      {/* Calendar popup — disparado desde el card CUSTOM y los links
+          "¿Tienes dudas?" de cada plan */}
+      <CalendarModal open={calOpen} onClose={() => setCalOpen(false)} />
     </div>
   );
 }
@@ -733,7 +754,15 @@ function Inclusion({
   );
 }
 
-function PlanCard({ plan, index }: { plan: Plan; index: number }) {
+function PlanCard({
+  plan,
+  index,
+  openCalendar,
+}: {
+  plan: Plan;
+  index: number;
+  openCalendar: () => void;
+}) {
   const Icon = plan.icon;
   return (
     <motion.div
@@ -781,22 +810,41 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
       </p>
 
       <div className="flex items-baseline gap-1 mb-1">
-        <span className="text-gray-400 text-sm">$</span>
-        <span
-          className="font-display font-medium bg-clip-text text-transparent"
-          style={{
-            fontSize: "clamp(40px, 4vw, 56px)",
-            lineHeight: 1,
-            letterSpacing: "-0.035em",
-            backgroundImage: PRICE_GRADIENT,
-          }}
-        >
-          {plan.price}
-        </span>
-        <span className="text-gray-400 text-sm">USD</span>
+        {plan.quote ? (
+          // Modo cotización: solo "A medida" sin $ ni USD ni subtítulo de pago
+          <span
+            className="font-display font-medium bg-clip-text text-transparent"
+            style={{
+              fontSize: "clamp(32px, 3.4vw, 44px)",
+              lineHeight: 1,
+              letterSpacing: "-0.025em",
+              backgroundImage: PRICE_GRADIENT,
+            }}
+          >
+            {plan.price}
+          </span>
+        ) : (
+          <>
+            <span className="text-gray-400 text-sm">$</span>
+            <span
+              className="font-display font-medium bg-clip-text text-transparent"
+              style={{
+                fontSize: "clamp(40px, 4vw, 56px)",
+                lineHeight: 1,
+                letterSpacing: "-0.035em",
+                backgroundImage: PRICE_GRADIENT,
+              }}
+            >
+              {plan.price}
+            </span>
+            <span className="text-gray-400 text-sm">USD</span>
+          </>
+        )}
       </div>
       <p className="text-gray-500 text-xs mb-6">
-        Pago único · 50% inicial + 50% entrega
+        {plan.quote
+          ? "Cotización personalizada según alcance"
+          : "Pago único · 50% inicial + 50% entrega"}
       </p>
 
       <ul className="flex-1 space-y-2.5 mb-6">
@@ -813,24 +861,45 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
       </ul>
 
       <div className="flex flex-col gap-2 mt-auto pt-2">
-        <a
-          href="/#demo"
-          className={`group inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-all duration-400 ease-out ${
-            plan.highlighted
-              ? "bg-foreground text-background hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)]"
-              : "border border-white/15 text-foreground hover:border-white/35 hover:bg-white/[0.04]"
-          }`}
-        >
-          <ShoppingCart size={14} />
-          Comprar plan
-        </a>
-        <a
-          href="/#demo"
-          className="group inline-flex items-center justify-center gap-2 text-xs text-gray-400 hover:text-foreground transition-colors py-1"
-        >
-          <Calendar size={12} />
-          ¿Tienes dudas? Agenda reunión
-        </a>
+        {plan.quote ? (
+          // Modo cotización: CTA principal abre el calendario
+          <button
+            type="button"
+            onClick={openCalendar}
+            className={`group inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-all duration-400 ease-out ${
+              plan.highlighted
+                ? "bg-foreground text-background hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)]"
+                : "border border-white/15 text-foreground hover:border-white/35 hover:bg-white/[0.04]"
+            }`}
+          >
+            <Calendar size={14} />
+            Agendar reunión
+          </button>
+        ) : (
+          <a
+            href="/#demo"
+            className={`group inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-all duration-400 ease-out ${
+              plan.highlighted
+                ? "bg-foreground text-background hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)]"
+                : "border border-white/15 text-foreground hover:border-white/35 hover:bg-white/[0.04]"
+            }`}
+          >
+            <ShoppingCart size={14} />
+            Comprar plan
+          </a>
+        )}
+        {/* "¿Tienes dudas?" → abre el popup del calendario (en todos los cards
+            excepto el de quote, que ya tiene el calendario como CTA principal) */}
+        {!plan.quote && (
+          <button
+            type="button"
+            onClick={openCalendar}
+            className="group inline-flex items-center justify-center gap-2 text-xs text-gray-400 hover:text-foreground transition-colors py-1"
+          >
+            <Calendar size={12} />
+            ¿Tienes dudas? Agenda reunión
+          </button>
+        )}
       </div>
     </motion.div>
   );

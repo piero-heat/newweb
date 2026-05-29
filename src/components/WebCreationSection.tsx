@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Sparkles, Zap, Layers, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import PricingCard, { type PricingCardProps } from "./PricingCard";
+import CalendarModal from "@/components/CalendarModal";
 
 const PLANS: PricingCardProps[] = [
   {
@@ -8,7 +10,7 @@ const PLANS: PricingCardProps[] = [
     name: "HEAT WEB · STARTER",
     tagline:
       "Landing de 1 página para validar tu negocio. Menú con anclas, sin subpáginas.",
-    price: "990",
+    price: "499",
     billing: "pago único",
     features: [
       "Landing de 1 página con hasta 5 secciones",
@@ -31,7 +33,7 @@ const PLANS: PricingCardProps[] = [
     name: "HEAT WEB · PRO",
     tagline:
       "Sitio web completo con hasta 5 subpáginas. Como esta que estás viendo.",
-    price: "1.250",
+    price: "990",
     billing: "pago único",
     features: [
       "Hasta 5 subpáginas reales (Home, Nosotros, Servicios, etc.)",
@@ -56,8 +58,9 @@ const PLANS: PricingCardProps[] = [
     name: "HEAT WEB · CUSTOM",
     tagline:
       "Plataforma a medida con páginas ilimitadas + portal interno propio.",
-    price: "1.990",
-    billing: "pago único",
+    price: "A medida",
+    currency: "",
+    billing: "cotización personalizada",
     features: [
       "Páginas ilimitadas",
       "Todo lo del plan Pro",
@@ -71,12 +74,15 @@ const PLANS: PricingCardProps[] = [
       "Soporte post-entrega 30 días",
       "Entrega: 5-10 días hábiles según alcance",
     ],
-    ctaLabel: "Comprar plan",
+    ctaLabel: "Agendar reunión",
     delay: 0.25,
   },
 ];
 
 export default function WebCreationSection() {
+  // Calendar popup state — disparado desde el card CUSTOM (cotización).
+  const [calOpen, setCalOpen] = useState(false);
+
   return (
     <section className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24">
       <div className="w-full max-w-[1080px] mb-12 text-center">
@@ -122,9 +128,17 @@ export default function WebCreationSection() {
       </motion.div>
 
       <div className="grid w-full max-w-[1080px] grid-cols-1 md:grid-cols-3 gap-6">
-        {PLANS.map((plan) => (
-          <PricingCard key={plan.name} {...plan} />
-        ))}
+        {PLANS.map((plan) => {
+          // El plan CUSTOM (sin precio numérico) dispara el popup del calendario
+          const isCustomQuote = plan.name === "HEAT WEB · CUSTOM";
+          return (
+            <PricingCard
+              key={plan.name}
+              {...plan}
+              onCtaClick={isCustomQuote ? () => setCalOpen(true) : undefined}
+            />
+          );
+        })}
       </div>
 
       <motion.div
@@ -152,6 +166,9 @@ export default function WebCreationSection() {
           páginas reales
         </p>
       </motion.div>
+
+      {/* Calendar popup — disparado por el card CUSTOM (cotización) */}
+      <CalendarModal open={calOpen} onClose={() => setCalOpen(false)} />
     </section>
   );
 }
