@@ -271,7 +271,7 @@ function ReelCard({
   const isInteractive = !!reel.url;
 
   const inner = (
-    <div className="relative bg-white" style={{ aspectRatio: "9 / 16" }}>
+    <div className="relative bg-white" style={{ aspectRatio: "9 / 14" }}>
       {reel.url ? (
         <>
           <iframe
@@ -286,14 +286,21 @@ function ReelCard({
             // los clicks y nunca llegan al handler.
             className="absolute inset-0 w-full h-full border-0 pointer-events-none"
           />
-          {/* Overlay blanco abajo · oculta la barra de engagement
-              (likes / comments / share / comentario / logo IG) que IG
-              embed renderiza pero no aporta y no funciona en embed. */}
+          {/* Footer blanco custom · oculta el "Ver más" zurdo + barra
+              de engagement que IG embed renderiza por defecto, y los
+              reemplaza con un "Ver más en Instagram" centrado más limpio. */}
           <div
             aria-hidden
-            className="absolute bottom-0 left-0 right-0 bg-white pointer-events-none"
-            style={{ height: "16%" }}
-          />
+            className="absolute bottom-0 left-0 right-0 bg-white pointer-events-none flex items-center justify-center"
+            style={{ height: "13%" }}
+          >
+            <span
+              className="text-[12px] font-semibold tracking-wide"
+              style={{ color: "#0095F6" }}
+            >
+              Ver más en Instagram
+            </span>
+          </div>
         </>
       ) : (
         <PlaceholderReel />
@@ -403,11 +410,11 @@ function ReelModal({
           <X size={18} />
         </button>
 
-        {/* Contenedor del reel · phone-shape 9:16 con halo gradient IG */}
+        {/* Contenedor del reel · phone-shape 9:14 con halo gradient IG */}
         <div
           className="relative w-full rounded-2xl overflow-hidden bg-white"
           style={{
-            aspectRatio: "9 / 16",
+            aspectRatio: "9 / 14",
             boxShadow:
               "0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px -20px rgba(0,0,0,0.85), 0 0 0 6px rgba(225,48,108,0.12)",
           }}
@@ -419,12 +426,23 @@ function ReelModal({
             allow="encrypted-media; clipboard-write; autoplay"
             className="absolute inset-0 w-full h-full border-0"
           />
-          {/* Overlay blanco · oculta engagement section igual que en cards */}
+          {/* Footer blanco custom · "Ver más en Instagram" centrado y
+              clickable (a diferencia de las cards, en el modal el link
+              SÍ funciona y abre el reel en IG). */}
           <div
-            aria-hidden
-            className="absolute bottom-0 left-0 right-0 bg-white pointer-events-none"
-            style={{ height: "16%" }}
-          />
+            className="absolute bottom-0 left-0 right-0 bg-white flex items-center justify-center"
+            style={{ height: "13%" }}
+          >
+            <a
+              href={reelUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] font-semibold tracking-wide hover:underline"
+              style={{ color: "#0095F6" }}
+            >
+              Ver más en Instagram
+            </a>
+          </div>
         </div>
       </motion.div>
     </motion.div>
