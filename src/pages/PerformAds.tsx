@@ -204,7 +204,7 @@ const META_CASES: CaseStudy[] = [
     industry: "RETAIL · CONFITERÍA ARTESANAL",
     title: "Barquillos.cl — Funnel multi-canal con CAPI conectada",
     description:
-      "Confitería artesanal chilena (cuchuflies, barquillos, tortas). Diseñamos su funnel completo: campañas de contenido + un video viral con concurso nacional impulsado con Meta ADS que llevó la marca a +40.000 seguidores en menos de 30 días. Después lanzamos landings sectoriales B2B (emprendimiento y corporativo) con formulario calificador → derivación instantánea por WhatsApp, y finalmente sumamos el e-commerce B2C. Todo medido con CAPI conectada al CRM para que Meta optimizara con datos del cierre real.",
+      "Confitería artesanal chilena. Funnel completo: viral con concurso nacional → +40.000 seguidores en 30 días, landings B2B con WhatsApp calificado y e-commerce B2C. Todo con CAPI conectada al cierre real.",
     stats: [
       { value: "+40.000", label: "seguidores en menos de 30 días con la campaña viral" },
       { value: "+187%", label: "leads B2B calificados con landings sectoriales" },
@@ -220,7 +220,7 @@ const META_CASES: CaseStudy[] = [
     title:
       "Clínica GoSmile — Meta Lead Forms + CAPI + LANDINGS para Invisalign e implantes",
     description:
-      "Clínica dental especializada en Invisalign e implantología, con sucursales en Chicureo y La Dehesa. Antes operaban con campañas de WhatsApp masivo sin filtro y sin CAPI — leads baratos pero baja conversión a cita real. Pivoteamos a Meta Lead Forms con 2-3 preguntas de calificación, conectamos CAPI con el CRM HEAT para alimentar al algoritmo con data del agendamiento y la asistencia real, y escalamos los agentes de IA en WhatsApp. Sumamos landings dedicadas para servicios high-ticket (Invisalign + implantología) y corrimos A/B entre Lead Forms y Landings para optimizar el mix. En paralelo, una campaña sostenida de aumento de seguidores con métricas alineadas al promedio real del rubro.",
+      "Clínica dental Invisalign e implantes. Migramos de WhatsApp masivo a Meta Lead Forms con CAPI, conectamos el agendamiento real al CRM y sumamos landings dedicadas para servicios high-ticket.",
     stats: [
       {
         value: "−45%",
@@ -248,7 +248,7 @@ const META_CASES: CaseStudy[] = [
     title:
       "Gabriela Prieto Joyas — Shopify consultivo + VIDEO ADS dirigidos al hombre",
     description:
-      "Joyería chilena especializada en anillos de compromiso y argollas de matrimonio. Migramos su e-commerce de WordPress (baja calidad) a un Shopify premium alineado al branding de la marca — sin checkout directo, modelo consultivo: cada producto inicia una conversación de WhatsApp con contexto específico del modelo. Píxel + CAPI conectados al CRM HEAT para que las campañas optimicen sobre la consulta calificada, no el clic. Para alta gama produjimos VIDEO ADS de alta calidad dirigidos al comprador masculino — contenido que frena el scroll y se posiciona como asesoría consultiva, no venta. MetaForm con calificación → CRM → round-robin entre las ejecutivas. Escalamos los mejores creativos enfocados en el tono del cliente ideal masculino + refresh de marca completo en el e-commerce.",
+      "Joyería chilena de alta gama (anillos de compromiso). Refresh completo de Shopify con modelo consultivo: cada producto inicia WhatsApp con contexto. VIDEO ADS dirigidos al comprador masculino + CAPI optimizando sobre consultas calificadas.",
     stats: [
       {
         value: "~2x",
@@ -276,7 +276,7 @@ const META_CASES: CaseStudy[] = [
     title:
       "La Nostra Casa Trattoria — De 10 a +35.000 seguidores en <90 días",
     description:
-      "Restaurante italiano enfocado en la cocina de la nonna — recetas tradicionales hechas a mano. Arrancamos su Instagram desde 10 seguidores y diseñamos un funnel de awareness puro: VIDEO ADS de alta producción mostrando a la nonna cocinando, hook fuerte en los primeros 3 segundos, foco emocional en la experiencia (no en el plato vendido). En menos de 90 días superamos los 35.000 seguidores reales. La segunda capa: pivote del awareness a reservas — campañas de reserva de mesa con Meta Lead Forms calificados y CAPI conectada al CRM para medir reservas efectivamente concretadas (no solo solicitadas).",
+      "Trattoria italiana. Funnel de awareness con VIDEO ADS emocionales de la nonna cocinando — de 10 a +35.000 seguidores en <90 días. Después pivote a reservas con Meta Lead Forms calificados y CAPI sobre reservas confirmadas.",
     stats: [
       {
         value: "+35.000",
@@ -304,7 +304,7 @@ const META_CASES: CaseStudy[] = [
     title:
       "Clínica Palavas — Agentes IA 24/7 + CRM con dashboard comercial",
     description:
-      "Clínica estética con 4 sucursales (Las Condes, La Dehesa, Chicureo, Chillán) y más de 35.000 pacientes desde 2013 (4,8 en Google). El cuello de botella estaba en la gestión comercial: muchos leads se perdían fuera de horario o porque el equipo no respondía con la rapidez que la dueña quería. Implementamos agentes de IA en WhatsApp respondiendo 24/7 con tono de la marca, calificando y agendando directamente al CRM HEAT — visible en un dashboard de gestión comercial para que cada ejecutiva supiera en tiempo real qué lead atender. Las campañas de Meta ADS ahora optimizan sobre data del cierre real (CAPI conectada), no sobre el clic.",
+      "Clínica estética con 4 sucursales y +35.000 pacientes. Agentes IA en WhatsApp 24/7 calificando y agendando al CRM — dashboard único para que cada ejecutiva atienda en tiempo real. Meta ADS ahora optimiza sobre cierre real.",
     stats: [
       {
         value: "24/7",
@@ -332,7 +332,7 @@ const META_CASES: CaseStudy[] = [
     title:
       "Vita Nutrition — De $2K a $25K USD/mes en 12 meses con estructura por producto",
     description:
-      "E-commerce chileno de suplementos nutricionales premium (Klarity, colágeno, magnesio, gomitas). Cuando HEAT entró estaban en <$2.000 USD de venta mensual con un Instagram poco trabajado. Primero subimos producción de contenido y la calidad creativa; en paralelo armamos estructura de campañas separadas por producto en Meta — protegiendo el budget del hero product (Klarity, que concentra +90% de las ventas) para no diluir la publicidad en SKUs marginales. Pixel calibrado con eventos de fondo y CAPI conectada al backend del e-commerce. En 12 meses escalamos de <$2K a $25K USD/mes de venta, manteniendo una tasa de conversión sostenida de 2,3% sobre tráfico pagado (e-commerce promedio: 1-2%).",
+      "E-commerce de suplementos nutricionales premium. Estructura de campañas separadas por producto, protegiendo +90% del budget en el hero product (Klarity). Pixel + CAPI conectados al backend para optimizar sobre venta real.",
     stats: [
       {
         value: "12,5x",
@@ -360,7 +360,7 @@ const META_CASES: CaseStudy[] = [
     title:
       "C4G Jewelers — Restructura de campañas con foco en hero product (cadenas cubanas)",
     description:
-      "Joyería en Miami especializada en oro 10K/14K/18K, con foco en la comunidad latina (\"In Gold We Trust · FAMILIA\"). E-commerce ya operativo en Shopify y pulido visualmente, pero el problema estaba arriba en el funnel: campañas de Meta ADS sin estructura — todo el catálogo compitiendo en los mismos ad sets, presupuesto diluido. Hicimos un análisis profundo de venta por SKU y reordenamos la estructura: campañas dedicadas al hero product (cadenas cubanas, que concentran el grueso de la rentabilidad), separación clara por categoría y por margen, creativos específicos por intención. En 6 meses casi triplicamos las ventas online totales de la tienda.",
+      "Joyería en Miami especializada en oro y cadenas cubanas. Reestructuramos las campañas Meta con foco hero product: separación por categoría y margen, creativos por intención. Casi triplicamos las ventas online en 6 meses.",
     stats: [
       {
         value: "~3x",
@@ -388,7 +388,7 @@ const META_CASES: CaseStudy[] = [
     title:
       "Wolford Chile — Despegue del canal digital de ~$200 a ~$8K USD/mes",
     description:
-      "Marca europea de moda y media de alta gama (sedes en Europa y Miami), con tienda física en Vitacura. En Chile el motor era 100% retail físico: el canal digital existía sobre WordPress pero apenas vendía ~$200 USD al mes. Migramos a Shopify, levantamos toda la calidad del contenido y diseñamos el e-commerce para el cliente real de la marca: mujer 45+, elegante, sensible al detalle. Conectamos Pixel y armamos grupos de anuncios separados por dolor/gusto del cliente ideal (no por producto a granel). El canal digital pasó a generar ~$8.000 USD/mes constante — un motor nuevo de ingreso recurrente que la marca no tenía antes en Chile.",
+      "Marca europea de moda y media de alta gama, tienda física en Vitacura. Migramos el e-commerce a Shopify y rediseñamos grupos de anuncios por dolor/gusto de la mujer 45+. De ~$200 a ~$8K USD/mes constante.",
     stats: [
       {
         value: "~40x",
@@ -1106,42 +1106,59 @@ export default function PerformAds() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
               >
-                {/* Top row: badge + industria a la izquierda · logo del
-                    cliente discreto a la derecha (watermark con opacity baja) */}
-                <div className="mb-3 flex items-start justify-between gap-4">
-                  <p className="text-xs font-semibold tracking-[0.18em] text-white/60 flex items-center gap-2 flex-wrap min-w-0">
-                    <span
-                      className={`inline-block px-2 py-0.5 rounded-full text-[10px] tracking-[0.18em] ${
-                        activeCase.source === "meta"
-                          ? "bg-[#1877F2]/15 text-[#7DB8FF] border border-[#1877F2]/30"
-                          : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
-                      }`}
-                    >
-                      {activeCase.source === "meta"
-                        ? "CASO META BUSINESS"
-                        : "CASO REAL HEAT"}
-                    </span>
-                    <span>·</span>
-                    <span>{activeCase.industry}</span>
-                  </p>
+                {/* Top: 2 columnas — texto izq · logo box derecho en blanco */}
+                <div className="grid md:grid-cols-[1fr_auto] gap-5 md:gap-7 items-start mb-7">
+                  <div className="min-w-0">
+                    {/* Badge row */}
+                    <p className="text-xs font-semibold tracking-[0.18em] text-white/60 flex items-center gap-2 flex-wrap mb-3">
+                      <span
+                        className={`inline-block px-2 py-0.5 rounded-full text-[10px] tracking-[0.18em] ${
+                          activeCase.source === "meta"
+                            ? "bg-[#1877F2]/15 text-[#7DB8FF] border border-[#1877F2]/30"
+                            : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                        }`}
+                      >
+                        {activeCase.source === "meta"
+                          ? "CASO META BUSINESS"
+                          : "CASO REAL HEAT"}
+                      </span>
+                      <span>·</span>
+                      <span>{activeCase.industry}</span>
+                    </p>
+
+                    {/* Title — alineado a la izquierda, tamaño ajustado para el layout */}
+                    <h3 className="font-display text-xl md:text-2xl font-medium text-white tracking-tight mb-3 leading-snug">
+                      {activeCase.title}
+                    </h3>
+
+                    {/* Descripción más corta */}
+                    <p className="text-gray-300 text-[14px] md:text-[15px] leading-7">
+                      {activeCase.description}
+                    </p>
+                  </div>
+
+                  {/* Logo box · cuadradito blanco con el logo en sus colores reales */}
                   {activeCase.logo && (
-                    <img
-                      src={activeCase.logo}
-                      alt={`Logo ${activeCase.title}`}
-                      loading="lazy"
-                      className="shrink-0 h-7 md:h-8 w-auto max-w-[120px] object-contain opacity-60 hover:opacity-90 transition-opacity"
+                    <a
+                      href={activeCase.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visitar sitio del cliente ${activeCase.title}`}
+                      className="group shrink-0 self-start md:self-center w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-2xl bg-white flex items-center justify-center p-4 md:p-5 transition-all duration-400 hover:scale-[1.03]"
                       style={{
-                        filter: "brightness(1.4) saturate(0.85)",
+                        boxShadow:
+                          "0 0 0 1px rgba(255,255,255,0.08), 0 16px 50px -16px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,0,0,0.04)",
                       }}
-                    />
+                    >
+                      <img
+                        src={activeCase.logo}
+                        alt={`Logo ${activeCase.title}`}
+                        loading="lazy"
+                        className="max-w-full max-h-full object-contain transition-transform duration-400 group-hover:scale-[1.04]"
+                      />
+                    </a>
                   )}
                 </div>
-                <h3 className="font-display text-2xl md:text-3xl font-medium text-white tracking-tight mb-3 leading-tight">
-                  {activeCase.title}
-                </h3>
-                <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-7 max-w-2xl">
-                  {activeCase.description}
-                </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {activeCase.stats.map((s) => (
