@@ -29,30 +29,21 @@ const YOUTUBE_VIDEOS: {
   eyebrow?: string;
 }[] = [
   {
-    id: null,
-    title: "Video 1 — pendiente",
+    id: "4JwaPrC1C_A",
+    title: "Conoce HEAT IA en acción",
+    eyebrow: "Demo",
+  },
+  {
+    id: "U47IrDqpnFs",
+    title: "Cómo configurar tu primer agente",
     eyebrow: "Tutorial",
   },
   {
-    id: null,
-    title: "Video 2 — pendiente",
+    id: "418qPg7k-Rc",
+    title: "Automatización HEAT IA en vivo",
     eyebrow: "Caso real",
   },
-  {
-    id: null,
-    title: "Video 3 — pendiente",
-    eyebrow: "Tutorial",
-  },
-  {
-    id: null,
-    title: "Video 4 — pendiente",
-    eyebrow: "Caso real",
-  },
-  {
-    id: null,
-    title: "Video 5 — pendiente",
-    eyebrow: "Behind the scenes",
-  },
+  // ⬇ Agregar más videos acá. Piero los manda y los plugueamos.
 ];
 
 /**
@@ -153,7 +144,7 @@ function PlaceholderYouTube() {
         <Play size={26} className="ml-1 fill-white" />
       </div>
       <p className="text-xs text-white/60 max-w-[200px] leading-relaxed">
-        Pendiente · Piero, mándame el URL de este video
+        Próximamente
       </p>
     </div>
   );
@@ -211,7 +202,7 @@ function PlaceholderReel() {
         <SiInstagram size={26} color="currentColor" />
       </div>
       <p className="text-[11px] font-medium text-gray-600 max-w-[160px] leading-relaxed">
-        Pendiente · mándame el URL del reel
+        Próximamente
       </p>
     </div>
   );
