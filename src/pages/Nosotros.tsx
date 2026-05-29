@@ -290,7 +290,7 @@ export default function Nosotros() {
                       to={4}
                       prefix="$"
                       decimals={1}
-                      duration={2.4}
+                      duration={4.2}
                       className="font-display font-medium"
                       style={{
                         fontSize: "clamp(28px, 3vw, 36px)",
@@ -403,7 +403,7 @@ export default function Nosotros() {
                 <AnimatedCounter
                   to={s.to}
                   prefix={s.prefix}
-                  duration={1.8}
+                  duration={3.2}
                   className="font-display font-medium bg-clip-text text-transparent"
                   style={{
                     fontSize: "clamp(40px, 4vw, 56px)",
