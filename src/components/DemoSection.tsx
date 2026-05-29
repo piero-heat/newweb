@@ -105,6 +105,10 @@ export default function DemoSection() {
       </motion.ul>
 
       {/* Calendar embed · full-width con gradient border + glow */}
+      {/* IMPORTANTE: el ID del iframe es el ID oficial del embed de GHL — */}
+      {/* el script form_embed.js lo necesita para hablarle vía postMessage */}
+      {/* y resize-arlo a la altura real del contenido. Sin ID el script no */}
+      {/* lo encuentra y el iframe se queda en 0px. */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -114,16 +118,21 @@ export default function DemoSection() {
         style={{
           border: "1.5px solid transparent",
           background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
+          minHeight: CALENDAR_HEIGHT,
         }}
       >
         <iframe
           src={CALENDAR_URL}
+          id="mhDBvhLDZhuL4tcpNwGW_1780021905689"
           title="HEAT · Reserva tu Demo Online"
-          width="100%"
-          height={CALENDAR_HEIGHT}
-          style={{ border: "none", display: "block" }}
+          style={{
+            width: "100%",
+            border: "none",
+            overflow: "hidden",
+            display: "block",
+            minHeight: CALENDAR_HEIGHT,
+          }}
           scrolling="no"
-          loading="lazy"
         />
       </motion.div>
 
