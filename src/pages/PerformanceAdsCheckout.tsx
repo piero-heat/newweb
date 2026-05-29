@@ -96,19 +96,19 @@ const FAQS = [
   },
   {
     q: "¿Cómo se calcula exactamente el 10%?",
-    a: "Sobre el total de tu inversión mensual en Meta. Ej: si gastas $3.000 USD en campañas, el fee es $449 fijo + $300 (10% de $3.000) = $749 USD ese mes. Si gastas $0, solo pagas el fee fijo. Nuestro incentivo está alineado: ganamos cuando vos creces.",
+    a: "Sobre el total de tu inversión mensual en Meta. Ej: si gastas $3.000 USD en campañas, el fee es $449 fijo + $300 (10% de $3.000) = $749 USD ese mes. Si gastas $0, solo pagas el fee fijo. Nuestro incentivo está alineado: ganamos cuando tú creces.",
   },
   {
     q: "¿Cuándo veo los primeros resultados?",
-    a: "La activación toma 5 días hábiles. Las primeras 2-3 semanas son fase de aprendizaje (Meta optimiza, nosotros testeamos creatividades). A partir del día 30 ya tenés data sólida para escalar.",
+    a: "La activación toma 5 días hábiles. Las primeras 2-3 semanas son fase de aprendizaje (Meta optimiza, nosotros testeamos creatividades). A partir del día 30 ya tienes data sólida para escalar.",
   },
   {
     q: "¿Necesito tener una cuenta Meta ADS o un Business Manager?",
-    a: "Es ideal pero no obligatorio. Si no tenés, te ayudamos a crearlo durante los 5 días de activación, incluyendo verificación del dominio y configuración inicial de roles.",
+    a: "Es ideal pero no obligatorio. Si no tienes, te ayudamos a crearlo durante los 5 días de activación, incluyendo verificación del dominio y configuración inicial de roles.",
   },
   {
     q: "¿Qué pasa si quiero pausar el servicio temporalmente?",
-    a: "Sin problema. Pausás desde tu portal de clientes con 7 días de aviso. Mientras esté pausado no se factura el fee fijo. Las campañas en Meta se pausan también; tu data queda guardada para reactivar cuando quieras.",
+    a: "Sin problema. Pausas desde tu portal de clientes con 7 días de aviso. Mientras esté pausado no se factura el fee fijo. Las campañas en Meta se pausan también; tu data queda guardada para reactivar cuando quieras.",
   },
 ];
 
@@ -170,7 +170,7 @@ export default function PerformanceAdsCheckout() {
               letterSpacing: "-0.025em",
             }}
           >
-            Contratá HEAT ADS{" "}
+            Contrata HEAT ADS{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
@@ -266,9 +266,9 @@ export default function PerformanceAdsCheckout() {
                   <span className="font-semibold text-gray-900">
                     {PLAN.commissionNote}.
                   </span>{" "}
-                  Tu inversión la pagas vos directo a Meta (tu cuenta, tu
-                  control). Nuestro incentivo está alineado: ganamos cuando vos
-                  crecés rentable.
+                  Tu inversión la pagas tú directo a Meta (tu cuenta, tu
+                  control). Nuestro incentivo está alineado: ganamos cuando tu
+                  inversión crece rentable.
                 </p>
               </div>
             </div>
@@ -736,7 +736,7 @@ export default function PerformanceAdsCheckout() {
               💬 PREGUNTAS FRECUENTES
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-medium text-white tracking-tight leading-tight">
-              Lo que querés saber antes de contratar
+              Lo que quieres saber antes de contratar
             </h2>
           </div>
 

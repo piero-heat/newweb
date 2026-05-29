@@ -191,11 +191,11 @@ const FAQ = [
   },
   {
     q: "¿Qué necesito tener listo para empezar?",
-    a: "Logo (idealmente en vector), textos finales por sección, fotos/imágenes si tienes, y una idea clara de a quién va dirigida la página. Si no tienes textos, los redactamos con vos en el briefing.",
+    a: "Logo (idealmente en vector), textos finales por sección, fotos/imágenes si tienes, y una idea clara de a quién va dirigida la página. Si no tienes textos, los redactamos contigo en el briefing.",
   },
   {
     q: "¿Y si quiero más cambios después de entregada?",
-    a: "Cada plan incluye sus rondas de revisión. Cambios fuera de scope se cotizan aparte (típicamente $50-150 USD según alcance). Después de los 30 días de soporte, podés contratar un retainer mensual.",
+    a: "Cada plan incluye sus rondas de revisión. Cambios fuera de scope se cotizan aparte (típicamente $50-150 USD según alcance). Después de los 30 días de soporte, puedes contratar un retainer mensual.",
   },
   {
     q: "¿Quién es dueño del código?",

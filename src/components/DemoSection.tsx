@@ -144,7 +144,7 @@ export default function DemoSection() {
               />
             </span>
             <CalendarDays size={18} strokeWidth={2.2} className="relative" />
-            <span className="relative">Reservá tu demo gratis</span>
+            <span className="relative">Reserva tu demo gratis</span>
           </span>
         </button>
 

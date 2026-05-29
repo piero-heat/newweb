@@ -142,7 +142,7 @@ const TESTIMONIAL = {
 const FAQS = [
   {
     q: "¿Cómo funciona el trial de 14 días?",
-    a: "Te activamos la plataforma completa el mismo día y tenés 14 días para probarla a fondo con tu negocio real. Si en ese período cancelas, no te cobramos un peso. Después del día 15 se carga el primer mes a la tarjeta registrada.",
+    a: "Te activamos la plataforma completa el mismo día y tienes 14 días para probarla a fondo con tu negocio real. Si en ese período cancelas, no te cobramos un peso. Después del día 15 se carga el primer mes a la tarjeta registrada.",
   },
   {
     q: "¿Puedo cambiar de plan después?",
