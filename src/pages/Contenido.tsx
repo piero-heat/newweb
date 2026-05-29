@@ -43,6 +43,16 @@ const YOUTUBE_VIDEOS: {
     title: "Automatización HEAT IA en vivo",
     eyebrow: "Caso real",
   },
+  {
+    id: "cvaue5n5sgs",
+    title: "HEAT IA · Behind the scenes",
+    eyebrow: "Behind the scenes",
+  },
+  {
+    id: null,
+    title: "Próximo video",
+    eyebrow: "Próximamente",
+  },
   // ⬇ Agregar más videos acá. Piero los manda y los plugueamos.
 ];
 
@@ -56,12 +66,10 @@ const YOUTUBE_VIDEOS: {
  *  La función `instagramEmbedSrc()` lo convierte al formato embed.
  */
 const INSTAGRAM_REELS: { url: string | null; caption?: string }[] = [
-  { url: null, caption: "Reel 1 — pendiente" },
-  { url: null, caption: "Reel 2 — pendiente" },
-  { url: null, caption: "Reel 3 — pendiente" },
-  { url: null, caption: "Reel 4 — pendiente" },
-  { url: null, caption: "Reel 5 — pendiente" },
-  { url: null, caption: "Reel 6 — pendiente" },
+  { url: "https://www.instagram.com/reel/DXPRs0lp3yQ/" },
+  { url: "https://www.instagram.com/reel/DXKj4eBjyP1/" },
+  { url: null, caption: "Próximo reel" },
+  // ⬇ Agregar más reels acá. Piero los manda y los plugueamos.
 ];
 
 /* ────────────────────────────────────────────────────────────── */
