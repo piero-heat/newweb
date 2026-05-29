@@ -649,23 +649,23 @@ export default function LiveDemoSection() {
                   {/* Botón Send con halo verde eléctrico pulsante hasta que el
                        usuario toca el input. Llama la atención al CTA real. */}
                   <div className="relative shrink-0">
+                    {/* Pulse ring · sin blur, nítido, anillo eléctrico */}
                     {!hasInteracted && remaining > 0 && (
                       <motion.span
                         aria-hidden
                         animate={{
-                          opacity: [0.6, 1, 0.6],
-                          scale: [1, 1.22, 1],
+                          opacity: [0.4, 0.9, 0.4],
+                          scale: [1, 1.35, 1],
                         }}
                         transition={{
-                          duration: 1.6,
+                          duration: 1.8,
                           repeat: Infinity,
-                          ease: "easeInOut",
+                          ease: "easeOut",
                         }}
                         className="pointer-events-none absolute inset-0 rounded-full"
                         style={{
-                          background:
-                            "radial-gradient(circle, rgba(0,230,118,0.85) 0%, rgba(0,230,118,0) 70%)",
-                          filter: "blur(10px)",
+                          // Anillo limpio (no blur) que se expande
+                          boxShadow: "0 0 0 2px rgba(0,255,140,0.85)",
                         }}
                       />
                     )}
@@ -674,13 +674,15 @@ export default function LiveDemoSection() {
                       disabled={!input.trim() || loading || remaining <= 0}
                       className="relative w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all hover:brightness-110"
                       style={{
+                        // Verde más sólido y eléctrico — gradient sutil arriba-izq solo para volumen, no chrome
                         background:
-                          "radial-gradient(circle at 30% 25%, #5BFFB1 0%, #11FF94 38%, #00E676 72%, #00C764 100%)",
+                          "radial-gradient(circle at 35% 30%, #4DFFA5 0%, #00FF85 40%, #00E676 100%)",
+                        // Borde blanco iluminado limpio (1.5px) + glow focalizado sin diffusion neblinosa
                         boxShadow:
-                          "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 6px rgba(0,140,70,0.4), 0 0 0 1px rgba(0,255,140,0.5), 0 0 18px rgba(0,255,140,0.65), 0 0 36px rgba(0,255,140,0.35), 0 6px 18px -4px rgba(0,230,118,0.6)",
+                          "inset 0 0 0 1.5px rgba(255,255,255,0.55), inset 0 1px 0 rgba(255,255,255,0.7), 0 0 0 1px rgba(0,255,140,0.6), 0 0 12px rgba(0,255,140,0.55), 0 4px 12px -2px rgba(0,180,90,0.45)",
                       }}
                     >
-                      <Send size={17} className="ml-0.5 drop-shadow-[0_1px_2px_rgba(0,80,40,0.5)]" />
+                      <Send size={17} className="ml-0.5 drop-shadow-[0_1px_1px_rgba(0,80,40,0.45)]" />
                     </button>
                   </div>
                 </div>
