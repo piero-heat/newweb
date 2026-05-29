@@ -6,7 +6,7 @@ import logo from "@/assets/logo.png";
 import CalendarModal from "@/components/CalendarModal";
 
 const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
-  { label: "HEAT IA", anchor: "#planes" },
+  { label: "HEAT IA", anchor: "/", isRoute: true },
   { label: "Performance ADS", anchor: "/perform-ads", isRoute: true },
   { label: "Páginas Web", anchor: "/desarrollo-web", isRoute: true },
   { label: "Nosotros", anchor: "/nosotros", isRoute: true },
