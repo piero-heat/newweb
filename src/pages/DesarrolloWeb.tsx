@@ -62,7 +62,7 @@ const PLANS: Plan[] = [
       "Mobile-first responsive",
       "Formulario de contacto conectado a CRM",
       "SEO base + favicon + meta tags",
-      "Hosting + dominio gratis por 1 año",
+      "Hosting gratis por 1 año (tú compras el dominio aparte)",
       "Modificaciones de contenido incluidas",
       "Hasta 3 cambios en pre-entrega",
       "Entrega: 72h hábiles post-confirmación",
@@ -84,7 +84,7 @@ const PLANS: Plan[] = [
       "Integraciones (WhatsApp, Calendly, Stripe, CRM HEAT)",
       "Optimización Lighthouse 90+",
       "Analytics + Pixel de Meta listos",
-      "Hosting + dominio gratis por 1 año",
+      "Hosting gratis por 1 año (tú compras el dominio aparte)",
       "Modificaciones de contenido incluidas",
       "Hasta 3 cambios en pre-entrega",
       "Entrega: 72h hábiles post-confirmación",
@@ -104,7 +104,7 @@ const PLANS: Plan[] = [
       "Backend + base de datos + login de usuarios",
       "Generación automática de PDF (cotizaciones, propuestas)",
       "Webhooks + integración con CRM/ERP",
-      "Hosting + dominio gratis por 1 año",
+      "Hosting gratis por 1 año (tú compras el dominio aparte)",
       "Modificaciones de contenido incluidas",
       "Hasta 3 cambios en pre-entrega",
       "Soporte post-entrega 30 días",
@@ -289,7 +289,7 @@ export default function DesarrolloWeb() {
           >
             La misma calidad de diseño y conversión que estás viendo en este
             sitio. Diseño 100% custom (sin plantillas), animaciones suaves,
-            mobile-first. Hosting + dominio gratis por 1 año incluidos.
+            mobile-first. Hosting gratis por 1 año incluido.
           </motion.p>
 
           <motion.div
@@ -335,7 +335,7 @@ export default function DesarrolloWeb() {
             <span className="inline-flex items-center gap-1.5 text-foreground">
               🎁
               <span className="font-medium">
-                Hosting + dominio gratis 1 año
+                Hosting gratis 1 año
               </span>
             </span>
             <span className="hidden md:inline text-white/20">·</span>
@@ -468,8 +468,8 @@ export default function DesarrolloWeb() {
               <ul className="space-y-4">
                 <Inclusion
                   icon={Server}
-                  title="Hosting + dominio gratis 1 año"
-                  desc="Te lo dejamos andando en nuestra infraestructura. Después del primer año, puedes seguir con nosotros o moverte donde quieras (todo es portable)."
+                  title="Hosting gratis 1 año"
+                  desc="Te lo dejamos andando en nuestra infraestructura el primer año sin costo. El dominio lo compras tú aparte (te ayudamos a configurarlo). Después del primer año puedes seguir con nuestro hosting o moverte donde quieras — todo es portable."
                 />
                 <Inclusion
                   icon={Pencil}
@@ -564,8 +564,8 @@ export default function DesarrolloWeb() {
 
           <p className="mt-10 text-xs text-gray-500 text-center max-w-2xl mx-auto">
             Todos los planes incluyen briefing inicial, propuesta visual antes
-            de producir, repositorio entregado y deploy listo. Hosting +
-            dominio gratis durante el primer año.
+            de producir, repositorio entregado y deploy listo. Hosting gratis
+            durante el primer año (el dominio lo compras tú aparte).
           </p>
         </div>
       </section>
@@ -876,8 +876,10 @@ function PlanCard({
             Agendar reunión
           </button>
         ) : (
+          // Cada plan apunta a su landing de checkout dedicada
+          // /contratar/web-starter o /contratar/web-pro
           <a
-            href="/#demo"
+            href={`/contratar/web-${plan.name.toLowerCase()}`}
             className={`group inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-all duration-400 ease-out ${
               plan.highlighted
                 ? "bg-foreground text-background hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)]"
