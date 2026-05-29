@@ -68,6 +68,12 @@ const YOUTUBE_VIDEOS: {
 const INSTAGRAM_REELS: { url: string | null; caption?: string }[] = [
   { url: "https://www.instagram.com/reel/DXPRs0lp3yQ/" },
   { url: "https://www.instagram.com/reel/DXKj4eBjyP1/" },
+  { url: "https://www.instagram.com/reel/DWhA6TAkXCt/" },
+  { url: "https://www.instagram.com/reel/DWZIFiDETx7/" },
+  { url: "https://www.instagram.com/reel/DWhhpRHD9mO/" },
+  { url: "https://www.instagram.com/reel/DWC1Waopqk3/" },
+  { url: "https://www.instagram.com/reel/DWE-yN4JxVS/" },
+  { url: null, caption: "Próximo reel" },
   { url: null, caption: "Próximo reel" },
   // ⬇ Agregar más reels acá. Piero los manda y los plugueamos.
 ];
