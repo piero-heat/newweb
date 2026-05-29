@@ -16,11 +16,21 @@ import {
   Video,
   Database,
   ArrowRight,
+  ArrowDown,
+  Check,
+  X,
+  Globe,
+  Smartphone,
+  Store,
+  Mail,
+  MessageSquare,
+  Activity,
+  Shield,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { SiStripe } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import StatsSection from "@/components/StatsSection";
 
 /* ────────────────────────────────────────────────────────────── */
 /* HEAT ADS · PERFORMANCE — landing de suscripción dedicada.      */
@@ -30,8 +40,6 @@ import StatsSection from "@/components/StatsSection";
 const PLAN = {
   badge: "GESTIÓN COMPLETA",
   name: "HEAT ADS · PERFORMANCE",
-  tagline:
-    "Gestionamos toda la estructura de tus campañas Meta. Estrategia, creativos, optimización y reportería incluidos.",
   price: 449,
   billing: "USD/mes",
   commissionNote: "+ 10% sobre tu inversión publicitaria mensual en Meta",
@@ -65,6 +73,22 @@ const TESTIMONIAL = {
   business: "La Nostra Casa Trattoria · Santiago",
 };
 
+const NOT_INCLUDED = [
+  "Community management",
+  "Posteo orgánico",
+  "Calendario editorial",
+  "Reels orgánicos",
+  "Diseño de feed",
+];
+
+const PROJECTIONS = [
+  ["$1.000", "$449", "$100", "$549"],
+  ["$3.000", "$449", "$300", "$749"],
+  ["$5.000", "$449", "$500", "$949"],
+  ["$10.000", "$449", "$1.000", "$1.449"],
+  ["$25.000", "$449", "$2.500", "$2.949"],
+];
+
 const FAQS = [
   {
     q: "¿Quién paga la inversión publicitaria a Meta?",
@@ -89,47 +113,15 @@ const FAQS = [
 ];
 
 // Stripe Payment Link del servicio Performance ADS (cuenta HEAT live).
+// Stripe NO permite embedding en iframe → abrimos en pestaña nueva.
 const STRIPE_PAYMENT_URL =
   "https://buy.stripe.com/cNidR9fY9cVW3rA4IW1kA0G";
-// Altura del iframe — Stripe Checkout en mode horizontal pide ~880px.
-const STRIPE_EMBED_HEIGHT = 880;
 
 const HIGHLIGHT_GRADIENT =
   "linear-gradient(137deg, #6366f1 0%, #a855f7 50%, #fcd34d 100%)";
 const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
-
-function StripePaymentEmbed({ url, height }: { url: string; height: number }) {
-  return (
-    <div className="relative">
-      <iframe
-        src={url}
-        title="HEAT ADS · Performance · Checkout"
-        width="100%"
-        height={height}
-        style={{
-          border: "none",
-          display: "block",
-          background: "#ffffff",
-          minHeight: height,
-        }}
-        loading="lazy"
-        allow="payment *; clipboard-write"
-      />
-
-      <p className="relative mt-4 text-[11px] text-gray-500 text-center">
-        ¿No se carga el checkout?{" "}
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-indigo-600 hover:text-gray-900 underline underline-offset-2 transition-colors"
-        >
-          Abrir en pestaña nueva →
-        </a>
-      </p>
-    </div>
-  );
-}
+const VIBES_GRADIENT =
+  "linear-gradient(137deg, #FF3D77 0%, #A855F7 50%, #7DD3FC 100%)";
 
 export default function PerformanceAdsCheckout() {
   return (
@@ -202,7 +194,7 @@ export default function PerformanceAdsCheckout() {
         </div>
       </section>
 
-      {/* ── Unified card: caluga blanca flotando sobre void dark con halo ── */}
+      {/* ── Unified card: caluga blanca con CTA centrado (en vez de iframe) ── */}
       <section className="relative bg-background px-6 md:px-12 pt-8 md:pt-10 pb-20 md:pb-28 overflow-hidden">
         <div
           aria-hidden
@@ -282,12 +274,77 @@ export default function PerformanceAdsCheckout() {
             </div>
           </div>
 
-          {/* IFRAME del checkout de Stripe (full-width dentro del card) */}
-          <div className="border-t border-black/[0.06]">
-            <StripePaymentEmbed
-              url={STRIPE_PAYMENT_URL}
-              height={STRIPE_EMBED_HEIGHT}
-            />
+          {/* CTA AREA — botón gigante con onda (Stripe no permite iframe) */}
+          <div className="border-t border-black/[0.06] px-6 md:px-12 py-10 md:py-12 flex flex-col items-center text-center">
+            <p className="text-[10px] font-semibold tracking-[0.22em] text-gray-500 uppercase mb-3">
+              Checkout seguro
+            </p>
+            <h3 className="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight mb-3">
+              Activar Performance ADS
+            </h3>
+            <p className="text-gray-600 text-sm md:text-base max-w-md mb-8 leading-relaxed">
+              Te redirigimos al checkout protegido de Stripe. Al confirmar,
+              activamos tu cuenta en 5 días hábiles y comenzamos a estructurar
+              las campañas.
+            </p>
+
+            {/* Botón gigante con glow y onda HEAT */}
+            <div className="relative">
+              <motion.div
+                aria-hidden
+                animate={{
+                  opacity: [0.4, 0.75, 0.4],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="pointer-events-none absolute -inset-10 blur-3xl rounded-full"
+                style={{ background: VIBES_GRADIENT, opacity: 0.4 }}
+              />
+
+              <a
+                href={STRIPE_PAYMENT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center justify-center rounded-full overflow-hidden transition-transform duration-500 ease-out hover:scale-[1.03]"
+                style={{
+                  padding: "2px",
+                  background: VIBES_GRADIENT,
+                  boxShadow:
+                    "0 18px 60px -12px rgba(168, 85, 247, 0.55), 0 6px 24px -6px rgba(255, 61, 119, 0.35)",
+                }}
+              >
+                <span className="relative inline-flex items-center justify-center gap-2.5 rounded-full bg-[#0A0A0B] text-white font-medium px-8 md:px-10 py-4 md:py-5 text-[15px] md:text-base transition-colors duration-500 ease-out group-hover:bg-[#13131A]">
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 rounded-full overflow-hidden"
+                  >
+                    <span
+                      className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 transition-transform duration-1000 ease-out group-hover:translate-x-[450%]"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent)",
+                      }}
+                    />
+                  </span>
+                  Contratar Performance ADS · $449/mes
+                  <ArrowRight size={18} />
+                </span>
+              </a>
+            </div>
+
+            {/* Trust badges */}
+            <div className="mt-7 flex items-center gap-4 text-gray-400">
+              <SiStripe size={32} color="#635BFF" />
+              <div className="h-5 w-px bg-gray-200" />
+              <div className="flex items-center gap-1.5 text-[11px] text-gray-500">
+                <Lock size={11} className="text-emerald-600" />
+                Pago encriptado · PCI DSS Nivel 1
+              </div>
+            </div>
           </div>
 
           {/* QUÉ ACTIVAMOS: chips de servicios incluidos */}
@@ -339,21 +396,337 @@ export default function PerformanceAdsCheckout() {
             </p>
           </div>
         </motion.aside>
+      </section>
 
-        {/* Link back to marketing page */}
-        <div className="relative mt-10 text-center">
-          <a
-            href="/perform-ads"
-            className="inline-flex items-center gap-1.5 text-[12px] text-gray-500 hover:text-foreground transition-colors"
+      {/* ── Precios transparentes · pricing block reutilizado de PerformAds ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              💰 FEE FIJO + COMISIÓN ALINEADA
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Precios transparentes. Sin sorpresas.
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              Fee fijo bajo de entrada + 10% sobre el total de la inversión
+              publicitaria mensual. Nuestro incentivo está alineado: ganamos
+              cuando crece tu inversión rentable.
+            </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="relative rounded-3xl overflow-hidden"
+            style={{
+              border: "1.5px solid transparent",
+              background: `linear-gradient(#0E0E10, #0E0E10) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
+            }}
           >
-            <ArrowRight size={12} className="rotate-180" />
-            Ver más detalles del servicio en /perform-ads
-          </a>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 p-8 md:p-10">
+              <div>
+                <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-4">
+                  FEE FIJO MENSUAL
+                </p>
+                <div className="flex items-baseline gap-2">
+                  <span
+                    className="font-display font-medium bg-clip-text text-transparent"
+                    style={{
+                      fontSize: "clamp(56px, 6vw, 88px)",
+                      lineHeight: 1,
+                      letterSpacing: "-0.04em",
+                      backgroundImage: PRICE_GRADIENT,
+                    }}
+                  >
+                    $449
+                  </span>
+                  <span className="text-gray-400 text-sm">USD / mes</span>
+                </div>
+                <p className="mt-4 text-gray-300 text-sm leading-relaxed">
+                  +{" "}
+                  <span className="text-foreground font-medium">10%</span>{" "}
+                  sobre el{" "}
+                  <span className="text-foreground font-medium">
+                    total de la inversión
+                  </span>{" "}
+                  publicitaria mensual en Meta.
+                </p>
+                <ul className="mt-5 space-y-2 text-sm text-gray-400">
+                  <li>✓ Fee bajo de entrada</li>
+                  <li>✓ Inversión Meta la pagas tú directamente</li>
+                  <li>✓ Comisión proporcional a tu inversión</li>
+                  <li>✓ Incentivos alineados con tu crecimiento</li>
+                </ul>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold tracking-[0.18em] text-white/60 mb-4">
+                  PROYECCIÓN · CÓMO ESCALA EL TOTAL
+                </p>
+                <div className="overflow-x-auto rounded-2xl border border-white/5">
+                  <table className="w-full text-sm min-w-[480px]">
+                    <thead>
+                      <tr className="bg-white/[0.03] text-xs text-gray-400 tracking-wider">
+                        <th className="text-left px-4 py-3 font-medium">
+                          Inversión
+                        </th>
+                        <th className="text-left px-4 py-3 font-medium">Fee</th>
+                        <th className="text-left px-4 py-3 font-medium">
+                          +10% Inversión
+                        </th>
+                        <th className="text-left px-4 py-3 font-medium">
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {PROJECTIONS.map((row) => (
+                        <tr
+                          key={row[0]}
+                          className="border-t border-white/5 text-gray-300"
+                        >
+                          <td className="px-4 py-3">{row[0]} USD</td>
+                          <td className="px-4 py-3 text-gray-400">{row[1]}</td>
+                          <td className="px-4 py-3 text-gray-400">{row[2]}</td>
+                          <td className="px-4 py-3 font-medium text-foreground">
+                            {row[3]} USD
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-3 text-xs text-gray-500 leading-relaxed">
+                  Inversión publicitaria la pagas tú directo a Meta. Nuestro
+                  fee es solo por gestión, optimización y reportería.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Lo que NO hacemos */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-8 rounded-2xl border border-white/5 bg-white/[0.01] p-6 md:p-8"
+          >
+            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+              <p className="text-xs font-semibold tracking-[0.18em] text-white/50 shrink-0">
+                LO QUE NO HACEMOS
+              </p>
+              <ul className="flex flex-wrap gap-2">
+                {NOT_INCLUDED.map((item) => (
+                  <li
+                    key={item}
+                    className="group inline-flex items-center gap-2 rounded-full border border-transparent bg-transparent px-3 py-1.5 text-sm text-gray-400 hover:border-rose-500/25 hover:bg-rose-500/[0.06] hover:text-rose-100 transition-all duration-300 cursor-default"
+                  >
+                    <X
+                      size={14}
+                      strokeWidth={2.5}
+                      className="text-gray-600 transition-colors duration-300 group-hover:text-rose-400"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="mt-4 text-xs text-gray-500 leading-relaxed">
+              Performance ADS y manejo orgánico son disciplinas distintas que
+              requieren equipos distintos. Especializarnos solo en Meta ADS hace
+              que entreguemos más ROI por cada dólar invertido.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Stats / social proof */}
-      <StatsSection />
+      {/* ── CAPI · Infografía de cómo funciona ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              📡 API DE CONVERSIONES · TECH FOUNDATION
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Cómo funciona la API de Conversiones
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              CAPI crea una conexión directa más confiable entre los datos de
+              marketing de tu servidor, web, app o CRM, y los sistemas de
+              optimización de anuncios de Meta. Más fiable que el píxel solo.
+            </p>
+          </div>
+
+          {/* Infographic — 3 column flow desktop / vertical stack mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-5 md:gap-4 items-stretch mb-10">
+            {/* LEFT — Origins */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6"
+            >
+              <p className="text-[10px] font-semibold tracking-[0.22em] text-white/40 mb-5">
+                01 · TUS ORÍGENES DE DATOS
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { icon: Globe, label: "Sitio web · eventos del Pixel" },
+                  { icon: Smartphone, label: "App móvil" },
+                  { icon: Database, label: "CRM · conversiones offline" },
+                  { icon: Store, label: "Tienda física · POS" },
+                  { icon: Mail, label: "Correo electrónico" },
+                  { icon: MessageSquare, label: "Chats con el negocio" },
+                  { icon: Phone, label: "Teléfono · llamadas" },
+                ].map((s) => (
+                  <li
+                    key={s.label}
+                    className="flex items-center gap-3 text-[13px] text-gray-300"
+                  >
+                    <s.icon
+                      size={14}
+                      className="text-white/55 shrink-0"
+                      strokeWidth={2}
+                    />
+                    {s.label}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* CENTER — CAPI hub */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="flex items-center justify-center md:flex-col gap-3 py-2 md:py-6"
+            >
+              <ArrowRight
+                size={22}
+                className="md:hidden text-white/35"
+                strokeWidth={1.6}
+              />
+              <ArrowDown
+                size={22}
+                className="hidden md:block text-white/35"
+                strokeWidth={1.6}
+              />
+
+              <div
+                className="relative rounded-2xl px-6 py-5 text-center min-w-[140px] shadow-[0_24px_60px_-16px_rgba(168,85,247,0.5)]"
+                style={{
+                  border: "1.5px solid transparent",
+                  background:
+                    "linear-gradient(#0E0E14, #0E0E14) padding-box, linear-gradient(137deg, #6366f1, #a855f7, #FF3D77) border-box",
+                }}
+              >
+                <Workflow
+                  size={26}
+                  className="text-purple-300 mx-auto mb-1.5"
+                  strokeWidth={1.8}
+                />
+                <p className="text-foreground font-semibold text-sm tracking-tight">
+                  CAPI
+                </p>
+                <p className="text-[10px] text-gray-400 mt-0.5">Hub único</p>
+              </div>
+
+              <ArrowRight
+                size={22}
+                className="md:hidden text-white/35"
+                strokeWidth={1.6}
+              />
+              <ArrowDown
+                size={22}
+                className="hidden md:block text-white/35"
+                strokeWidth={1.6}
+              />
+            </motion.div>
+
+            {/* RIGHT — Meta output */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-6"
+            >
+              <p className="text-[10px] font-semibold tracking-[0.22em] text-white/40 mb-5">
+                02 · META OPTIMIZA TUS CAMPAÑAS
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Segmentación más precisa por audiencia real",
+                  "Reducción del costo por resultado (CPA)",
+                  "Atribución correcta del cierre",
+                  "Personalización del mensaje",
+                  "Medición fiable del ROAS",
+                ].map((b) => (
+                  <li
+                    key={b}
+                    className="flex items-start gap-2.5 text-[13px] text-gray-300 leading-snug"
+                  >
+                    <Check
+                      size={14}
+                      className="text-emerald-400 mt-0.5 shrink-0"
+                      strokeWidth={2.4}
+                    />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          {/* 3 key concepts row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                icon: Activity,
+                title: "Una sola API, múltiples orígenes",
+                desc: "CAPI agrupa todos los eventos en un único pipeline. Sin mantener integraciones separadas por canal.",
+              },
+              {
+                icon: Shield,
+                title: "Calidad de coincidencias",
+                desc: "Mientras más eventos envíes con parámetros del cliente (email, teléfono, IP — hasheados), más conversiones atribuidas correctamente.",
+              },
+              {
+                icon: Sparkles,
+                title: "No siempre requiere desarrollador",
+                desc: "Shopify, WooCommerce, GTM y otros conectan CAPI sin código. El resto lo configuramos nosotros en setup.",
+              },
+            ].map((c, i) => (
+              <motion.div
+                key={c.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 hover:border-white/15 hover:bg-white/[0.04] transition-all duration-400"
+              >
+                <c.icon
+                  size={18}
+                  className="text-white/70 mb-3"
+                  strokeWidth={2}
+                />
+                <p className="text-foreground text-sm font-medium mb-1.5 tracking-tight">
+                  {c.title}
+                </p>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  {c.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FAQ · dark glass */}
       <section className="bg-background px-6 md:px-12 py-16 md:py-20 border-t border-white/[0.05]">
