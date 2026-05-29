@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import { motion } from "motion/react";
-import { Target, Zap, Gift, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Target, Zap, Gift } from "lucide-react";
 
 const VALUE_PROPS = [
   {
@@ -23,28 +23,45 @@ const VALUE_PROPS = [
   },
 ];
 
-const INDUSTRIES = [
-  "Clínica / Salud",
-  "Inmobiliaria",
-  "E-commerce / Tienda Online",
-  "Gimnasio / Bienestar",
-  "Restaurante / Gastronomía",
-  "Educación / Academia",
-  "Agencia / Servicios",
-  "Automotriz",
-  "Otro",
-];
+const HIGHLIGHT_GRADIENT =
+  "linear-gradient(137deg, #6366f1 0%, #a855f7 50%, #fcd34d 100%)";
 
-const inputClass =
-  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground placeholder:text-gray-500 focus:outline-none focus:border-white/30 focus:bg-white/[0.05] transition-colors";
+// Reunión Demo Online HEAT · 30 minutos (mismo calendario del popup).
+const CALENDAR_URL =
+  "https://go.heatlatam.com/widget/booking/jZtrNyIhd4n3PGcBqJvi";
+const CALENDAR_HEIGHT = 820;
 
 export default function DemoSection() {
+  // Cargar form_embed.js de GHL para que el iframe se auto-ajuste de alto
+  useEffect(() => {
+    if (
+      document.querySelector<HTMLScriptElement>('script[src*="form_embed.js"]')
+    ) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://go.heatlatam.com/js/form_embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <section
       id="demo"
-      className="bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8"
+      className="relative bg-[#0A0A0B] flex flex-col items-center px-6 md:px-12 py-20 md:py-24 scroll-mt-8 overflow-hidden"
     >
-      <div className="w-full max-w-[1080px] mb-12 text-center">
+      {/* Spotlight púrpura detrás del calendario */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-70"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 50% 70%, rgba(168,85,247,0.16), transparent 65%)",
+        }}
+      />
+
+      {/* Header */}
+      <div className="relative w-full max-w-[1080px] mb-10 text-center">
         <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
           📅 DEMO GRATUITA
         </p>
@@ -57,134 +74,62 @@ export default function DemoSection() {
         </p>
       </div>
 
-      <div className="grid w-full max-w-[1080px] grid-cols-1 gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-12">
-        <motion.ul
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="space-y-8"
-        >
-          {VALUE_PROPS.map((vp) => (
-            <li key={vp.title} className="flex items-start gap-4">
-              <div className="liquid-glass w-11 h-11 rounded-xl flex items-center justify-center shrink-0">
-                <vp.icon
-                  size={18}
-                  strokeWidth={2.2}
-                  className="text-white/90"
-                />
-              </div>
-              <div>
-                <h3 className="text-white font-medium text-lg tracking-tight">
-                  {vp.title}
-                </h3>
-                <p className="mt-1 text-gray-400 text-sm leading-relaxed">
-                  {vp.description}
-                </p>
-              </div>
-            </li>
-          ))}
-        </motion.ul>
-
-        <motion.form
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-          onSubmit={(e) => e.preventDefault()}
-          className="rounded-3xl border border-white/10 bg-white/[0.02] p-6 md:p-8 space-y-4"
-        >
-          <p className="text-xs font-medium tracking-[0.18em] text-white/50">
-            GRATIS · 30 MINUTOS · SIN COMPROMISO
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs text-gray-400 tracking-wide">
-                NOMBRE *
-              </span>
-              <input
-                type="text"
-                required
-                placeholder="Tu nombre"
-                className={inputClass}
-              />
-            </label>
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs text-gray-400 tracking-wide">
-                EMPRESA
-              </span>
-              <input
-                type="text"
-                placeholder="Tu empresa"
-                className={inputClass}
-              />
-            </label>
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs text-gray-400 tracking-wide">
-                WHATSAPP *
-              </span>
-              <input
-                type="tel"
-                required
-                placeholder="+56 9 ..."
-                className={inputClass}
-              />
-            </label>
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs text-gray-400 tracking-wide">
-                EMAIL *
-              </span>
-              <input
-                type="email"
-                required
-                placeholder="tu@empresa.com"
-                className={inputClass}
-              />
-            </label>
-          </div>
-
-          <label className="flex flex-col gap-1.5">
-            <span className="text-xs text-gray-400 tracking-wide">
-              ¿CUÁL ES TU INDUSTRIA?
-            </span>
-            <select className={inputClass + " appearance-none"} defaultValue="">
-              <option value="" disabled>
-                Selecciona tu industria
-              </option>
-              {INDUSTRIES.map((ind) => (
-                <option key={ind} value={ind} className="bg-[#0A0A0B]">
-                  {ind}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="flex flex-col gap-1.5">
-            <span className="text-xs text-gray-400 tracking-wide">
-              ¿CUÁL ES TU MAYOR DESAFÍO AHORA?
-            </span>
-            <textarea
-              rows={3}
-              placeholder="Contanos brevemente"
-              className={inputClass + " resize-none"}
-            />
-          </label>
-
-          <Button
-            type="submit"
-            variant="heroSecondary"
-            size="none"
-            className="w-full rounded-full px-6 py-4 text-base inline-flex items-center justify-center gap-2"
+      {/* Value props · 3 columnas horizontales */}
+      <motion.ul
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative w-full max-w-[1080px] grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10"
+      >
+        {VALUE_PROPS.map((vp, i) => (
+          <motion.li
+            key={vp.title}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, delay: 0.05 + i * 0.08, ease: "easeOut" }}
+            className="group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 md:p-6 hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-500 ease-out"
           >
-            Agendar mi Demo Gratis <ArrowRight size={16} />
-          </Button>
+            <div className="liquid-glass w-11 h-11 rounded-xl flex items-center justify-center mb-4">
+              <vp.icon size={18} strokeWidth={2.2} className="text-white/90" />
+            </div>
+            <h3 className="text-white font-medium text-[15px] tracking-tight">
+              {vp.title}
+            </h3>
+            <p className="mt-1.5 text-gray-400 text-[13px] leading-relaxed">
+              {vp.description}
+            </p>
+          </motion.li>
+        ))}
+      </motion.ul>
 
-          <p className="text-xs text-gray-500 text-center">
-            Sin compromiso · Respondemos en menos de 2 horas
-          </p>
-        </motion.form>
-      </div>
+      {/* Calendar embed · full-width con gradient border + glow */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+        className="relative w-full max-w-[1080px] rounded-3xl overflow-hidden shadow-[0_40px_120px_-30px_rgba(168,85,247,0.45),0_0_0_1px_rgba(255,255,255,0.03)]"
+        style={{
+          border: "1.5px solid transparent",
+          background: `linear-gradient(#FFFFFF, #FFFFFF) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
+        }}
+      >
+        <iframe
+          src={CALENDAR_URL}
+          title="HEAT · Reserva tu Demo Online"
+          width="100%"
+          height={CALENDAR_HEIGHT}
+          style={{ border: "none", display: "block" }}
+          scrolling="no"
+          loading="lazy"
+        />
+      </motion.div>
+
+      <p className="relative mt-6 text-xs text-gray-500 text-center">
+        Sin compromiso · Sin letra chica · 30 minutos por videollamada
+      </p>
     </section>
   );
 }

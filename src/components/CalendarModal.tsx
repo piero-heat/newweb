@@ -114,7 +114,7 @@ export default function CalendarModal({ open, onClose }: CalendarModalProps) {
                   Agenda una reunión
                 </p>
                 <p className="text-gray-500 text-[11px] mt-0.5">
-                  Elige el horario que te acomode
+                  Elige el horario que te acomode · 30 minutos
                 </p>
               </div>
               <button
