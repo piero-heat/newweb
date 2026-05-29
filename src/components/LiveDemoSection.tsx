@@ -672,13 +672,15 @@ export default function LiveDemoSection() {
                     <button
                       onClick={() => send()}
                       disabled={!input.trim() || loading || remaining <= 0}
-                      className="relative w-10 h-10 rounded-full bg-[#00E676] hover:bg-[#1AFF94] flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="relative w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all hover:brightness-110"
                       style={{
+                        background:
+                          "radial-gradient(circle at 30% 25%, #5BFFB1 0%, #11FF94 38%, #00E676 72%, #00C764 100%)",
                         boxShadow:
-                          "0 0 0 1px rgba(0,230,118,0.4), 0 6px 18px -4px rgba(0,230,118,0.55)",
+                          "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 6px rgba(0,140,70,0.4), 0 0 0 1px rgba(0,255,140,0.5), 0 0 18px rgba(0,255,140,0.65), 0 0 36px rgba(0,255,140,0.35), 0 6px 18px -4px rgba(0,230,118,0.6)",
                       }}
                     >
-                      <Send size={17} className="ml-0.5" />
+                      <Send size={17} className="ml-0.5 drop-shadow-[0_1px_2px_rgba(0,80,40,0.5)]" />
                     </button>
                   </div>
                 </div>
