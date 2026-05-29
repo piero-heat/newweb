@@ -353,7 +353,7 @@ export default function Contenido() {
                   "linear-gradient(90deg, #FCA5A5 0%, #F0ABFC 50%, #7DD3FC 100%)",
               }}
             >
-              HEAT LATAM · CONTENIDO
+              HEAT LIFE · DETRÁS DE LA IA
             </span>
           </motion.span>
 

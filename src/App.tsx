@@ -39,6 +39,8 @@ export default function App() {
         <Route path="/" element={<Index />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/heat-life" element={<Contenido />} />
+        {/* Alias legacy: /contenido sigue funcionando si alguien guardó el link */}
         <Route path="/contenido" element={<Contenido />} />
         <Route path="/perform-ads" element={<PerformAds />} />
         <Route path="/desarrollo-web" element={<DesarrolloWeb />} />

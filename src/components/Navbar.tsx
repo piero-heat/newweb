@@ -9,9 +9,9 @@ const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
   { label: "HEAT IA", anchor: "#planes" },
   { label: "Performance ADS", anchor: "/perform-ads", isRoute: true },
   { label: "Páginas Web", anchor: "/desarrollo-web", isRoute: true },
-  { label: "Contenido", anchor: "/contenido", isRoute: true },
   { label: "Nosotros", anchor: "/nosotros", isRoute: true },
   { label: "Partners", anchor: "/partners", isRoute: true },
+  { label: "HEAT Life", anchor: "/heat-life", isRoute: true },
 ];
 
 export default function Navbar() {
