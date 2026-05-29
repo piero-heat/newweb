@@ -8,7 +8,7 @@ import CalendarModal from "@/components/CalendarModal";
 const ITEMS: { label: string; anchor: string; isRoute?: boolean }[] = [
   { label: "HEAT IA", anchor: "#planes" },
   { label: "Performance ADS", anchor: "/perform-ads", isRoute: true },
-  { label: "Desarrollo web", anchor: "/desarrollo-web", isRoute: true },
+  { label: "Páginas Web", anchor: "/desarrollo-web", isRoute: true },
   { label: "Nosotros", anchor: "/nosotros", isRoute: true },
   { label: "Partners", anchor: "/partners", isRoute: true },
 ];
