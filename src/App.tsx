@@ -45,7 +45,7 @@ export default function App() {
           element={<PerformanceAdsCheckout />}
         />
         <Route
-          path="/contratar/web-:slug"
+          path="/contratar/web/:slug"
           element={<WebPlanCheckout />}
         />
       </Routes>

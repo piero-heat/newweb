@@ -877,9 +877,9 @@ function PlanCard({
           </button>
         ) : (
           // Cada plan apunta a su landing de checkout dedicada
-          // /contratar/web-starter o /contratar/web-pro
+          // /contratar/web/starter o /contratar/web/pro
           <a
-            href={`/contratar/web-${plan.name.toLowerCase()}`}
+            href={`/contratar/web/${plan.name.toLowerCase()}`}
             className={`group inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-all duration-400 ease-out ${
               plan.highlighted
                 ? "bg-foreground text-background hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)]"
