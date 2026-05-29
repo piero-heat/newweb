@@ -1,5 +1,6 @@
-import { motion } from "motion/react";
-import { Play, ExternalLink, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Play, ExternalLink, Sparkles, X } from "lucide-react";
 import { SiYoutube, SiInstagram } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -24,7 +25,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/heat.ia";
  *   - eyebrow (opcional): tag pequeño arriba del title (Tutorial, Caso, etc.)
  */
 const YOUTUBE_VIDEOS: {
-  id: string | null;
+  id: string;
   title: string;
   eyebrow?: string;
 }[] = [
@@ -47,11 +48,6 @@ const YOUTUBE_VIDEOS: {
     id: "cvaue5n5sgs",
     title: "HEAT IA · Behind the scenes",
     eyebrow: "Behind the scenes",
-  },
-  {
-    id: null,
-    title: "Próximo video",
-    eyebrow: "Próximamente",
   },
   // ⬇ Agregar más videos acá. Piero los manda y los plugueamos.
 ];
@@ -82,10 +78,18 @@ const INSTAGRAM_REELS: { url: string | null; caption?: string }[] = [
 /* Helpers de embed                                                */
 /* ────────────────────────────────────────────────────────────── */
 
-function youtubeEmbedSrc(id: string): string {
+function youtubeEmbedSrc(id: string, autoplay = false): string {
   // rel=0 → no muestra videos relacionados al final
   // modestbranding=1 → reduce el logo YT en el player
-  return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+  // autoplay=1 → empieza a reproducirse al abrir el modal
+  const ap = autoplay ? "&autoplay=1" : "";
+  return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1${ap}`;
+}
+
+function youtubeThumbnailSrc(id: string): string {
+  // maxresdefault es 1280×720, lo mejor disponible.
+  // Si no existe (videos viejos), fallback a hqdefault vía onError.
+  return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 }
 
 function instagramEmbedSrc(url: string): string {
@@ -102,9 +106,11 @@ function instagramEmbedSrc(url: string): string {
 function YouTubeCard({
   video,
   index,
+  onPlay,
 }: {
   video: (typeof YOUTUBE_VIDEOS)[number];
   index: number;
+  onPlay: (id: string) => void;
 }) {
   return (
     <motion.article
@@ -112,55 +118,144 @@ function YouTubeCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.08] transition-all duration-500 ease-out hover:border-white/[0.18] hover:bg-white/[0.05] hover:shadow-[0_20px_60px_-20px_rgba(239,68,68,0.25)]"
+      className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.08] transition-all duration-500 ease-out hover:border-white/[0.18] hover:bg-white/[0.05] hover:shadow-[0_20px_60px_-20px_rgba(239,68,68,0.3)]"
     >
-      <div className="relative aspect-video bg-black">
-        {video.id ? (
-          <iframe
-            src={youtubeEmbedSrc(video.id)}
-            title={video.title}
+      <button
+        type="button"
+        onClick={() => onPlay(video.id)}
+        aria-label={`Reproducir: ${video.title}`}
+        className="block w-full text-left"
+      >
+        {/* Thumbnail · YouTube auto-generated preview */}
+        <div className="relative aspect-video bg-black overflow-hidden">
+          <img
+            src={youtubeThumbnailSrc(video.id)}
+            alt={video.title}
             loading="lazy"
+            onError={(e) => {
+              // Fallback si maxresdefault no existe (videos sin HD)
+              const t = e.currentTarget;
+              if (!t.dataset.fallback) {
+                t.dataset.fallback = "1";
+                t.src = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
+              }
+            }}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+          />
+          {/* Dark gradient overlay para legibilidad */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/0"
+          />
+          {/* Play button overlay */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className="relative flex h-16 w-16 items-center justify-center rounded-full text-white transition-transform duration-300 ease-out group-hover:scale-110"
+              style={{
+                background:
+                  "radial-gradient(circle at 30% 25%, #ff8a8a 0%, #ef4444 45%, #b91c1c 100%)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255,255,255,0.45), 0 0 0 1px rgba(239,68,68,0.4), 0 0 22px rgba(239,68,68,0.6), 0 8px 24px -4px rgba(0,0,0,0.5)",
+              }}
+            >
+              <Play
+                size={26}
+                className="ml-1 fill-white drop-shadow-[0_1px_2px_rgba(80,0,0,0.5)]"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="px-5 py-4">
+          {video.eyebrow && (
+            <p className="text-[10px] font-semibold tracking-[0.18em] text-red-300/80 mb-1.5">
+              {video.eyebrow.toUpperCase()}
+            </p>
+          )}
+          <h3 className="text-[15px] font-medium text-foreground leading-snug">
+            {video.title}
+          </h3>
+        </div>
+      </button>
+    </motion.article>
+  );
+}
+
+/**
+ * Modal de reproducción de video. Se abre al click en una YouTubeCard.
+ * Backdrop dark blur · contenedor 16:9 grande · close button · ESC + click
+ * fuera cierran · body scroll lock mientras está abierto.
+ */
+function YouTubeVideoModal({
+  videoId,
+  onClose,
+}: {
+  videoId: string;
+  onClose: () => void;
+}) {
+  // Cerrar con ESC
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  // Lock body scroll
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-8 bg-black/85 backdrop-blur-md"
+    >
+      <motion.div
+        initial={{ scale: 0.92, opacity: 0, y: 12 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.92, opacity: 0, y: 12 }}
+        transition={{ type: "spring", stiffness: 230, damping: 24 }}
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-5xl"
+      >
+        {/* Close button — afuera del video, arriba a la derecha */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Cerrar video"
+          className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all hover:scale-105"
+        >
+          <X size={18} />
+        </button>
+
+        {/* Player container 16:9 con borde gradient sutil */}
+        <div
+          className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]"
+          style={{
+            boxShadow:
+              "0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px -20px rgba(0,0,0,0.85), 0 0 0 6px rgba(239,68,68,0.12)",
+          }}
+        >
+          <iframe
+            src={youtubeEmbedSrc(videoId, true)}
+            title="HEAT IA video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
             referrerPolicy="strict-origin-when-cross-origin"
             className="absolute inset-0 w-full h-full"
           />
-        ) : (
-          <PlaceholderYouTube />
-        )}
-      </div>
-      <div className="px-5 py-4">
-        {video.eyebrow && (
-          <p className="text-[10px] font-semibold tracking-[0.18em] text-red-300/80 mb-1.5">
-            {video.eyebrow.toUpperCase()}
-          </p>
-        )}
-        <h3 className="text-[15px] font-medium text-foreground leading-snug">
-          {video.title}
-        </h3>
-      </div>
-    </motion.article>
-  );
-}
-
-function PlaceholderYouTube() {
-  return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 bg-gradient-to-br from-red-500/15 via-black to-black">
-      <div
-        className="relative flex h-16 w-16 items-center justify-center rounded-full text-white mb-3"
-        style={{
-          background:
-            "radial-gradient(circle at 30% 25%, #ff8a8a 0%, #ef4444 45%, #b91c1c 100%)",
-          boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.45), 0 0 0 1px rgba(239,68,68,0.4), 0 0 22px rgba(239,68,68,0.6)",
-        }}
-      >
-        <Play size={26} className="ml-1 fill-white" />
-      </div>
-      <p className="text-xs text-white/60 max-w-[200px] leading-relaxed">
-        Próximamente
-      </p>
-    </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -227,6 +322,8 @@ function PlaceholderReel() {
 /* ────────────────────────────────────────────────────────────── */
 
 export default function Contenido() {
+  const [openVideoId, setOpenVideoId] = useState<string | null>(null);
+
   return (
     <div className="bg-background min-h-screen">
       <Navbar />
@@ -372,9 +469,14 @@ export default function Contenido() {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 lg:gap-6 max-w-5xl mx-auto">
             {YOUTUBE_VIDEOS.map((video, i) => (
-              <YouTubeCard key={i} video={video} index={i} />
+              <YouTubeCard
+                key={i}
+                video={video}
+                index={i}
+                onPlay={setOpenVideoId}
+              />
             ))}
           </div>
         </div>
@@ -458,6 +560,16 @@ export default function Contenido() {
       </section>
 
       <Footer />
+
+      {/* Modal de video YouTube — solo cuando hay uno abierto */}
+      <AnimatePresence>
+        {openVideoId && (
+          <YouTubeVideoModal
+            videoId={openVideoId}
+            onClose={() => setOpenVideoId(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
