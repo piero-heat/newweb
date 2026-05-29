@@ -34,6 +34,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PricingCard, { type PricingCardProps } from "@/components/PricingCard";
 import StripeBuyButtonModal from "@/components/StripeBuyButtonModal";
+// Logo de La Nostra Casa bajado localmente — la URL original de Instagram
+// CDN expira con un oe= param y dejaba el card sin logo en producción.
+import laNostraCasaLogo from "@/assets/case-lanostracasa.jpg";
 
 // Stripe Buy Buttons de los 3 packs de Videos (cuenta HEAT live).
 // Cada pack tiene su propio buy-button-id; comparten la misma publishable key.
@@ -293,7 +296,7 @@ const META_CASES: CaseStudy[] = [
       },
     ],
     url: "https://www.instagram.com/lanostracasa.trattoria/",
-    logo: "https://instagram.fscl1-1.fna.fbcdn.net/v/t51.82787-19/706154852_17890682508491260_3863667891164304389_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fscl1-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=Q6cZ2gF0ZwXPrqfBLcxgrz9rfZDM5N7O-rCcayWIRNgGqUUdw46D7DBt84fQzbsN0NSfXYI&_nc_ohc=cZq5e8G85qwQ7kNvwHYvLVR&_nc_gid=JxaMz4AzEThUsyVOiub7Ow&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Af4_0v5vMVlmGP0zJHlHoNs_-VjRhbEroEC5G1sfEaO3AQ&oe=6A1F9562&_nc_sid=22de04",
+    logo: laNostraCasaLogo,
   },
   {
     source: "heat",
