@@ -559,7 +559,7 @@ export default function LiveDemoSection() {
                   )}
                 </div>
 
-                <div className="bg-[#1F2C34] px-2 py-2 flex items-end gap-2 relative">
+                <div className="bg-[#1F2C34] px-3.5 py-2.5 flex items-end gap-2.5 relative">
                   {/* Hint flotante "¡Probá escribir aquí!" — sale arriba del
                        input hasta que el usuario interactúa. Auto-esconde después
                        de la primera tecla. */}
@@ -646,15 +646,15 @@ export default function LiveDemoSection() {
                     />
                   </div>
 
-                  {/* Botón Send con halo verde pulsante hasta que el usuario
-                       toca el input. Llama la atención al CTA real. */}
+                  {/* Botón Send con halo verde eléctrico pulsante hasta que el
+                       usuario toca el input. Llama la atención al CTA real. */}
                   <div className="relative shrink-0">
                     {!hasInteracted && remaining > 0 && (
                       <motion.span
                         aria-hidden
                         animate={{
-                          opacity: [0.5, 0.95, 0.5],
-                          scale: [1, 1.18, 1],
+                          opacity: [0.6, 1, 0.6],
+                          scale: [1, 1.22, 1],
                         }}
                         transition={{
                           duration: 1.6,
@@ -664,15 +664,19 @@ export default function LiveDemoSection() {
                         className="pointer-events-none absolute inset-0 rounded-full"
                         style={{
                           background:
-                            "radial-gradient(circle, rgba(0,168,132,0.6) 0%, rgba(0,168,132,0) 70%)",
-                          filter: "blur(8px)",
+                            "radial-gradient(circle, rgba(0,230,118,0.85) 0%, rgba(0,230,118,0) 70%)",
+                          filter: "blur(10px)",
                         }}
                       />
                     )}
                     <button
                       onClick={() => send()}
                       disabled={!input.trim() || loading || remaining <= 0}
-                      className="relative w-10 h-10 rounded-full bg-[#00A884] hover:bg-[#00B996] flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      className="relative w-10 h-10 rounded-full bg-[#00E676] hover:bg-[#1AFF94] flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                      style={{
+                        boxShadow:
+                          "0 0 0 1px rgba(0,230,118,0.4), 0 6px 18px -4px rgba(0,230,118,0.55)",
+                      }}
                     >
                       <Send size={17} className="ml-0.5" />
                     </button>
