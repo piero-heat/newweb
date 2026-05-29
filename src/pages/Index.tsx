@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
+import CalendarModal from "@/components/CalendarModal";
 import FeaturesSection from "@/components/FeaturesSection";
 import InteractiveFeaturesSection from "@/components/InteractiveFeaturesSection";
 import StatsSection from "@/components/StatsSection";
@@ -25,6 +26,7 @@ const FADE = 0.5;
 
 export default function Index() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [calOpen, setCalOpen] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -141,8 +143,9 @@ export default function Index() {
               Instagram y Facebook — junto a tu equipo, sin descansos.
             </p>
 
-            <a
-              href="#demo"
+            <button
+              type="button"
+              onClick={() => setCalOpen(true)}
               className="group relative inline-flex items-center justify-center rounded-full liquid-glass text-foreground text-base font-medium overflow-hidden transition-all duration-500 ease-out hover:shadow-[0_14px_50px_-12px_rgba(255,255,255,0.45)]"
               style={{
                 paddingLeft: 29,
@@ -159,7 +162,7 @@ export default function Index() {
               <span className="relative z-10 transition-colors duration-500 ease-out group-hover:text-background">
                 Agendar Demo
               </span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -182,6 +185,9 @@ export default function Index() {
       <DemoSection />
       <FaqSection />
       <Footer />
+
+      {/* Calendar popup — disparado desde el botón "Agendar Demo" del hero */}
+      <CalendarModal open={calOpen} onClose={() => setCalOpen(false)} />
     </div>
   );
 }

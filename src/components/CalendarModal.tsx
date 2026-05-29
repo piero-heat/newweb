@@ -15,7 +15,7 @@ const HIGHLIGHT_GRADIENT =
 // (Distinto del enlace permanente — GHL genera IDs separados para embeds).
 const CALENDAR_URL =
   "https://go.heatlatam.com/widget/booking/Huxl2sb42iZcJL4s6NrY";
-const CALENDAR_HEIGHT = 720;
+const CALENDAR_HEIGHT = 820;
 
 type CalendarModalProps = {
   open: boolean;
@@ -91,7 +91,7 @@ export default function CalendarModal({ open, onClose }: CalendarModalProps) {
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[760px] max-h-[92vh] rounded-3xl overflow-hidden shadow-[0_40px_120px_-30px_rgba(168,85,247,0.55),0_0_0_1px_rgba(255,255,255,0.03)] flex flex-col"
+            className="relative w-full max-w-[1040px] max-h-[92vh] rounded-3xl overflow-hidden shadow-[0_40px_120px_-30px_rgba(168,85,247,0.55),0_0_0_1px_rgba(255,255,255,0.03)] flex flex-col"
             style={{
               border: "1.5px solid transparent",
               background: `linear-gradient(#0A0A0B, #0A0A0B) padding-box, ${HIGHLIGHT_GRADIENT} border-box`,
