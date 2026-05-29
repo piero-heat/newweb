@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useParams } from "react-router-dom";
 import {
   Check,
   Lock,
@@ -14,6 +15,7 @@ import {
   Tag,
   Globe,
   MessageSquare,
+  Mic,
   Smartphone,
   Users,
   BarChart3,
@@ -21,7 +23,10 @@ import {
   Workflow,
   LayoutTemplate,
   Brain,
+  Headphones,
+  Crown,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import {
   SiVisa,
   SiMastercard,
@@ -33,47 +38,102 @@ import Footer from "@/components/Footer";
 import StatsSection from "@/components/StatsSection";
 
 /* ────────────────────────────────────────────────────────────── */
-/* Plan data — easy to extend for /suscripcion/[plan] in the      */
-/* future. By default this page sells PRO with trial 14d.         */
+/* PLANS — un solo mapa para Standard, Pro y Advance.             */
+/* La URL /suscripcion/:plan selecciona cuál se renderiza.        */
+/* Default = PRO si el slug es desconocido o ausente.             */
 /* ────────────────────────────────────────────────────────────── */
 
-const PLAN = {
-  badge: "MÁS POPULAR",
-  name: "HEAT IA · PRO",
-  tagline:
-    "Automatiza ventas y atención en todos tus canales con agentes de IA + CRM unificado.",
-  price: 349,
-  billing: "USD/mes",
-  trialDays: 14,
-  features: [
-    "Mensajería IA en WhatsApp, Instagram, Facebook, TikTok y Google",
-    "Call Center con IA · llamadas entrantes y salientes",
-    "Clonación de voz para que tu agente atienda al teléfono",
-    "CRM unificado + app móvil (iOS + Android + Mac)",
-    "10 usuarios incluidos · contactos ilimitados",
-    "3 embudos configurados + landing pages incluidas",
-    "Asesorías ilimitadas por videollamada",
-    "Academia HEAT online · Comunidad VIP de empresarios",
-    "Reportería Meta ADS + Google ADS integrada",
-  ],
-  guarantees: [
-    { icon: ShieldCheck, label: "14 días de prueba" },
-    { icon: Zap, label: "Activación en 24h" },
-    { icon: Lock, label: "Cancela cuando quieras" },
-  ],
+type PlanFeature = { icon: LucideIcon; label: string };
+
+type PlanConfig = {
+  badge: string;
+  name: string;
+  tagline: string;
+  price: number;
+  billing: string;
+  trialDays: number;
+  features: PlanFeature[];
+  guarantees: PlanFeature[];
+  embedUrl: string;
+  embedHeight: number;
 };
 
-// Chips visuales del PRO — exactamente lo que incluye el plan
-const COMPACT_FEATURES = [
-  { icon: MessageSquare, label: "WhatsApp + Instagram + Facebook" },
-  { icon: Smartphone, label: "CRM + App móvil con IA" },
-  { icon: Users, label: "10 usuarios" },
-  { icon: Contact, label: "100.000 contactos" },
-  { icon: Workflow, label: "3 embudos configurados" },
-  { icon: LayoutTemplate, label: "Landing pages incluidas" },
-  { icon: BarChart3, label: "Reportes Meta + Google ADS" },
-  { icon: Brain, label: "ASK IA · IA interna para consultas" },
+const SHARED_GUARANTEES: PlanFeature[] = [
+  { icon: ShieldCheck, label: "14 días de prueba" },
+  { icon: Zap, label: "Activación en 24h" },
+  { icon: Lock, label: "Cancela cuando quieras" },
 ];
+
+const PLANS: Record<string, PlanConfig> = {
+  standard: {
+    badge: "EMPIEZA",
+    name: "HEAT IA · STANDARD",
+    tagline:
+      "Tu primer paso a la automatización con IA. WhatsApp, redes sociales y CRM unificado.",
+    price: 199,
+    billing: "USD/mes",
+    trialDays: 14,
+    features: [
+      { icon: MessageSquare, label: "WhatsApp + Instagram + Facebook" },
+      { icon: Smartphone, label: "CRM unificado" },
+      { icon: Users, label: "3 usuarios" },
+      { icon: Contact, label: "25.000 contactos" },
+      { icon: Workflow, label: "1 embudo configurado" },
+      { icon: BarChart3, label: "Reportes Meta + Google ADS" },
+    ],
+    guarantees: SHARED_GUARANTEES,
+    embedUrl: "https://go.heatlatam.com/payment-link/6a18ef40c3ea3a19f0bd9100",
+    embedHeight: 720,
+  },
+  pro: {
+    badge: "MÁS POPULAR",
+    name: "HEAT IA · PRO",
+    tagline:
+      "Automatiza ventas y atención en todos tus canales con agentes de IA + CRM unificado.",
+    price: 349,
+    billing: "USD/mes",
+    trialDays: 14,
+    features: [
+      { icon: MessageSquare, label: "WhatsApp + Instagram + Facebook" },
+      { icon: Smartphone, label: "CRM + App móvil con IA" },
+      { icon: Users, label: "10 usuarios" },
+      { icon: Contact, label: "100.000 contactos" },
+      { icon: Workflow, label: "3 embudos configurados" },
+      { icon: LayoutTemplate, label: "Landing pages incluidas" },
+      { icon: BarChart3, label: "Reportes Meta + Google ADS" },
+      { icon: Brain, label: "ASK IA · IA interna para consultas" },
+    ],
+    guarantees: SHARED_GUARANTEES,
+    embedUrl: "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371",
+    embedHeight: 720,
+  },
+  advance: {
+    badge: "MÁXIMO POTENCIAL",
+    name: "HEAT IA · ADVANCE",
+    tagline:
+      "Tu operación completa con IA: call center, voz clonada, equipo grande y soporte prioritario.",
+    price: 599,
+    billing: "USD/mes",
+    trialDays: 14,
+    features: [
+      { icon: MessageSquare, label: "WhatsApp + Instagram + Facebook + TikTok + Google" },
+      { icon: Smartphone, label: "CRM + App móvil con IA" },
+      { icon: Phone, label: "Call Center con IA" },
+      { icon: Mic, label: "Voz clonada del agente" },
+      { icon: Users, label: "25 usuarios" },
+      { icon: Contact, label: "Contactos ilimitados" },
+      { icon: Workflow, label: "10 embudos configurados" },
+      { icon: LayoutTemplate, label: "Landing pages incluidas" },
+      { icon: BarChart3, label: "Reportes Meta + Google ADS avanzados" },
+      { icon: Brain, label: "ASK IA · IA interna para consultas" },
+      { icon: Headphones, label: "Soporte prioritario 24/7" },
+      { icon: Crown, label: "Estrategia mensual con experto HEAT" },
+    ],
+    guarantees: SHARED_GUARANTEES,
+    embedUrl: "https://go.heatlatam.com/payment-link/6a18ef61f4e3f699673a647c",
+    embedHeight: 720,
+  },
+};
 
 const TESTIMONIAL = {
   quote:
@@ -155,23 +215,18 @@ const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 /*  4. Copia el URL del iframe (algo así):                         */
 /*     https://link.heatlatam.com/widget/form/XXXXXXXX             */
 /*     o el src del <iframe src="...">                             */
-/*  5. Pégala abajo en GHL_EMBED_URL                               */
+/*  5. Pégala abajo en plan.embedUrl                               */
 /*  6. Ajusta el alto si es necesario                              */
 /*                                                                  */
-/* Si GHL_EMBED_URL queda vacío → la página muestra el mockup     */
+/* Si plan.embedUrl queda vacío → la página muestra el mockup     */
 /* visual (los 3 pasos numerados) como demo.                       */
-/* Si GHL_EMBED_URL está set → se renderiza el iframe real con    */
+/* Si plan.embedUrl está set → se renderiza el iframe real con    */
 /* styling HEAT 3.0 alrededor.                                     */
 /* ────────────────────────────────────────────────────────────── */
 
-// Stripe Payment Link servida por GHL — auto-provisioning intacto.
-const GHL_EMBED_URL =
-  "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371";
-// Ancho ≥1000px → GHL sirve layout horizontal (producto izq / form der).
-// Por debajo colapsa a vertical (mobile) y necesita ~1320px de alto.
-// 720px = altura ajustada al form real → reCAPTCHA queda dentro del bloque,
-// no flotando en dead-white. Sin scroll interno.
-const GHL_EMBED_HEIGHT = 720;
+// Las URLs de Stripe Payment Link viven dentro de cada plan en PLANS.
+// Cada iframe a ≥1000px de ancho → GHL sirve layout horizontal (producto
+// izq / form der). 720px de alto = sin scroll interno + reCAPTCHA dentro.
 
 function GHLFormEmbed({ url, height }: { url: string; height: number }) {
   return (
@@ -226,7 +281,7 @@ function GHLPlaceholder() {
       <p className="text-gray-400 text-[12.5px] leading-relaxed max-w-md mx-auto">
         Pega la URL del widget de checkout de GHL en{" "}
         <code className="text-cyan-300 bg-white/[0.04] rounded px-1.5 py-0.5 text-[11px]">
-          GHL_EMBED_URL
+          plan.embedUrl
         </code>{" "}
         dentro de{" "}
         <code className="text-cyan-300 bg-white/[0.04] rounded px-1.5 py-0.5 text-[11px]">
@@ -247,6 +302,12 @@ function GHLPlaceholder() {
 /* ────────────────────────────────────────────────────────────── */
 
 export default function Suscripcion() {
+  // Leer el slug del plan desde la URL → /suscripcion/:plan
+  // Default = "pro" si el slug es desconocido o ausente (ej. ruta legacy
+  // /heat-ia-pro-14dias).
+  const { plan: planSlug } = useParams<{ plan?: string }>();
+  const plan = PLANS[planSlug ?? "pro"] ?? PLANS.pro;
+
   return (
     <div className="bg-background min-h-screen">
       <Navbar />
@@ -349,10 +410,10 @@ export default function Suscripcion() {
                   color: "#0A0A0B",
                 }}
               >
-                ★ {PLAN.badge}
+                ★ {plan.badge}
               </span>
               <h2 className="font-display text-xl md:text-2xl font-medium text-gray-900 tracking-tight">
-                {PLAN.name}
+                {plan.name}
               </h2>
             </div>
 
@@ -367,23 +428,23 @@ export default function Suscripcion() {
                   backgroundImage: PRICE_GRADIENT,
                 }}
               >
-                {PLAN.price}
+                {plan.price}
               </span>
-              <span className="text-gray-500 text-sm">{PLAN.billing}</span>
+              <span className="text-gray-500 text-sm">{plan.billing}</span>
             </div>
 
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200/60 px-2.5 py-1 text-[11px] text-emerald-700 font-medium tracking-wide">
               <Sparkles size={11} />
-              {PLAN.trialDays} días gratis
+              {plan.trialDays} días gratis
             </span>
           </div>
 
           {/* ── IFRAME del checkout (full-width dentro del card) ── */}
           <div className="border-t border-black/[0.06]">
-            {GHL_EMBED_URL ? (
+            {plan.embedUrl ? (
               <GHLFormEmbed
-                url={GHL_EMBED_URL}
-                height={GHL_EMBED_HEIGHT}
+                url={plan.embedUrl}
+                height={plan.embedHeight}
               />
             ) : (
               <div className="p-7 md:p-8 text-gray-500 text-sm">
@@ -398,7 +459,7 @@ export default function Suscripcion() {
               Qué activas hoy
             </p>
             <div className="flex flex-wrap gap-2">
-              {COMPACT_FEATURES.map((f) => (
+              {plan.features.map((f) => (
                 <span
                   key={f.label}
                   className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] bg-gray-50 px-3 py-1.5 text-[12px] text-gray-700 hover:border-black/[0.12] hover:bg-white transition-colors"
@@ -413,7 +474,7 @@ export default function Suscripcion() {
           {/* ── GARANTÍAS + TESTIMONIAL en strip inferior ── */}
           <div className="border-t border-black/[0.06] bg-gray-50 px-6 md:px-8 py-5 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-gray-600">
-              {PLAN.guarantees.map((g) => (
+              {plan.guarantees.map((g) => (
                 <span
                   key={g.label}
                   className="inline-flex items-center gap-1.5"
