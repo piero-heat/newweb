@@ -273,18 +273,28 @@ function ReelCard({
   const inner = (
     <div className="relative bg-white" style={{ aspectRatio: "9 / 16" }}>
       {reel.url ? (
-        <iframe
-          src={instagramEmbedSrc(reel.url)}
-          title={reel.caption ?? "Instagram Reel"}
-          loading="lazy"
-          scrolling="no"
-          allowTransparency
-          allow="encrypted-media; clipboard-write"
-          // pointer-events-none → los clicks pasan al <button> padre,
-          // que es el que abre el modal. Sin esto el iframe captura
-          // los clicks y nunca llegan al handler.
-          className="absolute inset-0 w-full h-full border-0 pointer-events-none"
-        />
+        <>
+          <iframe
+            src={instagramEmbedSrc(reel.url)}
+            title={reel.caption ?? "Instagram Reel"}
+            loading="lazy"
+            scrolling="no"
+            allowTransparency
+            allow="encrypted-media; clipboard-write"
+            // pointer-events-none → los clicks pasan al <button> padre,
+            // que es el que abre el modal. Sin esto el iframe captura
+            // los clicks y nunca llegan al handler.
+            className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+          />
+          {/* Overlay blanco abajo · oculta la barra de engagement
+              (likes / comments / share / comentario / logo IG) que IG
+              embed renderiza pero no aporta y no funciona en embed. */}
+          <div
+            aria-hidden
+            className="absolute bottom-0 left-0 right-0 bg-white pointer-events-none"
+            style={{ height: "16%" }}
+          />
+        </>
       ) : (
         <PlaceholderReel />
       )}
@@ -408,6 +418,12 @@ function ReelModal({
             allowTransparency
             allow="encrypted-media; clipboard-write; autoplay"
             className="absolute inset-0 w-full h-full border-0"
+          />
+          {/* Overlay blanco · oculta engagement section igual que en cards */}
+          <div
+            aria-hidden
+            className="absolute bottom-0 left-0 right-0 bg-white pointer-events-none"
+            style={{ height: "16%" }}
           />
         </div>
       </motion.div>
