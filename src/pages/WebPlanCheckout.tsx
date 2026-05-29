@@ -16,6 +16,11 @@ import {
   MessageSquare,
   Server,
   Layers,
+  CheckCircle2,
+  Wrench,
+  Pencil,
+  Calendar,
+  ExternalLink,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { SiStripe } from "@icons-pack/react-simple-icons";
@@ -127,6 +132,85 @@ const HIGHLIGHT_GRADIENT =
 const PRICE_GRADIENT = "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)";
 const VIBES_GRADIENT =
   "linear-gradient(137deg, #FF3D77 0%, #A855F7 50%, #7DD3FC 100%)";
+
+/* PORTFOLIO — placeholders. Vamos a actualizar con clientes reales */
+type PortfolioItem = {
+  title: string;
+  industry: string;
+  url?: string;
+  description: string;
+  gradient: string;
+};
+
+const PORTFOLIO: PortfolioItem[] = [
+  {
+    title: "Proyecto 1",
+    industry: "Próximamente",
+    description:
+      "Pídenos referencias y te mostramos páginas reales de clientes en producción.",
+    gradient: "linear-gradient(137deg, #FF3D77, #FFB1CE, #FF9D3C)",
+  },
+  {
+    title: "Proyecto 2",
+    industry: "Próximamente",
+    description:
+      "Landing con cotizador interno + integración Stripe + dashboard de admin.",
+    gradient: "linear-gradient(137deg, #6366f1, #a855f7, #fcd34d)",
+  },
+  {
+    title: "Proyecto 3",
+    industry: "Próximamente",
+    description:
+      "Plataforma SaaS con portal de clientes + flujo de onboarding.",
+    gradient: "linear-gradient(137deg, #06B6D4, #7DD3FC, #A855F7)",
+  },
+  {
+    title: "Proyecto 4",
+    industry: "Próximamente",
+    description:
+      "E-commerce custom con catálogo dinámico, carrito y pasarela.",
+    gradient: "linear-gradient(137deg, #10B981, #34D399, #FCD34D)",
+  },
+  {
+    title: "Proyecto 5",
+    industry: "Próximamente",
+    description: "Multi-landing por servicio con A/B testing de hooks.",
+    gradient: "linear-gradient(137deg, #F472B6, #FB7185, #FCD34D)",
+  },
+  {
+    title: "Proyecto 6",
+    industry: "Próximamente",
+    description:
+      "Sitio corporativo con CMS propio para gestión de contenido.",
+    gradient: "linear-gradient(137deg, #818CF8, #C084FC, #F472B6)",
+  },
+];
+
+function Inclusion({
+  icon: Icon,
+  title,
+  desc,
+}: {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <li className="flex items-start gap-3">
+      <Icon
+        size={16}
+        className="text-white/65 mt-1 shrink-0"
+        strokeWidth={2}
+      />
+      <div>
+        <p className="text-foreground text-sm font-medium tracking-tight mb-1">
+          {title}
+        </p>
+        <p className="text-gray-400 text-[13px] leading-relaxed">{desc}</p>
+      </div>
+    </li>
+  );
+}
 
 export default function WebPlanCheckout() {
   // Lee el slug de la URL (/contratar/web-:slug) y busca el plan.
@@ -397,10 +481,173 @@ export default function WebPlanCheckout() {
         </motion.aside>
       </section>
 
-      {/* ── PLACEHOLDER: aquí va el contenido extra que Piero va a mandar
-            (imágenes/secciones específicas para Starter o Pro). Por ahora
-            queda vacío. Cuando llegue, lo agregamos como una nueva section
-            antes del FAQ. ── */}
+      {/* ── Qué incluye / Qué se cotiza aparte ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              📋 ALCANCE · QUÉ ENTRA EN EL PRECIO
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Sin letra chica
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              Te dejamos claro qué está incluido en el precio del plan y qué
+              se cotiza aparte, para que decidas con toda la información sobre
+              la mesa.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* INCLUIDO */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl border border-emerald-400/15 bg-emerald-500/[0.03] p-7 hover:border-emerald-400/30 hover:bg-emerald-500/[0.05] transition-all duration-400"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+                  <CheckCircle2
+                    size={18}
+                    className="text-emerald-300"
+                    strokeWidth={2.2}
+                  />
+                </div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-emerald-300/90">
+                  INCLUIDO EN EL PRECIO
+                </p>
+              </div>
+
+              <ul className="space-y-4">
+                <Inclusion
+                  icon={Server}
+                  title="Hosting gratis 1 año"
+                  desc="Te lo dejamos andando en nuestra infraestructura el primer año sin costo. El dominio lo compras tú aparte (te ayudamos a configurarlo). Después del primer año puedes seguir con nuestro hosting o moverte donde quieras — todo es portable."
+                />
+                <Inclusion
+                  icon={Pencil}
+                  title="Modificaciones de contenido"
+                  desc="Cambios de textos, títulos, copies, imágenes, links, colores específicos y ajustes menores sobre la estructura que entregamos. Esto está incluido siempre."
+                />
+                <Inclusion
+                  icon={Sparkles}
+                  title="Hasta 3 rondas en pre-entrega"
+                  desc="Antes del deploy final tienes tres rondas de ajustes para dejarlo a tu pinta — sobre la estructura ya entregada."
+                />
+              </ul>
+            </motion.div>
+
+            {/* COTIZADO APARTE */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              className="rounded-3xl border border-amber-400/15 bg-amber-500/[0.025] p-7 hover:border-amber-400/30 hover:bg-amber-500/[0.04] transition-all duration-400"
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center">
+                  <Wrench
+                    size={18}
+                    className="text-amber-300"
+                    strokeWidth={2.2}
+                  />
+                </div>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-amber-300/90">
+                  SE COTIZA APARTE
+                </p>
+              </div>
+
+              <ul className="space-y-4">
+                <Inclusion
+                  icon={Layers}
+                  title="Cambios estructurales"
+                  desc="Modificar la arquitectura del sitio: agregar/quitar secciones nuevas, cambiar el flujo general, rehacer layouts completos. Requiere replantear el diseño y se cotiza aparte."
+                />
+                <Inclusion
+                  icon={Code2}
+                  title="Funcionalidades nuevas"
+                  desc="Sumar features que no estaban en el plan original: backend custom, login de usuarios, integraciones específicas, módulos a medida fuera de lo que tu plan incluye."
+                />
+                <Inclusion
+                  icon={Calendar}
+                  title="Soporte mensual post-entrega"
+                  desc="Si quieres mantenimiento continuo después de la entrega, podemos armar un retainer mensual a medida."
+                />
+              </ul>
+
+              <p className="mt-5 pt-5 border-t border-amber-400/10 text-[11px] text-gray-500 leading-relaxed">
+                💡 ¿No estás seguro si tu cambio es de contenido o estructural?
+                Lo conversamos sin compromiso y te decimos.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Portfolio preview ── */}
+      <section className="bg-[#0A0A0B] px-6 md:px-12 py-20 md:py-24 border-t border-white/[0.05]">
+        <div className="mx-auto max-w-[1180px]">
+          <div className="text-center mb-12">
+            <p className="text-xs font-medium tracking-[0.18em] text-white/50 mb-4">
+              👁️ PORTAFOLIO · PÁGINAS REALES
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-medium text-white tracking-tight mb-4 leading-tight">
+              Algunas páginas que hicimos
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-7 max-w-2xl mx-auto">
+              Cada una con diseño y desarrollo 100% custom. Aquí algunos
+              ejemplos en producción. Pídenos más durante la reunión.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {PORTFOLIO.map((p, i) => (
+              <motion.a
+                key={p.title}
+                href={p.url ?? "#"}
+                target={p.url ? "_blank" : undefined}
+                rel={p.url ? "noopener noreferrer" : undefined}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.04 }}
+                className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-500 ease-out"
+              >
+                <div
+                  className="aspect-[16/10] w-full"
+                  style={{ background: p.gradient }}
+                >
+                  <div className="w-full h-full bg-[#0A0A0B]/55 group-hover:bg-[#0A0A0B]/40 transition-colors duration-400 flex items-center justify-center">
+                    <span className="font-display text-white/85 text-xl tracking-tight">
+                      {p.title}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-[10px] font-semibold tracking-[0.18em] text-white/40 mb-2">
+                    {p.industry}
+                  </p>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {p.description}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs text-gray-500 group-hover:text-foreground transition-colors">
+                    Ver caso
+                    <ExternalLink size={11} />
+                  </span>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+
+          <p className="mt-8 text-xs text-gray-500 text-center max-w-xl mx-auto">
+            Los proyectos con datos reales se compartirán durante la reunión de
+            descubrimiento para respetar la confidencialidad de cada cliente.
+          </p>
+        </div>
+      </section>
 
       {/* FAQ · dark glass */}
       <section className="bg-background px-6 md:px-12 py-16 md:py-20 border-t border-white/[0.05]">
