@@ -18,17 +18,27 @@ import {
   SiGoogleplay,
   SiMacos,
 } from "@icons-pack/react-simple-icons";
+import { SiMeta } from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CalendarModal from "@/components/CalendarModal";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import piero from "@/assets/branding/piero-portrait.jpg";
 import heatDashboard from "@/assets/branding/heat-app-dashboard.jpg";
 
-const STATS = [
-  { value: "+15", suffix: "años", label: "En marketing digital" },
-  { value: "+350", suffix: "empresas", label: "Confían en HEAT" },
-  { value: "4", suffix: "países", label: "Chile · Miami · Perú · Argentina" },
-  { value: "12", suffix: "personas", label: "Equipo en oficina" },
+type Stat = {
+  to: number;
+  prefix?: string;
+  suffix?: string;
+  unit: string;
+  label: string;
+};
+
+const STATS: Stat[] = [
+  { to: 15, prefix: "+", unit: "años", label: "En marketing digital" },
+  { to: 350, prefix: "+", unit: "empresas", label: "Confían en HEAT" },
+  { to: 4, unit: "países", label: "Chile · Miami · Perú · Argentina" },
+  { to: 12, unit: "personas", label: "Equipo en oficina" },
 ];
 
 const PILLARS = [
@@ -228,6 +238,96 @@ export default function Nosotros() {
                 </span>
               </button>
             </div>
+
+            {/* Placa META ADS · counter dorado */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
+              className="mt-6 relative max-w-md rounded-2xl overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(252,211,77,0.10) 0%, rgba(245,158,11,0.06) 50%, rgba(0,0,0,0.30) 100%)",
+                boxShadow:
+                  "inset 0 0 0 1px rgba(252,211,77,0.25), 0 14px 50px -14px rgba(245,158,11,0.4)",
+              }}
+            >
+              {/* Inner glow halo */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(60% 80% at 0% 50%, rgba(252,211,77,0.18), transparent 65%)",
+                }}
+              />
+              <div className="relative flex items-center gap-4 px-5 py-4">
+                {/* Meta logo gold */}
+                <div
+                  className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 30% 25%, #FEF3C7 0%, #FCD34D 40%, #D97706 100%)",
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 6px rgba(120,53,15,0.35), 0 0 0 1px rgba(252,211,77,0.6), 0 0 14px rgba(252,211,77,0.45)",
+                  }}
+                >
+                  <SiMeta
+                    size={24}
+                    color="#7C2D12"
+                    className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.4)]"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p
+                    className="text-[10px] font-semibold tracking-[0.22em] mb-0.5"
+                    style={{ color: "#FCD34D" }}
+                  >
+                    INVERSIÓN HISTÓRICA · META ADS
+                  </p>
+                  <div className="flex items-baseline gap-1.5">
+                    <AnimatedCounter
+                      to={4}
+                      prefix="$"
+                      decimals={1}
+                      duration={2.4}
+                      className="font-display font-medium"
+                      style={{
+                        fontSize: "clamp(28px, 3vw, 36px)",
+                        lineHeight: 1,
+                        letterSpacing: "-0.03em",
+                        background:
+                          "linear-gradient(90deg, #FEF3C7 0%, #FCD34D 50%, #F59E0B 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    />
+                    <span
+                      className="font-display font-medium"
+                      style={{
+                        fontSize: "clamp(28px, 3vw, 36px)",
+                        lineHeight: 1,
+                        letterSpacing: "-0.03em",
+                        background:
+                          "linear-gradient(90deg, #FEF3C7 0%, #FCD34D 50%, #F59E0B 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      M
+                    </span>
+                    <span className="text-amber-200/70 text-xs font-medium ml-1">
+                      USD
+                    </span>
+                  </div>
+                  <p className="text-gray-400 text-[12px] mt-1 leading-snug">
+                    invertidos por nuestros clientes a través de HEAT
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Portrait column */}
@@ -300,7 +400,10 @@ export default function Nosotros() {
               className="text-center md:text-left"
             >
               <div className="flex items-baseline gap-1.5 justify-center md:justify-start">
-                <span
+                <AnimatedCounter
+                  to={s.to}
+                  prefix={s.prefix}
+                  duration={1.8}
                   className="font-display font-medium bg-clip-text text-transparent"
                   style={{
                     fontSize: "clamp(40px, 4vw, 56px)",
@@ -309,11 +412,9 @@ export default function Nosotros() {
                     backgroundImage:
                       "linear-gradient(to right, #7DD3FC, #A855F7)",
                   }}
-                >
-                  {s.value}
-                </span>
+                />
                 <span className="text-gray-400 text-sm font-medium">
-                  {s.suffix}
+                  {s.unit}
                 </span>
               </div>
               <p className="text-gray-500 text-xs mt-2 tracking-wide uppercase">
