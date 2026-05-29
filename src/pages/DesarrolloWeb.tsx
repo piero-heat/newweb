@@ -242,7 +242,7 @@ export default function DesarrolloWeb() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-white/70 mb-6"
           >
-            🌐 DESARROLLO WEB · 72H HÁBILES
+            🌐 PÁGINA WEB · 72H HÁBILES
           </motion.span>
 
           <motion.h1
@@ -255,9 +255,9 @@ export default function DesarrolloWeb() {
               letterSpacing: "-0.035em",
             }}
           >
-            Tu próximo desarrollo web,
+            Tu próxima página web,
             <br />
-            entregado en{" "}
+            entregada en{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
