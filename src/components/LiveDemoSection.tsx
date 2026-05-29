@@ -682,7 +682,12 @@ export default function LiveDemoSection() {
                           "inset 0 0 0 1.5px rgba(255,255,255,0.55), inset 0 1px 0 rgba(255,255,255,0.7), 0 0 0 1px rgba(0,255,140,0.6), 0 0 12px rgba(0,255,140,0.55), 0 4px 12px -2px rgba(0,180,90,0.45)",
                       }}
                     >
-                      <Send size={17} className="ml-0.5 drop-shadow-[0_1px_1px_rgba(0,80,40,0.45)]" />
+                      <Send
+                        size={17}
+                        fill="white"
+                        strokeWidth={1.5}
+                        className="ml-0.5 drop-shadow-[0_1px_1.5px_rgba(0,80,40,0.55)]"
+                      />
                     </button>
                   </div>
                 </div>
