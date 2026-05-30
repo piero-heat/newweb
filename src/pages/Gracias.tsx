@@ -45,9 +45,10 @@ const PLAN_LABELS: Record<string, string> = {
   "video-10": "Pack 10 Videos ADS",
 };
 
-// ⚙ VIDEO de onboarding — cuando Piero mande el URL, péguelo acá.
-// Acepta YouTube ID (ej. "dQw4w9WgXcQ") o null para placeholder.
-const ONBOARDING_VIDEO_ID: string | null = null;
+// ⚙ VIDEO de onboarding — MP4 self-hosted en GHL filesafe CDN.
+// null → muestra placeholder.
+const ONBOARDING_VIDEO_URL: string | null =
+  "https://assets.cdn.filesafe.space/srjD6kS5EFIUXLtgl6hd/media/69a0fda6c4df6514c251f0ba.mp4";
 
 // Calendario de onboarding GHL (Reunión Onboarding HEAT)
 const ONBOARDING_CALENDAR_URL =
@@ -177,23 +178,27 @@ export default function Gracias() {
           </p>
 
           <div
-            className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black"
+            className="relative w-full rounded-2xl overflow-hidden"
             style={{
+              background:
+                "radial-gradient(circle at top left, rgba(249,115,22,0.18), transparent 55%), radial-gradient(circle at bottom right, rgba(37,99,235,0.18), transparent 55%), #020617",
+              padding: 4,
               boxShadow:
                 "0 0 0 1px rgba(255,255,255,0.08), 0 30px 80px -24px rgba(0,0,0,0.7), 0 0 0 6px rgba(168,85,247,0.10)",
             }}
           >
-            {ONBOARDING_VIDEO_ID ? (
-              <iframe
-                src={`https://www.youtube.com/embed/${ONBOARDING_VIDEO_ID}?rel=0&modestbranding=1`}
-                title="Video onboarding HEAT IA"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                referrerPolicy="strict-origin-when-cross-origin"
-                className="absolute inset-0 w-full h-full"
-              />
+            {ONBOARDING_VIDEO_URL ? (
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full h-auto block rounded-[14px]"
+              >
+                <source src={ONBOARDING_VIDEO_URL} type="video/mp4" />
+                Tu navegador no soporta video HTML5.
+              </video>
             ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 bg-gradient-to-br from-purple-500/15 via-black to-black">
+              <div className="relative aspect-video flex flex-col items-center justify-center text-center px-6 rounded-[14px] bg-gradient-to-br from-purple-500/15 via-black to-black">
                 <div
                   className="flex h-16 w-16 items-center justify-center rounded-full text-white mb-3"
                   style={{
