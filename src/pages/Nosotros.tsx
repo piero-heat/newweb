@@ -612,6 +612,8 @@ export default function Nosotros() {
               <img
                 src={heatDashboard}
                 alt="HEAT App — CRM dashboard"
+                loading="lazy"
+                decoding="async"
                 className="block w-full h-auto"
               />
             </div>
@@ -691,6 +693,8 @@ export default function Nosotros() {
                   <img
                     src={piero}
                     alt="Piero Setti"
+                    loading="lazy"
+                    decoding="async"
                     className="block w-full h-full object-cover object-top"
                   />
                 </div>

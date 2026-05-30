@@ -1,23 +1,37 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import Index from "./pages/Index";
-import Partners from "./pages/Partners";
-import Nosotros from "./pages/Nosotros";
-import Contenido from "./pages/Contenido";
-import Careers from "./pages/Careers";
-import CareersRole from "./pages/CareersRole";
-import Gracias from "./pages/Gracias";
-import Descargar from "./pages/Descargar";
-import PerformAds from "./pages/PerformAds";
-import DesarrolloWeb from "./pages/DesarrolloWeb";
-import Terminos from "./pages/Terminos";
-import Privacidad from "./pages/Privacidad";
-import Suscripcion from "./pages/Suscripcion";
-import PerformanceAdsCheckout from "./pages/PerformanceAdsCheckout";
-import WebPlanCheckout from "./pages/WebPlanCheckout";
-import ImplementationCheckout from "./pages/ImplementationCheckout";
+import { useEffect, lazy, Suspense } from "react";
+import { MotionConfig } from "motion/react";
+import Index from "./pages/Index"; // eager — es la home (LCP)
 import MetaPixel from "./components/MetaPixel";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+
+/* Code-splitting: cada ruta secundaria se descarga solo al visitarla.
+   Reduce el bundle inicial (~824KB) a lo justo para la home. */
+const Partners = lazy(() => import("./pages/Partners"));
+const Nosotros = lazy(() => import("./pages/Nosotros"));
+const Contenido = lazy(() => import("./pages/Contenido"));
+const Careers = lazy(() => import("./pages/Careers"));
+const CareersRole = lazy(() => import("./pages/CareersRole"));
+const Gracias = lazy(() => import("./pages/Gracias"));
+const Descargar = lazy(() => import("./pages/Descargar"));
+const PerformAds = lazy(() => import("./pages/PerformAds"));
+const DesarrolloWeb = lazy(() => import("./pages/DesarrolloWeb"));
+const Terminos = lazy(() => import("./pages/Terminos"));
+const Privacidad = lazy(() => import("./pages/Privacidad"));
+const Suscripcion = lazy(() => import("./pages/Suscripcion"));
+const PerformanceAdsCheckout = lazy(
+  () => import("./pages/PerformanceAdsCheckout")
+);
+const WebPlanCheckout = lazy(() => import("./pages/WebPlanCheckout"));
+const ImplementationCheckout = lazy(
+  () => import("./pages/ImplementationCheckout")
+);
+
+/* Fallback mínimo mientras carga el chunk de la ruta — fondo del brand
+   para que no haya flash blanco. */
+function RouteFallback() {
+  return <div className="min-h-screen bg-background" />;
+}
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -36,9 +50,13 @@ function ScrollManager() {
 
 export default function App() {
   return (
+    // reducedMotion="user" → respeta prefers-reduced-motion en TODOS los
+    // componentes de motion (halos, shimmer, entradas) automáticamente.
+    <MotionConfig reducedMotion="user">
     <BrowserRouter>
       <ScrollManager />
       <MetaPixel />
+      <Suspense fallback={<RouteFallback />}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/partners" element={<Partners />} />
@@ -69,7 +87,9 @@ export default function App() {
           element={<ImplementationCheckout />}
         />
       </Routes>
+      </Suspense>
       <WhatsAppFloat />
     </BrowserRouter>
+    </MotionConfig>
   );
 }
