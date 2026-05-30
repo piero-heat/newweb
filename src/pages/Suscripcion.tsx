@@ -90,7 +90,7 @@ const PLANS: Record<string, PlanConfig> = {
     ],
     guarantees: SHARED_GUARANTEES,
     embedUrl: "https://go.heatlatam.com/payment-link/6a18ef40c3ea3a19f0bd9100",
-    embedHeight: 720,
+    embedHeight: 950,
   },
   pro: {
     badge: "MÁS VENDIDO",
@@ -112,7 +112,7 @@ const PLANS: Record<string, PlanConfig> = {
     ],
     guarantees: SHARED_GUARANTEES,
     embedUrl: "https://go.heatlatam.com/payment-link/6a189550f4e3f699673a6371",
-    embedHeight: 720,
+    embedHeight: 950,
   },
   advance: {
     badge: "TODO INCLUIDO",
@@ -135,7 +135,7 @@ const PLANS: Record<string, PlanConfig> = {
     ],
     guarantees: SHARED_GUARANTEES,
     embedUrl: "https://go.heatlatam.com/payment-link/6a18ef61f4e3f699673a647c",
-    embedHeight: 720,
+    embedHeight: 950,
   },
 };
 
