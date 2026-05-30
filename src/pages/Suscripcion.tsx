@@ -5,7 +5,6 @@ import {
   Lock,
   ShieldCheck,
   CreditCard,
-  Zap,
   Mail,
   User,
   Phone,
@@ -67,7 +66,6 @@ type PlanConfig = {
 
 const SHARED_GUARANTEES: PlanFeature[] = [
   { icon: ShieldCheck, label: "14 días de prueba" },
-  { icon: Zap, label: "Activación en 24h" },
   { icon: Lock, label: "Cancela cuando quieras" },
 ];
 
@@ -139,13 +137,6 @@ const PLANS: Record<string, PlanConfig> = {
     embedUrl: "https://go.heatlatam.com/payment-link/6a18ef61f4e3f699673a647c",
     embedHeight: 720,
   },
-};
-
-const TESTIMONIAL = {
-  quote:
-    "HEAT IA nos cambió la operación. Antes perdíamos pacientes por no contestar a tiempo. Ahora el agente agenda 24/7 y mi equipo se enfoca en la atención presencial.",
-  author: "Dra. Carolina M.",
-  business: "Clínica GoSmile · Santiago",
 };
 
 const FAQS = [
@@ -492,8 +483,8 @@ export default function Suscripcion() {
           </div>
 
           {/* ── GARANTÍAS + TESTIMONIAL en strip inferior ── */}
-          <div className="border-t border-black/[0.06] bg-gray-50 px-6 md:px-8 py-5 flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-gray-600">
+          <div className="border-t border-black/[0.06] bg-gray-50 px-6 md:px-8 py-5 flex items-center justify-center">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12px] text-gray-600">
               {plan.guarantees.map((g) => (
                 <span
                   key={g.label}
@@ -504,15 +495,6 @@ export default function Suscripcion() {
                 </span>
               ))}
             </div>
-            <p className="md:ml-auto text-[11px] text-gray-500 italic md:text-right md:shrink-0">
-              "Antes perdíamos pacientes por no contestar. Ahora el agente
-              agenda 24/7."
-              <br className="hidden md:block" />
-              <span className="not-italic text-gray-700 font-medium">
-                — {TESTIMONIAL.author}
-              </span>{" "}
-              <span className="not-italic">· {TESTIMONIAL.business}</span>
-            </p>
           </div>
         </motion.aside>
 
