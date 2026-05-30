@@ -221,7 +221,9 @@ export default function Gracias() {
 
       {/* ── Calendario de onboarding ── */}
       <section className="relative px-6 md:px-12 py-12 md:py-16 bg-background border-t border-white/[0.04]">
-        <div className="mx-auto max-w-[920px]">
+        {/* max-w 1140px → GHL sirve el layout HORIZONTAL del calendario
+            (info izq + fechas/horas der) en vez del vertical apilado */}
+        <div className="mx-auto max-w-[1140px]">
           <div className="text-center mb-8">
             <p
               className="text-[11px] font-semibold tracking-[0.22em] mb-3 bg-clip-text text-transparent inline-flex items-center gap-1.5"
@@ -264,7 +266,7 @@ export default function Gracias() {
               scrolling="no"
               id="Huxl2sb42iZcJL4s6NrY_gracias"
               className="w-full border-0"
-              style={{ width: "100%", minHeight: 720, border: "none" }}
+              style={{ width: "100%", minHeight: 640, border: "none" }}
             />
           </div>
         </div>
