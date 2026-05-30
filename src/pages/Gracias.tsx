@@ -237,7 +237,7 @@ export default function Gracias() {
               En esta reunión configuramos tu cuenta, conectamos tus redes
               sociales y dejamos tu agente funcionando correctamente.
               <span className="block mt-1 text-gray-500 text-sm">
-                Duración: 30–45 minutos · Formato: Online
+                Duración: 1 hora · Formato: Online
               </span>
             </p>
           </div>
