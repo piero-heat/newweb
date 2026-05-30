@@ -34,7 +34,7 @@ const CASES: Case[] = [
     emoji: "🛍️",
     author: "Rodrigo P.",
     business: "Vita Nutrición · Santiago, Chile",
-    url: "https://www.vitanutricion.cl",
+    url: "https://vitanutrition.cl",
   },
   {
     industry: "RETAIL · ALIMENTOS",
@@ -56,7 +56,7 @@ const CASES: Case[] = [
     emoji: "👗",
     author: "Camila R.",
     business: "Wolford Chile · Santiago",
-    url: "https://www.wolforchile.cl",
+    url: "https://wolfordchile.cl",
   },
   {
     industry: "JOYERÍA · LUJO",

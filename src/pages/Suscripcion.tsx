@@ -1,18 +1,9 @@
 import { motion } from "motion/react";
 import { useParams } from "react-router-dom";
 import {
-  Check,
   Lock,
   ShieldCheck,
-  CreditCard,
-  Mail,
-  User,
-  Phone,
-  Building2,
   Sparkles,
-  ArrowRight,
-  Tag,
-  Globe,
   MessageSquare,
   Mic,
   Smartphone,
@@ -24,12 +15,6 @@ import {
   Brain,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import {
-  SiVisa,
-  SiMastercard,
-  SiAmericanexpress,
-  SiStripe,
-} from "@icons-pack/react-simple-icons";
 import Navbar from "@/components/Navbar";
 import PlanSwitcher, { type PlanOption } from "@/components/PlanSwitcher";
 import BackToHomeLink from "@/components/BackToHomeLink";
@@ -157,44 +142,6 @@ const FAQS = [
     a: "Cifrado en tránsito y reposo. Backups diarios. Cumplimos Ley 19.628 de Chile + principios GDPR. Tu data es tuya: si te vas, te la exportamos.",
   },
 ];
-
-/* ────────────────────────────────────────────────────────────── */
-/* Field wrapper — visual only, hooks up to real backend later    */
-/* ────────────────────────────────────────────────────────────── */
-
-function Field({
-  icon: Icon,
-  label,
-  type = "text",
-  placeholder,
-  optional,
-  rightSlot,
-}: {
-  icon: typeof Mail;
-  label: string;
-  type?: string;
-  placeholder?: string;
-  optional?: boolean;
-  rightSlot?: React.ReactNode;
-}) {
-  return (
-    <label className="block">
-      <span className="flex items-center justify-between text-[11px] font-medium tracking-wide text-white/55 mb-1.5">
-        <span className="inline-flex items-center gap-1.5">
-          <Icon size={12} className="text-white/45" />
-          {label}
-        </span>
-        {optional && <span className="text-white/30">opcional</span>}
-        {rightSlot}
-      </span>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-foreground placeholder:text-white/30 focus:border-white/30 focus:bg-white/[0.05] focus:outline-none transition-all"
-      />
-    </label>
-  );
-}
 
 const HIGHLIGHT_GRADIENT =
   "linear-gradient(137deg, #6366f1 0%, #a855f7 50%, #fcd34d 100%)";
@@ -346,7 +293,7 @@ export default function Suscripcion() {
                   "linear-gradient(90deg, #7DD3FC 0%, #C084FC 50%, #F0ABFC 100%)",
               }}
             >
-              ACTIVÁ TU PRUEBA DE 14 DÍAS · SIN TARJETA HOY
+              ACTIVA TU PRUEBA DE 14 DÍAS · SIN TARJETA HOY
             </span>
           </motion.span>
 

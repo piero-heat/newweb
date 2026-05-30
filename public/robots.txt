@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# No indexar páginas de checkout / pago / gracias
+Disallow: /suscripcion
+Disallow: /contratar
+Disallow: /gracias
+Disallow: /heat-ia-pro-14dias
+
+Sitemap: https://heatlatam.com/sitemap.xml

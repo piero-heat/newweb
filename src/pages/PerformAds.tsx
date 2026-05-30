@@ -97,7 +97,7 @@ const CPA_STEPS = [
       "No es el lead que se registra. Es el que paga, agenda y cierra. Marcamos ese evento como la conversión real en el CRM.",
   },
   {
-    title: "2 · Sumá todo lo que invertiste",
+    title: "2 · Suma todo lo que invertiste",
     description:
       "Inversión en Meta + gestión + creatividades + setup técnico. Todo lo que gastaste por un período (mes, trimestre).",
   },
@@ -114,9 +114,9 @@ const CPA_STEPS = [
     ),
   },
   {
-    title: "4 · Optimizá para que baje cada mes",
+    title: "4 · Optimiza para que baje cada mes",
     description:
-      "Si tu CPA es $80 y tu cliente vale $300 de LTV, podes escalar inversión. Si es $150, hay que iterar creatividades, audiencias o el funnel completo.",
+      "Si tu CPA es $80 y tu cliente vale $300 de LTV, puedes escalar inversión. Si es $150, hay que iterar creatividades, audiencias o el funnel completo.",
   },
 ];
 

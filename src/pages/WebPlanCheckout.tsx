@@ -634,14 +634,16 @@ export default function WebPlanCheckout() {
             {PORTFOLIO.map((p, i) => (
               <motion.a
                 key={p.title}
-                href={p.url ?? "#"}
+                href={p.url || undefined}
                 target={p.url ? "_blank" : undefined}
                 rel={p.url ? "noopener noreferrer" : undefined}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.04 }}
-                className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-500 ease-out"
+                className={`group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/15 hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-500 ease-out ${
+                  p.url ? "" : "cursor-default"
+                }`}
               >
                 <div
                   className="aspect-[16/10] w-full"

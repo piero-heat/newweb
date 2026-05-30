@@ -25,7 +25,7 @@ export default function StripeBuyButtonModal({
   onClose,
   buyButtonId,
   publishableKey,
-  title = "Completá tu compra",
+  title = "Completa tu compra",
   subtitle = "Pago seguro procesado por Stripe",
 }: StripeBuyButtonModalProps) {
   // Lock body scroll mientras abierto

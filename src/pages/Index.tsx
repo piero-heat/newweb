@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import CalendarModal from "@/components/CalendarModal";
 import FeaturesSection from "@/components/FeaturesSection";

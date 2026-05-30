@@ -109,8 +109,45 @@ function BenefitCard({
   );
 }
 
+const WHATSAPP_NUMBER = "56978919125";
+
 export default function Partners() {
   const [step, setStep] = useState<1 | 2>(1);
+  const [form, setForm] = useState({
+    nombre: "",
+    email: "",
+    codigo: "🇨🇱 +56",
+    telefono: "",
+    empresa: "",
+    tipo: "",
+    mensaje: "",
+  });
+
+  const setField = (k: keyof typeof form) => (v: string) =>
+    setForm((f) => ({ ...f, [k]: v }));
+
+  // Paso 1 → valida y avanza. Paso 2 → arma el mensaje y abre WhatsApp a HEAT
+  // con toda la postulación (lead garantizado, sin backend).
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (step === 1) {
+      setStep(2);
+      return;
+    }
+    const codigo = form.codigo.replace(/[^\d+]/g, "");
+    const msg = [
+      "Hola HEAT 👋 Quiero postular como partner.",
+      "",
+      `*Nombre:* ${form.nombre}`,
+      `*Email:* ${form.email}`,
+      `*Teléfono:* ${codigo} ${form.telefono}`,
+      `*Empresa:* ${form.empresa || "—"}`,
+      `*Tipo de partnership:* ${form.tipo || "—"}`,
+      `*Mensaje:* ${form.mensaje || "—"}`,
+    ].join("\n");
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
 
   return (
     <div className="relative bg-background min-h-screen">
@@ -240,7 +277,7 @@ export default function Partners() {
                 </div>
                 <div className="flex justify-end">
                   <div className="max-w-[82%] rounded-2xl rounded-br-md px-3.5 py-2 bg-white/[0.06] border border-white/10 text-foreground">
-                    Dale, agéndame 🙌
+                    Perfecto, agéndame 🙌
                   </div>
                 </div>
               </div>
@@ -354,13 +391,7 @@ export default function Partners() {
               </p>
             </div>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setStep(step === 1 ? 2 : 1);
-              }}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex items-center justify-between mb-4">
                 <p className="text-foreground text-sm font-semibold">
                   Formulario
@@ -386,7 +417,11 @@ export default function Partners() {
                     </span>
                     <input
                       type="text"
+                      name="name"
+                      autoComplete="name"
                       required
+                      value={form.nombre}
+                      onChange={(e) => setField("nombre")(e.target.value)}
                       placeholder="Tu nombre completo"
                       className={inputClass}
                     />
@@ -397,7 +432,11 @@ export default function Partners() {
                     </span>
                     <input
                       type="email"
+                      name="email"
+                      autoComplete="email"
                       required
+                      value={form.email}
+                      onChange={(e) => setField("email")(e.target.value)}
                       placeholder="tu@empresa.com"
                       className={inputClass}
                     />
@@ -407,7 +446,11 @@ export default function Partners() {
                       Teléfono *
                     </span>
                     <div className="flex gap-2">
-                      <select className={inputClass + " max-w-[110px]"}>
+                      <select
+                        value={form.codigo}
+                        onChange={(e) => setField("codigo")(e.target.value)}
+                        className={inputClass + " max-w-[110px]"}
+                      >
                         <option className="bg-[#0A0A0B]">🇨🇱 +56</option>
                         <option className="bg-[#0A0A0B]">🇲🇽 +52</option>
                         <option className="bg-[#0A0A0B]">🇦🇷 +54</option>
@@ -417,7 +460,11 @@ export default function Partners() {
                       </select>
                       <input
                         type="tel"
+                        name="tel"
+                        autoComplete="tel"
                         required
+                        value={form.telefono}
+                        onChange={(e) => setField("telefono")(e.target.value)}
                         placeholder="123456789"
                         className={inputClass + " flex-1"}
                       />
@@ -432,6 +479,10 @@ export default function Partners() {
                     </span>
                     <input
                       type="text"
+                      name="organization"
+                      autoComplete="organization"
+                      value={form.empresa}
+                      onChange={(e) => setField("empresa")(e.target.value)}
                       placeholder="Nombre de tu empresa"
                       className={inputClass}
                     />
@@ -440,7 +491,12 @@ export default function Partners() {
                     <span className="text-xs text-gray-400 tracking-wide">
                       Tipo de partnership *
                     </span>
-                    <select className={inputClass} defaultValue="">
+                    <select
+                      required
+                      value={form.tipo}
+                      onChange={(e) => setField("tipo")(e.target.value)}
+                      className={inputClass}
+                    >
                       <option value="" disabled className="bg-[#0A0A0B]">
                         Selecciona una opción
                       </option>
@@ -465,6 +521,8 @@ export default function Partners() {
                     </span>
                     <textarea
                       rows={3}
+                      value={form.mensaje}
+                      onChange={(e) => setField("mensaje")(e.target.value)}
                       placeholder="¿Qué propones? ¿Cuántos clientes tienes en pipeline?"
                       className={inputClass + " resize-none"}
                     />

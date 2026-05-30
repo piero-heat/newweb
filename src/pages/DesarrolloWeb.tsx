@@ -16,7 +16,6 @@ import {
   Server,
   Wrench,
   Pencil,
-  XCircle,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
