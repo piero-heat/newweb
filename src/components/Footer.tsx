@@ -299,9 +299,9 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap items-center gap-3 lg:justify-end">
             <a
-              href="#"
+              href="/descargar"
               className="group inline-flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black px-3.5 py-2 transition-all duration-400 ease-out hover:border-white/25 hover:bg-[#0f0f0f] hover:shadow-[0_8px_28px_-6px_rgba(10,132,255,0.35)] relative"
-              title="App Store · disponible"
+              title="Descargar en App Store"
             >
               <span className="shrink-0 text-[#0A84FF]">
                 <SiAppstore size={22} color="currentColor" />
@@ -316,20 +316,20 @@ export default function Footer() {
               </div>
             </a>
             <AppBadge
-              href="#"
+              href="/descargar"
               label1="DESCARGA PARA"
               label2="Mac · Desktop"
-              hint="App Desktop · disponible"
+              hint="Descargar app de escritorio"
               iconColor="#FFFFFF"
               glowColor="rgba(255,255,255,0.20)"
             >
               <SiMacos size={22} color="currentColor" />
             </AppBadge>
             <AppBadge
-              href="#"
-              label1="PRÓXIMAMENTE EN"
+              href="/descargar"
+              label1="DESCARGA EN"
               label2="Google Play"
-              hint="Google Play · próximamente"
+              hint="Descargar en Google Play"
               iconColor="#34A853"
               glowColor="rgba(52,168,83,0.30)"
             >

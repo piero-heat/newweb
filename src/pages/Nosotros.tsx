@@ -554,9 +554,9 @@ export default function Nosotros() {
 
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="#"
+                href="/descargar"
                 className="group inline-flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black px-4 py-2.5 transition-all duration-400 ease-out hover:border-white/25 hover:bg-[#0f0f0f] hover:shadow-[0_8px_28px_-6px_rgba(10,132,255,0.35)]"
-                title="App Store · disponible"
+                title="Descargar en App Store"
               >
                 <SiAppstore size={24} color="#0A84FF" />
                 <div className="leading-tight text-left">
@@ -569,9 +569,9 @@ export default function Nosotros() {
                 </div>
               </a>
               <a
-                href="#"
+                href="/descargar"
                 className="group inline-flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black px-4 py-2.5 transition-all duration-400 ease-out hover:border-white/25 hover:bg-[#0f0f0f] hover:shadow-[0_8px_28px_-6px_rgba(255,255,255,0.18)]"
-                title="App Desktop · disponible"
+                title="Descargar app de escritorio"
               >
                 <SiMacos size={24} className="text-white/90" />
                 <div className="leading-tight text-left">
@@ -584,14 +584,14 @@ export default function Nosotros() {
                 </div>
               </a>
               <a
-                href="#"
+                href="/descargar"
                 className="group inline-flex items-center gap-2.5 rounded-xl border border-white/[0.08] bg-black px-4 py-2.5 transition-all duration-400 ease-out hover:border-white/25 hover:bg-[#0f0f0f] hover:shadow-[0_8px_28px_-6px_rgba(52,168,83,0.3)]"
-                title="Google Play · próximamente"
+                title="Descargar en Google Play"
               >
                 <SiGoogleplay size={24} className="text-[#34A853]" />
                 <div className="leading-tight text-left">
                   <p className="text-[9px] font-medium tracking-[0.14em] text-white/60">
-                    PRÓXIMAMENTE EN
+                    DESCARGA EN
                   </p>
                   <p className="text-[13px] font-semibold text-white/95 leading-tight">
                     Google Play
