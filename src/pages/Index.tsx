@@ -4,6 +4,7 @@ import CalendarModal from "@/components/CalendarModal";
 import FeaturesSection from "@/components/FeaturesSection";
 import InteractiveFeaturesSection from "@/components/InteractiveFeaturesSection";
 import StatsSection from "@/components/StatsSection";
+import RoiCalculator from "@/components/RoiCalculator";
 import PricingSection from "@/components/PricingSection";
 import AddonsSection from "@/components/AddonsSection";
 import ImplementationSection from "@/components/ImplementationSection";
@@ -173,6 +174,7 @@ export default function Index() {
       <FeaturesSection />
       <InteractiveFeaturesSection />
       <StatsSection />
+      <RoiCalculator />
       <PricingSection />
       <AddonsSection />
       <ImplementationSection />

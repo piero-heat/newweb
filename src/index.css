@@ -74,3 +74,40 @@ body {
   mask-composite: exclude;
   pointer-events: none;
 }
+
+/* ── Range slider HEAT (RoiCalculator) ── */
+.heat-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+.heat-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #ffffff 0%, #e9d5ff 45%, #a855f7 100%);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(168, 85, 247, 0.5);
+  transition: transform 0.15s ease;
+}
+.heat-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+.heat-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #ffffff 0%, #e9d5ff 45%, #a855f7 100%);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5), 0 2px 8px rgba(168, 85, 247, 0.5);
+  cursor: pointer;
+}
+.heat-range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+}

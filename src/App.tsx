@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
-import { MotionConfig } from "motion/react";
+import { MotionConfig, AnimatePresence, motion } from "motion/react";
 import Index from "./pages/Index"; // eager — es la home (LCP)
 import MetaPixel from "./components/MetaPixel";
 import WhatsAppFloat from "./components/WhatsAppFloat";
@@ -48,48 +48,66 @@ function ScrollManager() {
   return null;
 }
 
+/* Page transitions — crossfade entre rutas con AnimatePresence.
+   IMPORTANTE: solo opacity (sin transform/translate) para no crear un
+   containing block que rompería los modales position:fixed (CalendarModal,
+   ReelModal, etc.) dentro de las páginas. */
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.26, ease: "easeOut" }}
+      >
+        <Suspense fallback={<RouteFallback />}>
+          <Routes location={location}>
+            <Route path="/" element={<Index />} />
+            <Route path="/partners" element={<Partners />} />
+            <Route path="/nosotros" element={<Nosotros />} />
+            <Route path="/heat-life" element={<Contenido />} />
+            {/* Alias legacy: /contenido sigue funcionando */}
+            <Route path="/contenido" element={<Contenido />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/careers/:slug" element={<CareersRole />} />
+            <Route path="/gracias" element={<Gracias />} />
+            <Route path="/descargar" element={<Descargar />} />
+            <Route path="/perform-ads" element={<PerformAds />} />
+            <Route path="/desarrollo-web" element={<DesarrolloWeb />} />
+            <Route path="/terminos" element={<Terminos />} />
+            <Route path="/privacidad" element={<Privacidad />} />
+            <Route path="/suscripcion/:plan" element={<Suscripcion />} />
+            <Route path="/heat-ia-pro-14dias" element={<Suscripcion />} />
+            <Route
+              path="/contratar/performance-ads"
+              element={<PerformanceAdsCheckout />}
+            />
+            <Route path="/contratar/web/:slug" element={<WebPlanCheckout />} />
+            <Route
+              path="/contratar/implementacion/:slug"
+              element={<ImplementationCheckout />}
+            />
+          </Routes>
+        </Suspense>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export default function App() {
   return (
     // reducedMotion="user" → respeta prefers-reduced-motion en TODOS los
     // componentes de motion (halos, shimmer, entradas) automáticamente.
     <MotionConfig reducedMotion="user">
-    <BrowserRouter>
-      <ScrollManager />
-      <MetaPixel />
-      <Suspense fallback={<RouteFallback />}>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/partners" element={<Partners />} />
-        <Route path="/nosotros" element={<Nosotros />} />
-        <Route path="/heat-life" element={<Contenido />} />
-        {/* Alias legacy: /contenido sigue funcionando si alguien guardó el link */}
-        <Route path="/contenido" element={<Contenido />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/careers/:slug" element={<CareersRole />} />
-        <Route path="/gracias" element={<Gracias />} />
-        <Route path="/descargar" element={<Descargar />} />
-        <Route path="/perform-ads" element={<PerformAds />} />
-        <Route path="/desarrollo-web" element={<DesarrolloWeb />} />
-        <Route path="/terminos" element={<Terminos />} />
-        <Route path="/privacidad" element={<Privacidad />} />
-        <Route path="/suscripcion/:plan" element={<Suscripcion />} />
-        <Route path="/heat-ia-pro-14dias" element={<Suscripcion />} />
-        <Route
-          path="/contratar/performance-ads"
-          element={<PerformanceAdsCheckout />}
-        />
-        <Route
-          path="/contratar/web/:slug"
-          element={<WebPlanCheckout />}
-        />
-        <Route
-          path="/contratar/implementacion/:slug"
-          element={<ImplementationCheckout />}
-        />
-      </Routes>
-      </Suspense>
-      <WhatsAppFloat />
-    </BrowserRouter>
+      <BrowserRouter>
+        <ScrollManager />
+        <MetaPixel />
+        <AnimatedRoutes />
+        <WhatsAppFloat />
+      </BrowserRouter>
     </MotionConfig>
   );
 }
