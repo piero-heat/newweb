@@ -6,6 +6,7 @@ import Nosotros from "./pages/Nosotros";
 import Contenido from "./pages/Contenido";
 import Careers from "./pages/Careers";
 import CareersRole from "./pages/CareersRole";
+import Gracias from "./pages/Gracias";
 import PerformAds from "./pages/PerformAds";
 import DesarrolloWeb from "./pages/DesarrolloWeb";
 import Terminos from "./pages/Terminos";
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/contenido" element={<Contenido />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/careers/:slug" element={<CareersRole />} />
+        <Route path="/gracias" element={<Gracias />} />
         <Route path="/perform-ads" element={<PerformAds />} />
         <Route path="/desarrollo-web" element={<DesarrolloWeb />} />
         <Route path="/terminos" element={<Terminos />} />
